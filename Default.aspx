@@ -8,7 +8,7 @@
 { 
    font-size: 110%;
  
-}
+}  
         .style1
         {
             width: 94%;
