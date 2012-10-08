@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BuinessLayer.ActivityBLL">
+    <Position X="4.75" Y="20.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAEAAAAAAAAAAAAAAgAIAAAAUA=</HashCode>
+      <FileName>App_Code\BLL\ActivityBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.ActivityWithBLL">
+    <Position X="10.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\ActivityWithBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.BasicInfoBLL">
+    <Position X="21.75" Y="20.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ADACAAAAAAAAAAAACAAgCAAAAAAAAAAgAAAgAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\BasicInfoBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.CommentsBLL">
+    <Position X="23.75" Y="36.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAgABEAAIAoAAAAAAAAgAAAAEAAIAAA=</HashCode>
+      <FileName>App_Code\BLL\CommentsBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.ContactInfoBLL">
+    <Position X="12.75" Y="25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAIAAAAAEAAAAAAAoAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\ContactInfoBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.EmployerBLL">
+    <Position X="20" Y="25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAQAIAAAAAEAQAAAAAAAQAAACAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\EmployerBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.EntertainmentBLL">
+    <Position X="5" Y="30" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABABAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAQgAAAAA=</HashCode>
+      <FileName>App_Code\BLL\EntertainmentBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.FamilyBLL">
+    <Position X="9.5" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\FamilyBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.FollowPostBLL">
+    <Position X="17.5" Y="30" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACQAAICCAAAAAAEAAAAAAAAAAAAAIAAgAAgCAAAA=</HashCode>
+      <FileName>App_Code\BLL\FollowPostBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.FriendsBLL">
+    <Position X="25.25" Y="29" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAKWgIAAQAAwARgAAEBAgAEFAAAyCAEAAAAAAAAQ=</HashCode>
+      <FileName>App_Code\BLL\FriendsBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.InterestsWithBLL">
+    <Position X="6.5" Y="33.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\InterestsWithBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.LanguageBLL">
+    <Position X="16" Y="33.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAAAAAAAAAAAAAAAAAAACAAAEAAAAgAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\LanguageBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.LikesBLL">
+    <Position X="4.25" Y="37" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACQAAAgAAAAAAAAAAAAAAAIAAAAAAACAAABAEACA=</HashCode>
+      <FileName>App_Code\BLL\LikesBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.ListViewBLL">
+    <Position X="8.25" Y="33.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAUAAgIAAAAAAIAAAAAAAAAAAACAAAAAAAAAgAQAAA=</HashCode>
+      <FileName>App_Code\BLL\ListViewBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.LoginBLL">
+    <Position X="12.75" Y="37" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIgAAAAAAAAEAAAQAEAAAAAAAQAAQAAQAIAAgAA=</HashCode>
+      <FileName>App_Code\BLL\LoginBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.MediaAlbumBLL">
+    <Position X="3.5" Y="41.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAgAAYAAAAAAgIAAAAkQACIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\MediaAlbumBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.MediaBLL">
+    <Position X="7" Y="41.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAIAAACAAAAACAEAAAEAAAAAAQBAAFAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\MediaBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.NotificationBLL">
+    <Position X="17.25" Y="41.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEBIAEAAAEAAAAAAAAAAAAABAAAAAAAAAQAQAAA=</HashCode>
+      <FileName>App_Code\BLL\NotificationBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.ProjectBLL">
+    <Position X="29.75" Y="21" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAACAIAAAAAAAAAAAAAAAAAAEgAAAAAAAAgAAA=</HashCode>
+      <FileName>App_Code\BLL\ProjectBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.ProjectWithBLL">
+    <Position X="32.25" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\ProjectWithBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.SchoolBLL">
+    <Position X="34" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAARQABAAAAAAAQAAAAAAAACAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\SchoolBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.ShareBLL">
+    <Position X="39" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAQAAAAAAEAAAABAAIAAAAAAAAABAAAAABCEAAgA=</HashCode>
+      <FileName>App_Code\BLL\ShareBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.StudentBLL">
+    <Position X="31.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\StudentBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.TagsBLL">
+    <Position X="34.5" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIAAAABBABAAACAAAAAIQAAAAACAAAAAgAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\TagsBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.TickerBLL">
+    <Position X="31.5" Y="29.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEACAAAAAMAoA=</HashCode>
+      <FileName>App_Code\BLL\TickerBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.UniversityBLL">
+    <Position X="38.25" Y="29.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAgAAAAAAABAAgAAAAAAAAAAgAAAAgAAAAA=</HashCode>
+      <FileName>App_Code\BLL\UniversityBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.UniversityClassWithBLL">
+    <Position X="43.25" Y="29.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\UniversityWithBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.UserBLL">
+    <Position X="34.5" Y="15.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABhAAAAAAAQAAAgAgABAAgCACAAAAAAAAABEAIAA=</HashCode>
+      <FileName>App_Code\BLL\UserBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuinessLayer.WallBLL">
+    <Position X="38.5" Y="33.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAQAAUAgAAEAAAgAQABQQAAEEAAAAIQQAAAAAEAAA=</HashCode>
+      <FileName>App_Code\BLL\WallBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReenterBLL">
+    <Position X="37.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BLL\ReenterBLL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Activity">
+    <Position X="2.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAABAAAwAAAAAABAAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ActivityDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseClass">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>App_Code\DAL\BaseClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicInfo">
+    <Position X="19.5" Y="20.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAECAAABAAAgAAAAAAAADAIAAAAACAAA=</HashCode>
+      <FileName>App_Code\DAL\BasicInfoDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Comments">
+    <Position X="2.5" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAABAAAgIAAAAAAAAAQgAAAAAEAg=</HashCode>
+      <FileName>App_Code\DAL\CommentsDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommentsComparer" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\CommentsDAL.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ContactInfo">
+    <Position X="9.75" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAwAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ContactInfoDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Employer">
+    <Position X="18" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAgAgAAAwAABCAEiAAAAAABAAAAAAAAAIIAA=</HashCode>
+      <FileName>App_Code\DAL\EmployerDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entertainment">
+    <Position X="1.5" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAwAAAAAABAAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\EntertainmentDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FollowPost">
+    <Position X="15.5" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAABAAAgIAAAAAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\FollowPostDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Friends">
+    <Position X="2" Y="33.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAABAAAgAAAAAAAAgAAAAAAAAAQA=</HashCode>
+      <FileName>App_Code\DAL\FriendsDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Language">
+    <Position X="14.25" Y="33.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAwAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\LanguageDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Likes">
+    <Position X="2.5" Y="37" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAABAAAgIAAAAAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\LikesDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ListViewDAL">
+    <Position X="23.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAgIAAAAAAAAAAAAAAAAAAACABAAAAAAAAAABKA=</HashCode>
+      <FileName>App_Code\DAL\ListViewDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Listview">
+    <Position X="7.75" Y="37" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ListViewDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginInfo">
+    <Position X="16.5" Y="37" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAEAAACAAAAAAAABAQAgAAAAAAAACAAAACAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\LoginDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MediaAlbum">
+    <Position X="1.75" Y="42" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAgAAAAAABAAAwAAAAAAAgAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\MediaAlbumDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Media">
+    <Position X="10" Y="36.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAJAAAwAgAAAAAgACQgAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\MediaDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notification">
+    <Position X="14.75" Y="41.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAEAEAACAAAAAAABAAAgIQAABAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\NotificationDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project">
+    <Position X="37.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAAAgAAAACARCAEiAAAAAABAAAAAAAAAIAAA=</HashCode>
+      <FileName>App_Code\DAL\ProjectDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReenterDAL">
+    <Position X="4.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ReenterDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="School">
+    <Position X="31.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAABAAAwAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\SchoolDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Share">
+    <Position X="36.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAABAAAgIAAAAAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\ShareDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tags">
+    <Position X="31.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAEAAAACAAAAAAABAAAgIAAABAAAAAQAAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\TagsDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ticker">
+    <Position X="39.5" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAYAAAAAEAAAABAgAAACAAAAAAAIQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\TickerDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="University">
+    <Position X="36.25" Y="29.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACACAAAAAgAABAAAgQAAAAABAAIAEAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\UniversityDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User">
+    <Position X="34.25" Y="34" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAEAAACAgAACAAABAQAAAAAAQAAACAQAACAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\UserDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wall">
+    <Position X="36.5" Y="33.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAQAAAAAAAAAABAAAAACAgAAAAAIQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\DAL\WallDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Newsfeed">
+    <Position X="10.5" Y="41.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEQQAABAAAAAAABEAAAACAgAAAAAIQgAAAAAABg=</HashCode>
+      <FileName>App_Code\DAL\WallDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PostHidSpamStatus">
+    <Position X="32" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAEAAABAAAgAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\WallDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PostOptions">
+    <Position X="34.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAEAAAFgAABAAAgBAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\WallDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Global">
+    <Position X="27" Y="8.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>HBAMIgFIwAAAAgCAWAgoAwBAEAAmIHA0AREARCAAgAk=</HashCode>
+      <FileName>App_Code\Global.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntertainmentWebService">
+    <Position X="27" Y="20.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIACAgCiEQAAAEIAAAQAQQCAAQAAAAAEgAAABAABQA=</HashCode>
+      <FileName>App_Code\WebService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ActivityBO">
+    <Position X="7.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAwAAAAAABAAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\ActivityBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ActivityWithBO">
+    <Position X="12.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAgAAAAAAEAAAAAAAAAAAQA=</HashCode>
+      <FileName>App_Code\BO\ActivityWithBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.BasicInfoBO">
+    <Position X="24.25" Y="20.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAECAAAAAAAgAAAAAAAADAIAAAAACAAA=</HashCode>
+      <FileName>App_Code\BO\BasicInfoBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.CommentsBO">
+    <Position X="4.75" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAgIAAAAAAAAAQgAAAAAEAg=</HashCode>
+      <FileName>App_Code\BO\CommentsBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ContactInfoBO">
+    <Position X="15.5" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAwAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\ContactInfoBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.EmployerBO">
+    <Position X="23" Y="25.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAEAgAgAAAwAAACAEiAAAAAABAAAAAAAAAIIAA=</HashCode>
+      <FileName>App_Code\BO\EmployerBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.EntertainmentBO">
+    <Position X="22.75" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAwAAAAAABAAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\EntertainmentBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.FamilyBO">
+    <Position X="11.75" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAgAAAgAAAACAAAAAAAAAQA=</HashCode>
+      <FileName>App_Code\BO\FamilyBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.FollowPostBO">
+    <Position X="20" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAgIAAAAAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\FollowPostBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.FriendsBO">
+    <Position X="21.25" Y="33.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAAQA=</HashCode>
+      <FileName>App_Code\BO\FriendsBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.InterestsWithBO">
+    <Position X="10.75" Y="33.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEEAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>App_Code\BO\InterestsWithBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.LanguageBO">
+    <Position X="19" Y="33.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\LanguageBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.LikesBO">
+    <Position X="6" Y="37" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAgIAAAAAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\LikesBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ListViewBO">
+    <Position X="19" Y="37.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\ListViewBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.LoginBO">
+    <Position X="21.5" Y="37" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAAAAAQAgAAAAAAAACAAAAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\LoginBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.MediaAlbumBO">
+    <Position X="23" Y="42" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAgAAAAAAAAAAwAAAAAAAgAAQAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\MediaAlbumBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.MediaBO">
+    <Position X="26" Y="41.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAIAAAwAgAAAAAgACQgAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\MediaBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.NewsfeedBO">
+    <Position X="12.25" Y="41.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEQQAABAAAAAAAAEAAAACAgAAAAAIQgAAAAAABg=</HashCode>
+      <FileName>App_Code\BO\NewsfeedBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.NotificationBO">
+    <Position X="20.5" Y="41.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAEAEAACAAAAAAAAAAAgIQAABAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\NotificationBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.PostOptionsBO">
+    <Position X="42.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAAAEAAAAAAAgAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\PostOptionsBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ProjectBO">
+    <Position X="40.25" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAEAAAgAAAACAQCAEiAAAAAABAAAAAAAAAIAAA=</HashCode>
+      <FileName>App_Code\BO\ProjectBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ProjectWithBO">
+    <Position X="34" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAgABAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>App_Code\BO\ProjectwithBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.SchoolBO">
+    <Position X="39.25" Y="25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAwAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\SchoolBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.ShareBO">
+    <Position X="41.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAgIAAAAAAAAAQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\ShareBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.StudentBO">
+    <Position X="33.5" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABAgAAAAAAEAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\StudentBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.SubscriptionsBO">
+    <Position X="37" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAACAAAAAAAAAgAAAAAAAACAAAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\SubscriptionsBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.TagsBO">
+    <Position X="37.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAEAAAACAAAAAAAAAAAgIAAABAAAAAQAAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\TagsBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.TickerBO">
+    <Position X="34.25" Y="29.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAYAAAAAEAAAAAAgAAACAAAAAAAIQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\TickerBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.UniversityBO">
+    <Position X="41" Y="29.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACACAAAAAAAAAAAAgQAAAAABAAIAEAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\UniversityBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.UniversityClassWithBO">
+    <Position X="31.75" Y="15.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAIAEAAAAAAAQA=</HashCode>
+      <FileName>App_Code\BO\UniversityClassWithBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.UserBO">
+    <Position X="37.25" Y="15.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgCAEAAACAgAACAAAAAQAAAAAAQAAACAQAACAAAAAg=</HashCode>
+      <FileName>App_Code\BO\UserBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.UserFriendsBO">
+    <Position X="31.75" Y="33.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAGAEAEAAAAAQgAIAIAAAgAAAAQAAAgAAAiAAAAAwg=</HashCode>
+      <FileName>App_Code\BO\UserFriendsBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.VideoLinkBO">
+    <Position X="29.75" Y="33.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAACAAAAQAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\BO\VideoLinkBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectLayer.WallBO">
+    <Position X="41.25" Y="33.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAQAAAAAAAAAAAAAAAACAgAAAAAIQgAAAAAAAg=</HashCode>
+      <FileName>App_Code\BO\WallBO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.ActivityDAL">
+    <Position X="0.5" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAIAAAAAEAAAAAAAAAAAAAAgAIAAAAUA=</HashCode>
+      <FileName>App_Code\DAL\ActivityDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.ActivityWithDAL">
+    <Position X="14.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ActivitywithDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.BaseDAL">
+    <Position X="16.75" Y="20.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EBAAAAAAAABAAAgACREAAQAAEAAAAABAAAAAAAAEAAA=</HashCode>
+      <FileName>App_Code\DAL\BaseDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.BasicInfoDAL">
+    <Position X="14.75" Y="13.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ADACAAAAAAAAAAAACAAgCAAAAAAAAAAgAAAgAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\BasicInfoDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.CommentsDAL">
+    <Position X="7.5" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAgAAEAAIAoAAAAAAAAgACAAEAAIAAA=</HashCode>
+      <FileName>App_Code\DAL\CommentsDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.ContactInfoDAL">
+    <Position X="16.75" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAIAAAAAEAAAAAAAoAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ContactInfoDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.EmployerDAL">
+    <Position X="27" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAQAIAAAAAEAQAAAAAAAQAAACAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\EmployerDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.EntertainmentDAL">
+    <Position X="7.5" Y="9.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABABAAAAAAAACAAAAAAAQAAAAAAAAAAAAAQgAAAAA=</HashCode>
+      <FileName>App_Code\DAL\EntertainmentDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.FamilyDAL">
+    <Position X="13.75" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\FamilyDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.FollowPostDAL">
+    <Position X="13.75" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAACQAAICCAAAAAAEAAAAAAAAAAAAAIAAgAAgCAAAA=</HashCode>
+      <FileName>App_Code\DAL\FollowPostDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.FriendsDAL">
+    <Position X="23" Y="9.75" Width="2" />
+    <NestedTypes>
+      <Class Name="DataLayer.FriendsDAL.UserFriendsComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>App_Code\DAL\FriendsDAL.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+      <Class Name="DataLayer.FriendsDAL.UserFriendsBOComparer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>App_Code\DAL\FriendsDAL.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAKEwIAAQAAwgBgQAEBBgAEFBAASCAAAACAAAAAQ=</HashCode>
+      <FileName>App_Code\DAL\FriendsDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.InterestsWithDAL">
+    <Position X="12.5" Y="33.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\InterestswithDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.LanguageDAL">
+    <Position X="1.75" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAAAAAAAAAAAAAAAAAAACAAAEAAAAgAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\LanguageDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.LikesDAL">
+    <Position X="6.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACQAAAgAAAAAAAAAAAAAAAIAAAAAAACAAABAEACA=</HashCode>
+      <FileName>App_Code\DAL\LikesDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.LoginDAL">
+    <Position X="8.5" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIgAAAAAAAAEAAAQAEIAAAAAAQAAAAAQAIAAgAA=</HashCode>
+      <FileName>App_Code\DAL\LoginDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.MediaAlbumDAL">
+    <Position X="17.75" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAgAAYAAAAAAgIAAAAkQACIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\MediaAlbumDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.MediaDAL">
+    <Position X="10.75" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAIAAACAAAAACAEAAAEAAAAAAQBAAFAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\MediaDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.NotificationDAL">
+    <Position X="19.75" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEBIAEAAAEAAAAAAAAAAAAABAAAAAAAAAQAQAAA=</HashCode>
+      <FileName>App_Code\DAL\NotificationDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.ProjectDAL">
+    <Position X="5" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAACAIAAAAAAAAAAAAAAAAAAEgAAAAAAAAgAAA=</HashCode>
+      <FileName>App_Code\DAL\ProjectDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.ProjectWithDAL">
+    <Position X="35.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\ProjectWithDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.SchoolDAL">
+    <Position X="11.25" Y="10" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAARQABAAAAAAAQAAAAAAAACAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\SchoolDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.ShareDAL">
+    <Position X="16.5" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAAAQAAAAAAEAAAABAAIAAAAAAAAABAAAAABCEAAgA=</HashCode>
+      <FileName>App_Code\DAL\ShareDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.StudentDAL">
+    <Position X="35.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\StudentDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.TagsDAL">
+    <Position X="19.75" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIAAAABBABAAACAAAAAIQAAAAACAAAAAgAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\TagsDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.TickerDAL">
+    <Position X="1.5" Y="13.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEACAAAAAMAoA=</HashCode>
+      <FileName>App_Code\DAL\TickerDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.UniversityClassWithDAL">
+    <Position X="43.75" Y="34" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Code\DAL\UniversityClassWithDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.UniversityDAL">
+    <Position X="11.75" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAgAAAAAAABAAgAAAAAAAAAAgAAAAgAAAAA=</HashCode>
+      <FileName>App_Code\DAL\UniversityDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.UserDAL">
+    <Position X="4" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABhAAAAAAAQAAAAAwABAAACASAAAAgAAAABAAAAA=</HashCode>
+      <FileName>App_Code\DAL\UserDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLayer.WallDAL">
+    <Position X="13.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAQAAVAgAAEAAAgAQAAQQAAEEAAAAIQQAAAAAEAAA=</HashCode>
+      <FileName>App_Code\DAL\WallDAL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

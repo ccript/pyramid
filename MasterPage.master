@@ -1,0 +1,90 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<title>Pramyid Plus</title>
+<asp:ContentPlaceHolder id="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+<link rel="stylesheet" type="text/css" href="Resources/Stylesheet/styleold.css" />
+      <link rel="stylesheet" href="Resources/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="Resources/nivo-slider/themes/pascal/pascal.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="Resources/nivo-slider/themes/orman/orman.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="Resources/nivo-slider/nivo-slider.css" type="text/css" media="screen" />  
+     
+
+       <script type="text/javascript" src="Resources/nivo-slider/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="Resources/nivo-slider/jquery.nivo.slider.pack.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#slider').nivoSlider();
+        });
+    </script>
+</head>
+<body runat="server" >
+ <form id="form1" runat="server">
+ <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+<div class="wrap">
+	<div class="header">
+    	<div class="logo"><a href="index.html"><img src="Resources/images/template/logo.png" alt="" title="" border="0" /></a></div>
+        
+      
+           
+    </div> <!--End of header-->
+    
+    
+  
+    
+    <div class="main_content">
+    		
+            
+            
+            <div class="home_content_right">
+            	
+            	   <div class="slider-wrapper theme-default">
+            <div class="ribbon"></div>
+                   <div id="slider" class="nivoSlider">
+                <img src="Resources/nivo-slider/images/1.jpg" width="500" height="400" alt="" title="Sharing"/>
+                <img src="Resources/nivo-slider/images/2.jpg" width="500" height="400"alt="" title="Like or Dislikes" />
+                <img src="Resources/nivo-slider/images/3.jpg" width="500" height="400"alt="" title="Friends" />
+                <img src="Resources/nivo-slider/images/4.jpg" width="500" height="400"alt="" title="Photos" />
+                <img src="Resources/nivo-slider/images/5.jpg" width="500" height="400" alt="" title="Activities" />
+                  <img src="Resources/nivo-slider/images/6.jpg" width="500" height="400"alt="" title="Videos" />
+                <img src="Resources/nivo-slider/images/7.jpg" width="500" height="400" alt="" title="Entertainment" />
+            </div>
+                 </div>
+       <%--         <img src="Resources/images/Untitled-3.png" style="height: 424px; width: 495px" />--%>
+                 
+        
+            
+            </div>
+            
+
+                 <div class="home_content_left">
+            	
+            	
+                   <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                
+        
+            
+            </div>
+            
+            <div class="clear"></div>
+    </div><!--End of main_content-->
+
+
+
+
+    
+    
+</div><!--End of wrap-->
+
+
+</form>
+</body>
+</html>

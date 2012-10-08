@@ -1,0 +1,121 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="UI_Signup_MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head id="Head1" runat="server">
+<asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8" />
+	<title>Pyramid Plus</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+	
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="../../Resources/Stylesheet/styles.css"/>
+      <script type="text/javascript" src="Resources/nivo-slider/jquery-1.7.1.min.js"></script>
+     <script type="text/javascript" src="../../Resources/jquery-page-transitions/custom.js"></script>
+</head>
+<body>
+
+
+
+   <form id="form2" runat="server">
+    
+	<!-- Primary Page Layout
+	================================================== -->
+	
+	
+
+	<div class="wrapperall">
+   	  <div class="width978">
+            <div class="topnav">
+		
+
+              
+       
+            
+            
+             
+
+
+            </div>
+            
+            <div class="clear"></div>
+            
+        	<div class="midnav">
+            	<div class="fleft"><a href="../../Default.aspx">
+                  &nbsp;&nbsp;  <img src="../../Resources/images/template/logo.png" alt="" title="" border="0" 
+       
+        height="64px";
+        width="138px";
+     /></a>  </div>
+          		<div class="fright" style="padding-top:15px;"> </div>
+            </div>
+            
+            <div class="clear"></div>
+            
+            <div class="contentleft">
+            
+             
+
+               <div class="SignupContent">
+            
+                
+  	
+
+                </div>
+
+
+            
+            </div>
+            
+            <div class="contentmid">
+		 <h4><asp:Label ID="lblTitle" runat="server" Text="Label" Visible="false"></asp:Label></h4>
+
+             
+   
+			   <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>	
+            </div>
+            
+            <div class="contentright">
+            
+                
+              
+                
+            </div>
+            
+            <div class="clear"></div>
+		
+	  </div>
+      
+      <div class="clear"></div>
+      
+      <div class="footer">
+      			Lahore Univeristy of Management Sciences © 2011 · Pakistan
+      </div>
+	</div><!-- container -->
+
+	    </form>
+<!-- End Document
+================================================== -->
+</body>
+</html>

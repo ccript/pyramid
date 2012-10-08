@@ -1,0 +1,324 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="UI_UserProfile_MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head id="Head1" runat="server">
+<asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8" />
+	<title>Pyramid Plus</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+	
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="../../Resources/Stylesheet/styles.css"/>
+	
+
+  <script  type= "text/javascript" src="../../Resources/jwplayer/jwplayer.js" ></script>
+
+
+ <script type="text/javascript" src="../../Resources/jquery-page-transitions/custom.js"></script>
+   
+   
+
+	<script type="text/javascript" src="../../Resources/Script/jquery.popupwindow.js"></script>
+   <script  type='text/javascript'>
+       function hideDiv() {
+           if (document.getElementById) {
+               document.getElementById('divticker').style.visibility = 'hidden';
+           }
+       } 
+</script>
+      	<script type="text/javascript">
+
+	var profiles =
+	{
+
+	
+		windowCenter:
+		{
+			height:600,
+			width:800,
+            scrollbars:0,
+
+			center:1
+		},
+
+	
+
+	};
+
+	function unloadcallback(){
+		alert("unloaded");
+	};
+
+
+   	$(function()
+	{
+   		$(".popupwindow").popupwindow(profiles);
+   	});
+
+    $().ready(function() {
+  swapValues = [];
+  $(".wm").each(function(i) {
+    swapValues[i] = $(this).val();
+    $(this).focus(function() {
+      if ($(this).val() == swapValues[i]) {
+        $(this).val("").removeClass("watermark")
+      } 
+    }).blur(function() { 
+        if ($.trim($(this).val()) == "") { $(this).val(swapValues[i]).addClass("watermark") } }) })
+});
+	</script>
+
+    
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#analog-clock').clock({ offset: '+5', type: 'analog' });
+        $('#digital-clock').clock({ offset: '0', type: 'digital' });
+    });
+</script>
+ 
+
+     <script type = "text/javascript">
+         function User_Populated(sender, e) {
+             var item = sender.get_completionList().childNodes;
+             for (var i = 0; i < item.length; i++) {
+                 var div = document.createElement("DIV");
+                 div.innerHTML = "<img style = 'height:24px;width:24px' src = '../../Resources/ProfilePictures/"
+                  + item[i]._value + ".jpg' /><br />";
+                 item[i].appendChild(div);
+             }
+         }
+         function OnUserSelected(source, eventArgs) {
+             var idx = source._selectIndex;
+             var employees = source.get_completionList().childNodes;
+             var value = employees[idx]._value;
+             var text = employees[idx].firstChild.nodeValue;
+             source.get_element().value = text;
+         }
+</script>
+
+<style type="text/css">
+
+
+ 
+
+.handle
+
+{
+
+width:15px;
+
+height:16px;
+
+background-color:#30ADE8;
+
+overflow:hidden;
+
+cursor:se-resize;
+
+}
+
+.resizing
+
+{
+
+padding:0px;
+
+border-style:solid;
+
+border-width:0px;
+
+border-color:#7391BA;
+
+}
+
+
+.noti_Container {
+    position:relative;
+     /* border:1px solid white; This is just to show you where the container ends */
+    width:24px;
+    height:24px;
+	cursor: pointer;
+	
+}
+.noti_bubble {
+    position:absolute;
+    top: -8px;
+    right:-11px;
+    padding-right:2px;
+    background-color:red;
+    color:white;
+    font-weight:bold;
+    font-size:10px;
+    width:11px;
+    height:14px;
+    text-align:center;
+    border-radius:3px;
+    box-shadow:1px 1px 1px gray;
+}
+    .style979
+    {
+        height: 64px;
+        width: 138px;
+    }
+</style>
+</head>
+<body>
+
+
+
+   <form id="form2" runat="server">
+     <asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+	<!-- Primary Page Layout
+	================================================== -->
+	
+	
+
+	<div class="wrapperall">
+   	  <div class="width978">
+            <div class="topnav">
+		<a href="../../Default.aspx" class="topnavlink">Logout</a>
+            	<a href="../User/FriendsList.aspx" class="topnavlink">View Friends</a>
+                <a href="../User/AdvanceOptions.aspx" class="topnavlink">Manage Friends</a>
+                 <a href="../User/UserData.aspx" class="topnavlink">Home</a>
+        <div class="noti_Container"  style="float:right ;margin:5px;" >
+<a href="../User/FriendRequests.aspx" ><img src="../../Resources/Images/Icon/FriendsRequest.png"  width="18px" height="18px" style="border:0"/></a>
+<div > <asp:Label ID="lblFriendsRequest" CssClass="noti_bubble" runat="server" ToolTip="Friends Request" Text=""></asp:Label> </div>
+</div>   
+
+<div class="noti_Container" style="float:right;margin:5px;" >
+<a href="../User/Notification.aspx" ><img src="../../Resources/Images/Icon/Notification.png" width="18px" height="18px" style="border:0"/></a>
+<div  >  <asp:Label ID="lblNotification" CssClass="noti_bubble" runat="server" ToolTip="Notification" Text=""></asp:Label> </div>
+</div>
+
+              
+       
+            
+            
+             
+
+
+            </div>
+            
+            <div class="clear"></div>
+            
+        	<div class="midnav">
+            	<div class="fleft"><a href="../User/ViewProfile.aspx">
+                  &nbsp;&nbsp;  <img src="../../Resources/images/template/logo.png" alt="" title="" border="0" 
+                        class="style979" /></a>  </div>
+          	  <div class="fright"> 
+	<table >
+		<tr>
+			<td>
+			
+             <asp:TextBox ID="txtFriendSearch" runat="server" AutoComplete="Off" Text="Search user here" Width="330" CssClass="wm watermark"></asp:TextBox>
+          
+
+
+                <ajax:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" TargetControlID="txtFriendSearch" ServicePath="WebService.asmx" 
+MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="1" CompletionInterval="1000" ServiceMethod="GetUser" CompletionListCssClass="AutoExtender" CompletionListItemCssClass="AutoExtenderList"  CompletionListHighlightedItemCssClass ="AutoExtenderHighlight" 
+OnClientPopulated ="User_Populated"
+    OnClientItemSelected = " OnUserSelected" >
+    </ajax:AutoCompleteExtender></td>
+			<td>
+					 &nbsp;<asp:ImageButton
+               ID="imgBtnSearchFriends" runat="server" 
+                ImageUrl="~/Resources/images/MenuIcon/SearchFriends.png" ImageAlign="Bottom" 
+                onclick="imgBtnSearchFriends_Click" />
+             
+            </td>
+		</tr>
+	</table>
+</div>
+            </div>
+            
+            <div class="clear"></div>
+            
+            <div class="contentleft">
+            
+             
+
+               <div class="profileContent">
+            
+                
+  	 <ul id="css3menu1" class="topmenu" >
+               
+
+	<li class="topfirst"><a href="BasicInfo.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/basic.png" alt="Basic Information"/>Basic Information</a></li>
+    <li class="toplast"><a href="EducationWork.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/education.png" alt="Education & Work"/>Education & Work</a></li>
+    <li class="toplast"><a href="ProfilePictures.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/camera.png" alt="Profile Picture"/>Profile Picture</a></li>
+     <li class="toplast"><a href="FriendsFamily.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/family.png" alt="Friends and Family"/>Friends and Family</a></li>
+      <li class="toplast"><a href="ActivitiesInterests.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/activities.png" alt="Activities & Interests"/>Activities & Interests</a></li>
+	<li class="toplast"><a href="Entertainment.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/entertainment.png" alt="Art & Entertainment"/>Art & Entertainment</a></li>
+    <li class="toplast"><a href="Sports.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/sports.png" alt=Global.SPORTS/>Sports</a></li>
+     <li class="toplast"><a href="ContactInfo.aspx" style="width:230px;"><img src="../../Resources/images/menuicon/contact.png" alt="Contact Information"/>Contact Information</a></li>
+
+</ul>
+
+                </div>
+
+
+            
+            </div>
+            
+            <div class="contentmid">
+		 <h4><asp:Label ID="lblTitle" runat="server" Text="Label" ForeColor="#A10D0D" ></asp:Label></h4>
+
+             
+   
+			   <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>	
+            </div>
+            
+            <div class="contentright">
+            	
+                <div class="contentrightContent">
+                	
+                </div>
+                
+              
+                
+            </div>
+            
+            <div class="clear"></div>
+		
+	  </div>
+      
+      <div class="clear"></div>
+      
+      <div class="footer">
+      		Lahore Univeristy of Management Sciences © 2011 · Pakistan
+	
+      </div>
+	</div><!-- container -->
+
+	    </form>
+<!-- End Document
+================================================== -->
+</body>
+</html>

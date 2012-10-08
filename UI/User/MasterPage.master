@@ -1,0 +1,868 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="UI_User_MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head id="Head1" runat="server">
+<asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8" />
+	<title>Pyramid Plus</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+	
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="../../Resources/Stylesheet/styles.css"/>
+	
+
+  <script  type= "text/javascript" src="../../Resources/jwplayer/jwplayer.js" ></script>
+
+	<script type="text/javascript" src="../../Resources/Script/jquery.popupwindow.js"></script>
+
+
+  
+   <script type="text/javascript" src="../../Resources/jquery-page-transitions/custom.js"></script>
+
+
+
+
+
+
+
+   <script  type='text/javascript'>
+       function hideDiv() {
+           if (document.getElementById) {
+               document.getElementById('divticker').style.visibility = 'hidden';
+           }
+       } 
+</script>
+      	<script type="text/javascript">
+
+	var profiles =
+	{
+
+	
+		windowCenter:
+		{
+			height:600,
+			width:800,
+            scrollbars:0,
+
+			center:1
+		},
+
+	
+
+	};
+
+	function unloadcallback(){
+		alert("unloaded");
+	};
+
+
+   	$(function()
+	{
+   		$(".popupwindow").popupwindow(profiles);
+   	});
+
+    $().ready(function() {
+  swapValues = [];
+  $(".wm").each(function(i) {
+    swapValues[i] = $(this).val();
+    $(this).focus(function() {
+      if ($(this).val() == swapValues[i]) {
+        $(this).val("").removeClass("watermark")
+      } 
+    }).blur(function() { 
+        if ($.trim($(this).val()) == "") { $(this).val(swapValues[i]).addClass("watermark") } }) })
+});
+	</script>
+
+    
+
+
+
+
+     <script type = "text/javascript">
+         function User_Populated(sender, e) {
+             var item = sender.get_completionList().childNodes;
+             for (var i = 0; i < item.length; i++) {
+                 var div = document.createElement("DIV");
+                 div.innerHTML = "<img style = 'height:24px;width:24px' src = '../../Resources/ProfilePictures/"
+                  + item[i]._value + ".jpg' /><br />";
+                 item[i].appendChild(div);
+             }
+         }
+         function OnUserSelected(source, eventArgs) {
+             var idx = source._selectIndex;
+             var employees = source.get_completionList().childNodes;
+             var value = employees[idx]._value;
+             var text = employees[idx].firstChild.nodeValue;
+             source.get_element().value = text;
+         }
+</script>
+
+<style type="text/css">
+
+
+ 
+
+.handle
+
+{
+
+width:15px;
+
+height:16px;
+
+background-color:#AD2C2C;
+
+overflow:hidden;
+
+cursor:se-resize;
+
+}
+
+.resizing
+
+{
+
+padding:0px;
+
+border-style:solid;
+
+border-width:0px;
+
+border-color:#7391BA;
+
+}
+
+
+.noti_Container {
+    position:relative;
+     /* border:1px solid white; This is just to show you where the container ends */
+    width:24px;
+    height:24px;
+	cursor: pointer;
+	
+}
+.noti_bubble {
+    position:absolute;
+    top: -8px;
+    right:-11px;
+    padding-right:2px;
+    background-color:red;
+    color:white;
+    font-weight:bold;
+    font-size:10px;
+    width:11px;
+    height:14px;
+    text-align:center;
+    border-radius:3px;
+    box-shadow:1px 1px 1px gray;
+}
+    .style979
+    {
+        height: 64px;
+        width: 138px;
+    }
+    
+    .bubble2{
+
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top, #ffffff 29%, #d6dbbf 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(29%,#ffffff), color-stop(100%,#d6dbbf)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #ffffff 29%,#d6dbbf 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #ffffff 29%,#d6dbbf 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #ffffff 29%,#d6dbbf 100%); /* IE10+ */
+background: linear-gradient(top, #ffffff 29%,#d6dbbf 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d6dbbf',GradientType=0 ); /* IE6-9 */
+}
+
+.bubble2::before {
+    background-color: #FFFFFF;
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 11px;
+    transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+    width:  20px;
+}
+
+.me2 {
+    float: left;   
+    margin: 5px 0px 5px 20px;         
+}
+
+.me2::before {
+    box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+    left: -9px;           
+}
+</style>
+</head>
+<body>
+
+
+
+   <form id="form2" runat="server">
+     <asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+	<!-- Primary Page Layout
+	================================================== -->
+	
+	
+
+	<div class="wrapperall">
+   	  <div class="width978">
+            <div class="topnav">
+		<a href="../../Default.aspx" class="topnavlink">Logout</a>
+            	
+                <a href="AdvanceOptions.aspx" class="topnavlink">Manage Friends</a>
+                <a href="../UserProfile/BasicInfo.aspx" class="topnavlink">Edit Profile</a>
+                 <a href="UserData.aspx" class="topnavlink">Home</a>
+        <div class="noti_Container"  style="float:right ;margin:5px;" >
+
+ <asp:ImageButton ID="ImageButton2" PostBackUrl="FriendRequests.aspx"  ImageUrl="../../Resources/Images/Icon/FriendsRequest.png" ToolTip="Friends Request"  width="18px" height="18px"  runat="server" />
+
+<div > <asp:Label ID="lblFriendsRequest" CssClass="noti_bubble" runat="server"  Text=""></asp:Label> </div>
+</div>   
+<div class="noti_Container" style="float:right;margin:5px;" >
+<asp:ImageButton ID="ImageButton3" PostBackUrl="Notification.aspx"  ImageUrl="../../Resources/Images/Icon/Notification.png" ToolTip="Notification"  width="18px" height="18px"  runat="server" />
+
+<div  >  <asp:Label ID="lblNotification" CssClass="noti_bubble" runat="server" ToolTip="Notification" Text=""></asp:Label> </div>
+</div>
+
+              
+       
+            
+            
+             
+
+
+            </div>
+            
+            <div class="clear"></div>
+            
+        	<div class="midnav">
+            	<div class="fleft"><a href="UserData.aspx">
+                  &nbsp;&nbsp;  <img src="../../Resources/images/template/logo.png" alt="" title="" border="0" 
+                        class="style979" /></a>  </div>
+          
+
+
+    <div class="fright"> 
+	<table >
+		<tr>
+			<td>
+			
+             <asp:TextBox ID="txtFriendSearch" runat="server" AutoComplete="Off" Text="Search user here" Width="330" CssClass="wm watermark"></asp:TextBox>
+          
+
+
+                <ajax:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" TargetControlID="txtFriendSearch" ServicePath="WebService.asmx" 
+MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="1" CompletionInterval="1000" ServiceMethod="GetUser" CompletionListCssClass="AutoExtender" CompletionListItemCssClass="AutoExtenderList"  CompletionListHighlightedItemCssClass ="AutoExtenderHighlight" 
+OnClientPopulated ="User_Populated"
+    OnClientItemSelected = " OnUserSelected" >
+    </ajax:AutoCompleteExtender></td>
+			<td>
+					 &nbsp;<asp:ImageButton
+               ID="imgBtnSearchFriends" runat="server" 
+                ImageUrl="~/Resources/images/MenuIcon/SearchFriends.png" ImageAlign="Bottom" 
+                onclick="imgBtnSearchFriends_Click" />
+             
+            </td>
+		</tr>
+	</table>
+</div>
+            </div>
+            
+            <div class="clear"></div>
+            
+            <div class="contentleft">
+            	<div class="profilePic"><asp:Image ID="imgProfile" runat="server" 
+                    Height="150px" ImageAlign="Middle" Width="150px" BorderColor="white" 
+                    BorderStyle="Solid" BorderWidth="2px" />
+                    </div>
+                <div class="profileName">
+                
+                       <asp:Label ID="lblName" runat="server" 
+                    style="font-size: large; font-weight: 700; " ></asp:Label>
+                </div>
+             
+
+               <div class="profileContent">
+         
+                	 <ul id="css3menu1" class="topmenu" >
+               
+	      <li class="topfirst">
+          
+          <asp:LinkButton ID="lbtnNewsFeed" runat="server" 
+             onclick="lbtnNewsFeed_Click" Width="230px" 
+             ><img src="../../Resources/images/menuicon/news.png" alt="Wall"/>NewsFeed</asp:LinkButton>  </li>   
+               <li class="topfirst"> <asp:LinkButton ID="lbtnWall" runat="server" 
+             onclick="lbtnWall_Click" Width="230px" 
+             ><img src="../../Resources/images/menuicon/wall.png" alt="Wall"/>Wall</asp:LinkButton>  </li>         
+     <li class="topfirst"> <asp:LinkButton ID="lbtnViewProfile" runat="server" 
+             onclick="lbtnViewProfile_Click" Width="230px" 
+             ><img src="../../Resources/images/menuicon/basic.png" alt="Basic Information"/>Info</asp:LinkButton>  </li>
+          
+  <li class="toplast"> <asp:LinkButton ID="lbtnFriendsList" runat="server" 
+          onclick="lbtnFriendsList_Click" Width="230px" 
+             ><img src="../../Resources/images/menuicon/friends.png" alt="Education & Work"/>Friends</asp:LinkButton>  </li>
+          
+
+                             <li class="toplast"> <asp:LinkButton ID="lbtnPhotos" runat="server" 
+          onclick="lbtnPhotos_Click" Width="230px" 
+             ><img src="../../Resources/images/menuicon/photo.png" alt="Photos"/>Photos</asp:LinkButton>  </li>
+
+                  <li class="toplast"> <asp:LinkButton ID="lbtnVideo" runat="server" 
+          onclick="lbtnVideo_Click" Width="230px" 
+             ><img src="../../Resources/images/menuicon/video.png" alt="Video"/>Video</asp:LinkButton>  </li>
+
+                
+</ul>
+
+                </div>
+
+
+                <div class="profileContent">
+                  <h3><asp:LinkButton ID="lbtnFriends" runat="server" Font-Size="16px"  onclick="lbtnFriends_Click">Friends()</asp:LinkButton> </h3> 
+  
+    
+            
+<asp:GridView ID="GridViewFriendsList" runat="server" OnRowCreated="GridViewFriendsList_RowCreated"
+                    AutoGenerateColumns="False" DataKeyNames="Id" 
+                        
+                    GridLines="None" ShowHeader="False" Width="180" PageSize="2">
+                    <Columns>
+                       
+                        <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" 
+                            SortExpression="Id" Visible="false" />
+                       <asp:TemplateField>
+                            <ItemTemplate>
+                             
+                                <asp:ImageButton ID="Image1" runat="server" Height="40px" ImageAlign="Middle" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "../../Resources/ProfilePictures/{0}.jpg") %>' 
+                                    PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "ViewProfile.aspx?UserId={0}") %>' 
+                                    Style="position: relative" Width="40px" />
+                                <asp:HiddenField ID="HiddenField2" runat="server" />
+                               <ajax:PopupControlExtender 
+   ID="PopupControlExtenderFriendsList" 
+   runat="server" 
+   DynamicServiceMethod="GetDynamicContent"
+   DynamicServicePath="WebService.asmx"
+   DynamicContextKey='<%# Eval("FriendUserId") %>'
+   DynamicControlID="Panel1"
+   TargetControlID="Image1"
+   PopupControlID="Panel1"
+   Position="right">
+
+</ajax:PopupControlExtender>
+       <asp:Panel ID="Panel1" runat="server" CssClass="popupControl" > </asp:Panel>
+
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Middle" />
+                        </asp:TemplateField>              
+
+                   
+                   
+                         
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                             &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" Font-Bold="true"
+                              Text=' <%# Eval("FirstName","") + " " + Eval("LastName","") %>'
+                              PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "ViewProfile.aspx?UserId={0}") %>' 
+                              ></asp:LinkButton>
+
+                                                              
+                             
+                              <br />
+                                <br />
+                            </ItemTemplate>
+                            
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" />
+                            
+                        </asp:TemplateField>            
+
+                   
+                   
+                         
+                    </Columns>
+                </asp:GridView>
+                </div>
+                <div class="profileContent">
+                   <h3>See Friendship
+   </h3> 
+    
+         
+<asp:GridView ID="GridViewSeeFriendship" runat="server" 
+                    AutoGenerateColumns="False" DataKeyNames="Id" 
+                    
+                    GridLines="None" ShowHeader="False" Width="180" PageSize="2">
+                    <Columns>
+                       
+                        <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" 
+                            SortExpression="Id" Visible="false" />
+                       <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:ImageButton ID="ImageButton1" runat="server" Height="32px" ImageAlign="Middle" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "UserId", "../../Resources/ProfilePictures/{0}.jpg") %>' 
+ 
+                                    Style="position: relative" Width="32px" />
+                                <asp:ImageButton ID="Image1" runat="server" Height="32px" ImageAlign="Middle" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "../../Resources/ProfilePictures/{0}.jpg") %>' 
+                                
+                                    Style="position: relative" Width="32px" />
+                                  
+                               
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Middle" />
+                        </asp:TemplateField>              
+
+                   
+                   
+                         
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                             &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" Font-Bold="true"
+                              Text=' <%# Eval("FirstName","") + " " + Eval("LastName","") %>'
+                              PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "UserData.aspx?UserId={0}&See=yes") %>' 
+                              ></asp:LinkButton>
+                              <br />
+                                <br />
+                            </ItemTemplate>
+                            
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" />
+                            
+                        </asp:TemplateField>            
+
+                   
+                   
+                         
+                    </Columns>
+                </asp:GridView>
+                </div>
+                  <div class="profileContent">
+                	<h3> Suggestions</h3>
+<asp:GridView ID="GridViewSuggestions" runat="server" OnRowCreated="GridViewSuggestions_RowCreated"
+                    AutoGenerateColumns="False" DataKeyNames="Id" 
+                    
+                    GridLines="None" ShowHeader="False" Width="180px" PageSize="2">
+                    <Columns>
+                       
+                        <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" 
+                            SortExpression="Id" Visible="false" />
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                             
+                                <asp:ImageButton ID="ImageSuggestions" runat="server" Height="40px" ImageAlign="Middle" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "../../Resources/ProfilePictures/{0}.jpg") %>' 
+                                    PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "ViewProfile.aspx?UserId={0}") %>' 
+                                    Style="position: relative" Width="40px" />
+                                      
+                          <ajax:PopupControlExtender 
+   ID="PopupControlExtenderViewSuggestions" 
+   runat="server" 
+   DynamicServiceMethod="GetDynamicContent"
+   DynamicServicePath="WebService.asmx"
+   DynamicContextKey='<%# Eval("FriendUserId") %>'
+   DynamicControlID="Panel2"
+   TargetControlID="ImageSuggestions"
+   PopupControlID="Panel2"
+   Position="right">
+
+</ajax:PopupControlExtender>
+       <asp:Panel ID="Panel2" runat="server" CssClass="popupControl" > </asp:Panel>
+                            </ItemTemplate>
+                            <ItemStyle HorizontalAlign="Right" VerticalAlign="Middle" />
+                        </asp:TemplateField>              
+ 
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                            &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" Font-Bold="true"
+                              Text=' <%# Eval("FirstName","") + " " + Eval("LastName","") %>'
+                              PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "FriendUserId", "ViewProfile.aspx?UserId={0}") %>' 
+                              ></asp:LinkButton>
+                              <br />
+                                <br />
+                            </ItemTemplate>
+                            
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" />
+                            
+                        </asp:TemplateField>
+
+                   
+                   
+                         
+                    </Columns>
+                </asp:GridView>
+                   
+ <asp:LinkButton ID="lbtnSuggestions" runat="server" onclick="lbtnSuggestions_Click" >View All Suggestions</asp:LinkButton>
+                </div>
+
+                  <div class="profileContent">
+                <h3>Friends List</h3>
+<asp:GridView ID="ListViewGrid0" runat="server" AutoGenerateColumns="False"
+                     DataKeyNames="ListName" 
+          GridLines="None" HorizontalAlign="Center" 
+        ShowHeader="False">
+                    <Columns>
+                    
+                        <asp:TemplateField >
+                            <ItemTemplate>
+                         
+                               <asp:HyperLink ID="HyperLink1" runat="server" 
+                                    NavigateUrl='<%# Eval("ListName", "~/UI/User/DetailListView.aspx?ListName={0}") %>' 
+                                    Text='<%# Eval("ListName", "{0:c}") %>'></asp:HyperLink>
+                                     (<asp:Label ID="Label1" runat="server" Text='<%# Bind("Counting") %>'></asp:Label>)
+                               <br />
+                            </ItemTemplate>
+                             
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" />
+                             
+                        </asp:TemplateField>
+                  
+           
+                    </Columns>
+                </asp:GridView>
+             <br />
+                        <asp:HyperLink ID="HyperLink2" runat="server" 
+        NavigateUrl="ListView.aspx">View All List</asp:HyperLink>
+                </div>
+
+            
+            </div>
+            
+            <div class="contentmid">
+		 <h4><asp:Label ID="lblTitle" runat="server" Text="Label" ForeColor="#A10D0D" ></asp:Label></h4>
+
+             
+   
+			   <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>	
+            </div>
+            
+            <div class="contentright">
+
+                <asp:HiddenField ID="HiddenFieldWallTagId" runat="server" />  
+            <div id="mcs_container">
+	
+                <div class="contentrightContent">
+                	<h3> Ticker</h3>
+      
+<ajax:UpdatePanelAnimationExtender ID="upae" runat="server" TargetControlID="UpdatePanelTicker">
+ <Animations>
+ <OnUpdated>
+ <FadeIn Duration="1.0" Fps="24" />
+ </OnUpdated>
+ </Animations>
+</ajax:UpdatePanelAnimationExtender>
+<asp:UpdatePanel ID="UpdatePanelTicker" runat="server"  UpdateMode="Conditional">
+
+
+  <Triggers>
+    <asp:AsyncPostBackTrigger ControlID="TimerTicker" 
+        EventName="Tick" />
+    
+    </Triggers>
+     <ContentTemplate>
+     <ajax:ResizableControlExtender ID="ResizableControlExtender1" runat="server" TargetControlID="PanelTicker"
+     MaximumWidth="290" MinimumWidth="290"
+HandleCssClass="handle" ResizableCssClass="resizing">
+
+</ajax:ResizableControlExtender>
+     <asp:Timer ID="TimerTicker" runat="server" Interval="10000" OnTick="TimerTicker_Tick">
+</asp:Timer>
+ 
+         <asp:Panel ID="PanelTicker" runat="server" Width="290px" Height="490px" ScrollBars="Vertical" >
+  
+<asp:GridView ID="GridViewTicker" runat="server" 
+                    AutoGenerateColumns="False" DataKeyNames="_id" OnRowCommand= "GridViewTicker_RowCommand"
+                OnRowDataBound= "GridViewTicker_RowDataBound" OnRowCreated="GridViewTicker_RowCreated" 
+                    GridLines="None" ShowHeader="False" Width="270px" CellSpacing="7" >
+                    <Columns>
+                       
+                        <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" 
+                            SortExpression="Id" Visible="false" />
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                            <asp:HiddenField runat="server" ID="HiddenFieldUserId" Value='<%#Eval("PostedByUserId")%>'></asp:HiddenField>
+                             
+                                                <asp:HiddenField runat="server" ID="HiddenFieldEmbedPost" Value='<%#Eval("EmbedPost")%>'></asp:HiddenField>
+                      <asp:HiddenField runat="server" ID="HiddenFieldType" Value='<%#Eval("Type")%>'></asp:HiddenField>
+                                   <asp:HiddenField runat="server" ID="HiddenFieldId" Value='<%#Eval("_id")%>'></asp:HiddenField>
+                                     <asp:HiddenField runat="server" ID="HiddenFieldWallId" Value='<%#Eval("WallId")%>'></asp:HiddenField>
+                                <asp:ImageButton ID="Image1" runat="server" Height="40px" ImageAlign="Middle" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "PostedbyUserId", "../../Resources/ProfilePictures/{0}.jpg") %>' 
+                                     PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "PostedByUserId", "UserData.aspx?UserId={0}") %>'
+                                    Style="position: relative" Width="40px"  />
+
+
+                                        </ItemTemplate>
+                           <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30px" />
+                           </asp:TemplateField>
+                              <asp:TemplateField>
+                            <ItemTemplate>
+                           <asp:Label ID="LinkButton1" runat="server"  Font-Bold="true"
+                              Text=' <%# Eval("FirstName","") + " " + Eval("LastName","") %>'
+                           
+                              ></asp:Label>
+                           
+                       
+                      <asp:Literal ID="LiteralPost"  Text='<%# Bind("Title") %>'  runat="server"></asp:Literal>
+                      <br />
+       <asp:LinkButton ID="lbtnFeedDetail" runat="server" onclick="lbtnFeedDetail_Click" Font-Bold="False">view</asp:LinkButton>
+ 
+                   <asp:UpdatePanel ID="UpdatePanel2" runat="server" > 
+
+        
+      <ContentTemplate>
+                                    
+   <asp:Panel ID="PanelTickerView" CssClass="popupControl"  runat="server">
+   
+                                    <asp:HiddenField runat="server" ID="HiddenFieldEmbedTickerPost" Value='<%#Eval("EmbedPost")%>'></asp:HiddenField>
+                      <asp:HiddenField runat="server" ID="HiddenFieldTypeTicker" Value='<%#Eval("Type")%>'></asp:HiddenField>
+          <asp:Literal ID="Literal1"  Text='<%# Bind("Post") %>'  runat="server"></asp:Literal>
+             <br />
+              <asp:ImageButton ID="imbtnPhoto" runat="server"   Visible="false"    />
+              <asp:ImageButton ID="imbtnVideo" runat="server" ImageUrl='../../Resources/CompressedVideo/play.png' Visible="false"   CommandName="show" style='<%# "background:url(" +Eval("EmbedPost") + ")" %>'  />
+                           
+                          <br />                            
+                       <asp:Label ID="lblAddedDate" runat="server"  Text='<%# Eval("AddedDate") %>' 
+                                        CssClass="style1" />
+                             <asp:HiddenField runat="server" ID="HiddenField1" Value='<%#Eval("AddedDate")%>'></asp:HiddenField>
+                             
+
+                          
+                            
+                         <br />
+
+                       <!-------------     LIKE MODULE     ------------------------->
+
+       
+                                
+                             <asp:HiddenField runat="server" ID="HiddenFieldAddedDate" Value='<%#Eval("AddedDate")%>'></asp:HiddenField>
+                                      <asp:LinkButton ID="lbtnLike" runat="server" onclick="lbtnLike_Click" Font-Bold="False">Like</asp:LinkButton>
+
+             
+                      <asp:LinkButton ID="lbtnDelete"  runat="server" OnClick="lbtnDelete_Click"  Font-Bold="False" Visible="false">.&nbsp;Delete</asp:LinkButton>
+             
+                  
+                                         
+                         <!-------------     SHARE MODULE     ------------------------->
+           .&nbsp;<asp:LinkButton ID="ShareLinkButton" runat="server" onclick="ShareLinkButton_Click" Font-Bold="False">Share</asp:LinkButton>
+           <asp:Label ID="ShareLabel" runat="server" Text="" Font-Bold="False"></asp:Label>
+            <%-- <asp:LinkButton ID="lbtnRemoveTag" runat="server"  onclick="lbtnRemoveTag_Click" Font-Bold="False" Visible='<%# (((int)Eval("Type")) == Global.TAG_PHOTO)||(((int)Eval("Type")) == Global.TAG_PHOTO_ALBUM)||(((int)Eval("Type")) == Global.TAG_VIDEOLINK)||(((int)Eval("Type")) == Global.TAG_VIDEO)?true:false %>'>.&nbsp;Remove_Tag</asp:LinkButton>
+            --%>
+       <asp:LinkButton ID="TagExsitingPost" runat="server"  Font-Bold="False" onclick="TagExsitingPost_Click" Visible="true">.&nbsp;Tag</asp:LinkButton>
+                                       
+                           
+                             <asp:TextBox ID="txtFriendWallTag" CssClass="asptextbox" runat="server" AutoComplete="Off"  
+                    Width="300" AutoPostBack="True" ontextchanged="txtFriendWallTag_TextChanged" Visible="false"></asp:TextBox>
+                    <br />
+                                          <asp:Label ID="lblLike" runat="server" Text="" Font-Bold="False"></asp:Label>
+                      <asp:LinkButton ID="lbtnUser" runat="server" onclick="lbtnUser_Click" Font-Bold="False"></asp:LinkButton>
+                      <br/>
+                      <asp:LinkButton ID="lbtnShareHistory" runat="server" onclick="lbtnShareHistory_Click" Font-Bold="False"></asp:LinkButton>
+   <ajax:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" WatermarkCssClass="water" TargetControlID="txtFriendWallTag" WatermarkText="Tag friend here...">
+                   </ajax:TextBoxWatermarkExtender>
+                <ajax:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtFriendWallTag" ServicePath="WebService.asmx" 
+MinimumPrefixLength="1" EnableCaching="true" CompletionSetCount="1" CompletionInterval="1000" ServiceMethod="GetFriendsName" CompletionListCssClass="AutoExtender" CompletionListItemCssClass="AutoExtenderList"  CompletionListHighlightedItemCssClass ="AutoExtenderHighlight" 
+OnClientPopulated ="WallTagUser_Populated"
+    OnClientItemSelected = " OnWallTagUserSelected" >
+    </ajax:AutoCompleteExtender> 
+                     <br />  
+             
+                      <asp:LinkButton ID="lbtnViewComments" runat="server" onclick="lbtnViewComments_Click" 
+                                    Font-Bold="False">View All Comments</asp:LinkButton>
+                              <br />
+                      <asp:Panel ID="PanelLikeUser" CssClass="popupControl" runat="server"> 
+   <asp:UpdatePanel ID="UpdatePanel3" runat="server"> 
+      <ContentTemplate>
+                                <asp:GridView ID="GridViewLikesUser" runat="server" 
+                    AutoGenerateColumns="False" DataKeyNames="_id" 
+                    
+                    GridLines="None" ShowHeader="False" PageSize="2">
+                    <Columns>
+                         
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                             &nbsp;&nbsp;<asp:LinkButton ID="LinkButton1" runat="server" 
+                              Text=' <%# Eval("FirstName","") + " " + Eval("LastName","") %>'
+                              PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "UserId", "ViewProfile.aspx?UserId={0}") %>' 
+                              ></asp:LinkButton>
+                              
+                            </ItemTemplate>
+                            
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle" />
+                            
+                        </asp:TemplateField>            
+
+                   
+                   
+                         
+                    </Columns>
+                </asp:GridView>
+                     
+</ContentTemplate> 
+   </asp:UpdatePanel> 
+</asp:Panel>
+<ajax:PopupControlExtender ID="PopupControlExtender1" runat="server" 
+   TargetControlID="lbtnUser" 
+   PopupControlID="PanelLikeUser" 
+   Position="Right" 
+   
+   OffsetX="3"> 
+</ajax:PopupControlExtender>
+                                      <!-------------    COMMENTS     ------------------------->
+                  <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                <asp:GridView ID="GridViewComments" AutoGenerateColumns="False" runat="server" 
+                          CellPadding="4" ForeColor="#333333" 
+                    Width="350px" ShowHeader="False" GridLines="None">
+
+                  
+                   
+                     <Columns>
+                       <asp:TemplateField>
+                    <ItemTemplate>
+                          <asp:ImageButton ID="Image1" runat="server" Height="24px" ImageAlign="Middle" 
+                                    ImageUrl='<%# DataBinder.Eval(Container.DataItem, "UserId", "../../Resources/ProfilePictures/{0}.jpg") %>' 
+                                    PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "UserId", "ViewProfile.aspx?UserId={0}") %>' 
+                                    Style="position: relative" Width="24px" />
+
+                           </ItemTemplate>
+                           <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30px" />
+                    </asp:TemplateField>
+                      <asp:TemplateField>
+                    <ItemTemplate>
+                        &nbsp;<asp:LinkButton ID="LinkButton1" runat="server" 
+                              Text=' <%# Eval("FirstName","") + " " + Eval("LastName","") %>'
+                              PostBackUrl='<%# DataBinder.Eval(Container.DataItem, "UserId", "ViewProfile.aspx?UserId={0}") %>' 
+                              ></asp:LinkButton>
+                          <asp:Label ID="NameLabel" runat="server"  Text='<%# Eval("MyComments") %>' />
+                         <br /> <asp:Label ID="lblCommentAddedDate" runat="server"  Text='<%# Eval("AddedDate") %>' CssClass="style1" />
+                        <asp:HiddenField runat="server" ID="HiddenFieldCommentAddedDate" Value='<%#Eval("AddedDate")%>'></asp:HiddenField>
+                             
+                        <br />
+
+                        <!-------------     Comment Like + Show Like user     -------->
+
+                    <asp:HiddenField runat="server" ID="HiddenFieldId" Value='<%#Eval("_id")%>'></asp:HiddenField>
+                     <asp:HiddenField runat="server" ID="HiddenFieldCommentUserId" Value='<%#Eval("UserId")%>'></asp:HiddenField>
+                           <asp:LinkButton ID="lbtnCommentLike" runat="server" onclick="lbtnCommentLike_Click" Font-Bold="False">Like</asp:LinkButton>
+                            <asp:Label ID="lblCommentLike" runat="server" Text="" Font-Bold="False"></asp:Label>   
+            <asp:LinkButton ID="lbtnCommentLikeUser" runat="server" OnClick="lbtnCommentLikeUser_Click" Font-Bold="False">User</asp:LinkButton>
+           
+                       <asp:LinkButton ID="lbtnDeleteComment" runat="server" OnClick="lbtnDeleteComment_Click" Visible="false" Font-Bold="False">Delete</asp:LinkButton>
+                  
+                <!----------- END Comment Like ------->
+
+                    </ItemTemplate>
+                          <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" CssClass="bubble2 me"  Width="270" />
+                    </asp:TemplateField>
+                     </Columns>
+                </asp:GridView>
+                 </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="txtComments" EventName="TextChanged" />
+                    </Triggers>
+                </asp:UpdatePanel>
+                  <asp:TextBox ID="txtComments"  runat="server" Width="345px" EnableViewState="true" ontextchanged="txtComments_TextChanged" AutoPostBack="true" CssClass="wm watermark" Text="Write a comment..."
+                        ></asp:TextBox>
+            
+                                </asp:Panel> 
+
+       </ContentTemplate> 
+   </asp:UpdatePanel> 
+                                <ajax:PopupControlExtender ID="PopupControlExtenderTicker" runat="server" 
+   TargetControlID="lbtnFeedDetail" 
+   PopupControlID="PanelTickerView" 
+   Position="Left" 
+   
+   OffsetX="-410"> 
+</ajax:PopupControlExtender>
+                        <%--            <ajax:PopupControlExtender ID="PopupControlExtender1" runat="server" 
+               PopupControlID="Panel1" 
+               TargetControlID="Image1" 
+               DynamicContextKey='<%# Eval("_id") %>' 
+               DynamicControlID="Panel1" 
+               DynamicServicePath="Webservice.asmx"
+               DynamicServiceMethod="GetDynamicContent" 
+           
+               Position="Left"> 
+            </ajax:PopupControlExtender>
+
+             <asp:Panel ID="Panel1" runat="server">
+              </asp:Panel> 
+    --%>
+                               
+
+                                      </ItemTemplate>
+                            
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Middle"    />
+                            
+                        </asp:TemplateField>
+                      
+
+                   
+                   
+                         
+                    </Columns>
+                </asp:GridView>
+
+              
+                     </asp:Panel>
+                       <asp:LinkButton ID="lbtnHide" runat="server" onclick="lbtnHide_Click">Hide Ticker</asp:LinkButton>
+                     </ContentTemplate>
+</asp:UpdatePanel>
+                </div>
+                
+              
+             </div>    
+            </div>
+            
+            <div class="clear"></div>
+		
+	  </div>
+      
+      <div class="clear"></div>
+      
+      <div class="footer">
+     	Lahore Univeristy of Management Sciences © 2011 · Pakistan
+      </div>
+	</div><!-- container -->
+
+	    </form>
+<!-- End Document
+================================================== -->
+</body>
+</html>
