@@ -465,6 +465,7 @@ public partial class Wall : System.Web.UI.Page
     {
         string status = txtUpdatePost.Text;
         bool isVideoLink = false;
+        UserBLL userbll = new UserBLL();
         if(lblFriendsWith.Text!="")
             status += " <font color='#838181'> -- with <font/>" + lblFriendsWith.Text.Remove(lblFriendsWith.Text.LastIndexOf(","));
         if (lblLocation.Text != "")
@@ -662,18 +663,23 @@ public partial class Wall : System.Web.UI.Page
                 notifTag(item, Session["WebCamPhotoId"].ToString());
                 tagstatus = "tagged a photo";
             }
-        
+            
 
             RWallPost(" tag post to <a  href=\"ViewProfile.aspx?UserId=" + item + "\">" + objUser2.FirstName + " " + objUser2.LastName + "</a>");
             string twid= WallBLL.insertWall(objWall2);
+            
             ////////////////////////////////////TICKER CODE //////////////////////////////////
             ////////////////////////////////////////////////////////////////////////////////////
-            List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(), Global.CONFIRMED);
+
+            
+            userbll.notify_subscribers(Session["UserId"].ToString(), objWall2, ConvertUrlsToLinks(tagstatus), twid);
+
+            /*List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(), Global.CONFIRMED);
             //get the education,hometown and employer of people in list
             foreach (UserFriendsBO Useritem in listtag)
             {
                 TickerBO objTicker = new TickerBO();
-
+                
 
                 objTicker.PostedByUserId = objWall2.PostedByUserId;
                 objTicker.TickerOwnerUserId = Useritem.FriendUserId;
@@ -704,7 +710,7 @@ public partial class Wall : System.Web.UI.Page
             TickerBLL.insertTicker(objTickerUserTag);
 
                 ////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////*/
 
 
             
@@ -734,10 +740,15 @@ public partial class Wall : System.Web.UI.Page
         ////////////////////////////////////TICKER CODE //////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////
 
-        List<UserFriendsBO> list = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(),Global.CONFIRMED);
+
+        
+        userbll.notify_subscribers(Session["UserId"].ToString(), objWall, ConvertUrlsToLinks(ConvertUrlsToLinks(status)), wid);
+
+        /*List<UserFriendsBO> list = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(),Global.CONFIRMED);
             //get the education,hometown and employer of people in list
           foreach (UserFriendsBO Useritem in list)
           {
+              
               TickerBO objTicker = new TickerBO();
               
             
@@ -770,7 +781,7 @@ public partial class Wall : System.Web.UI.Page
 
           TickerBLL.insertTicker(objTickerUser);
         ////////////////////////////////////////////////////////////////////////////////////
-
+        */
 
 
 
@@ -2255,8 +2266,6 @@ str+="});";
         foreach (UserFriendsBO Useritem in listtag)
         {
             TickerBO objTicker = new TickerBO();
-
-
             objTicker.PostedByUserId = objWall2.PostedByUserId;
             objTicker.TickerOwnerUserId = Useritem.FriendUserId;
             objTicker.FirstName = objWall2.FirstName;

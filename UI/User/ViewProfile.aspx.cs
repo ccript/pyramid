@@ -411,6 +411,8 @@ public partial class ViewProfile : System.Web.UI.Page
         string friendId = userid;
         string userId = Session["UserId"].ToString();
         FriendsBLL.sendFriendRequest(userId, friendId);
+        UserBLL userbll = new UserBLL();
+        userbll.registerSubscriber(friendId, userId);
         btnCancelRequest.Visible = true;
         btnCancelRequest.Enabled = true;
 

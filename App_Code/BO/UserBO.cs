@@ -33,8 +33,7 @@ namespace ObjectLayer
         public string PasswordResetCode { get; set; }
 
         public bool UserStatus { get; set; }
-
-
+        
     }
 
 }

@@ -11,7 +11,7 @@ using System.Security.Authentication;
 
 namespace BuinessLayer
 {
-    public class UserBLL
+    public class UserBLL:notifier,subscriber
     {
         //////////////////////////////////////////////////////////////
         public static string insertUser(UserBO objUser)
@@ -98,5 +98,47 @@ namespace BuinessLayer
                 return UserDAL.SearchUserbyEducation(Education, year);
         }
 
+
+        public void update(string publisherId, string subscriberId, WallBO obj,string tagstatus,string twid)
+        {
+            TickerBO objTicker = new TickerBO();
+            objTicker.PostedByUserId = publisherId;
+            objTicker.TickerOwnerUserId = subscriberId;
+            objTicker.FirstName = obj.FirstName;
+            objTicker.LastName = obj.LastName;
+            objTicker.Post = obj.Post;
+            objTicker.Title = tagstatus;
+            objTicker.AddedDate = DateTime.UtcNow;
+            objTicker.Type = obj.Type;
+            objTicker.EmbedPost = obj.EmbedPost;
+            objTicker.WallId = twid;
+            TickerBLL.insertTicker(objTicker);
+        }
+
+        public void registerSubscriber(string publisherId,string subscriberId)
+        {
+            SubscriptionBO subscriber_obj = new SubscriptionBO();
+            subscriber_obj.PublisherUserId = publisherId;
+            subscriber_obj.SubscriberUserId = subscriberId;
+            SubscriptionBLL.insertSubscription(subscriber_obj);
+        }
+
+        public void removeSubscriber(string publisherId, string subscriberId)
+        {
+            SubscriptionBLL.deleteSubscription(publisherId, subscriberId);
+        }
+
+        public void notify_subscribers(string publisherId, WallBO obj, string tagstatus, string twid)
+        {
+            
+            
+            List<Subscription> subscribers = SubscriptionBLL.getSubscribers(publisherId);
+            foreach (Subscription subscriber in subscribers)
+            {
+                UserBLL userbll = new UserBLL();
+                userbll.update(publisherId, subscriber.SubscriberUserId.ToString(), obj, tagstatus,twid);
+
+            }
+        }
     }
 }
