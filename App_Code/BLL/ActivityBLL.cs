@@ -7,66 +7,83 @@ using DataLayer;
 using ObjectLayer;
 using System.Data;
 using System.Security.Authentication;
+using Pramyid;
+using System.Collections;
+using MongoDB.Bson;
 
 namespace BuinessLayer
 {
     /// <summary>
     /// Summary description for DeviceBLL
     /// </summary>
-    public class ActivityBLL
+    public class ActivityBLL : DataWorker
     {
+        private static string _tableName = "c_Activities"; 
         public ActivityBLL()
         {
             //
             // TODO: Add constructor logic here
             //
         }
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static string insertActivity(ActivityBO objActivity)
         {
-            if (!objActivity.Name.Equals(""))
+            if (!String.IsNullOrEmpty(objActivity.Name))
+            {
+                return database.insert(objActivity, _tableName);
+            }
 
-                return ActivityDAL.insertActivity(objActivity);
-            else
-                return null;
+            return null;
+
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+        
         public static void deleteActivity(string ActivityId)
         {
-            ActivityDAL.deleteActivity(ActivityId);
+            database.delete(ActivityId, _tableName);
+            //ActivityDAL.deleteActivity(ActivityId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
-        public static void updateActivity(ActivityBO objActivity)
-        {
-            ActivityDAL.updateActivity(objActivity);
-        }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT ALL DATA
-        //////////////////////////////////////////////////////////////
-        public static List<Activity> getAllActivityList()
-        {
-            return ActivityDAL.getAllActivityList();
-        }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
-        public static ActivityBO getActivityByActivityId(string ActivityId)
-        {
-            return ActivityDAL.getActivityByActivityId(ActivityId);
-        }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static List<Activity> getActivityTop5(string Type, string UserId)
         {
-            return ActivityDAL.getActivityTop5( Type,  UserId);
+            ArrayList lst = database.getByParam("UserId", UserId, _tableName);
+            Activity obj = new Activity();
+            List<Activity> retList = new List<Activity>();
+            int index = 0;
+            foreach (Object _o in lst)
+            {
+                obj = ActivityBLL.getConvertedObject(_o);
+                if (obj.Type == Type)
+                {
+                    retList.Add(obj);
+                    index++;
+                }                
+                if (index == 5) {
+                    break;
+                }
+            }
+
+            return retList;
+
+            //return ActivityDAL.getActivityTop5(Type, UserId);
+        }
+
+        private static Activity getConvertedObject(Object _o)
+        {
+            Activity obj = new Activity();
+            if (_o.GetType().Name == "BsonDocument")
+            {
+                BsonDocument bson = (BsonDocument)_o;
+
+                obj.Name = Convert.ToString(bson.GetElement("Name").Value);
+                obj.Description = Convert.ToString(bson.GetElement("Description").Value);
+                obj.Type = Convert.ToString(bson.GetElement("Type").Value);
+                obj.Image = Convert.ToString(bson.GetElement("Image").Value);                
+
+                obj._id = ObjectId.Parse(bson.GetElement("_id").Value.ToString());
+                obj.UserId = ObjectId.Parse(bson.GetElement("UserId").Value.ToString());
+            }
+            return obj;
         }
     }
-     
+
 }

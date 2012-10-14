@@ -107,7 +107,6 @@ namespace DataLayer
             foreach (Activity item in objCollection.FindAll())
             {
                 lst.Add(item);
-
             }
             return lst;
 
