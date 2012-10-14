@@ -32,30 +32,23 @@ namespace DataLayer
        //////////////////////////////////////////////////////////////
         public static string insertComments(CommentsBO objClass)
         {
-          
 
+            if (objClass.Type == 1)
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcretePhotoComment());
+                return commentobject.insertComments(objClass);
+            }
+            else if (objClass.Type == 2)
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcreteVideoComment());
+                return commentobject.insertComments(objClass);
+            }
+            else
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcreteOtherComment());
+                return commentobject.insertComments(objClass);
+            }
 
-                 MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Comments");
-
-                 
-                     BsonDocument doc = new BsonDocument {
-                      { "UserId" , ObjectId.Parse(objClass.UserId) },
-                        { "AtId" ,  ObjectId.Parse(objClass.AtId) },
-                        { "MyComments" , objClass.MyComments },
-                        { "Type", objClass.Type },
-                        { "FirstName", objClass.FirstName },
-                        { "LastName", objClass.LastName },
-                             { "AddedDate", DateTime.Now },
-                        };
-
-                     var rt=objCollection.Insert(doc);
-
-                     return doc["_id"].ToString();
-
-              
-        
-
-           
     
         }
         ///////////////////////////////////////////////////////////////
@@ -64,19 +57,21 @@ namespace DataLayer
         public static void updateComments(CommentsBO objClass)
         {
 
-            MongoCollection<Comments> objCollection = db.GetCollection<Comments>("c_Comments");
-
-            var query = Query.EQ("_id", ObjectId.Parse(objClass.Id));
-            var sortBy = SortBy.Descending("_id");
-            var update = Update.Set("UserId", ObjectId.Parse(objClass.UserId))
-                                .Set("AtId", ObjectId.Parse(objClass.AtId))
-                                 .Set("MyComments", objClass.MyComments)
-                                .Set("Type", objClass.Type)
-                                .Set("FirstName", objClass.FirstName)
-                                .Set("LastName", objClass.LastName)
-
-                                ;
-            var result = objCollection.FindAndModify(query, sortBy, update, true);
+            if (objClass.Type == 1)
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcretePhotoComment());
+                commentobject.updateComments(objClass);
+            }
+            else if (objClass.Type == 2)
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcreteVideoComment());
+                commentobject.updateComments(objClass);
+            }
+            else
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcreteOtherComment());
+                commentobject.updateComments(objClass);
+            }
 
         }
         ///////////////////////////////////////////////////////////////
@@ -111,26 +106,21 @@ namespace DataLayer
         //////////////////////////////////////////////////////////////
         public static List<Comments> getCommentsList(int Type, string AtId)
         {
-            List<Comments> lst = new List<Comments>();
-
-            MongoCollection<Comments> objCollection = db.GetCollection<Comments>("c_Comments");
-
-            var query = Query.And(
-                        Query.EQ("Type", Type),
-                         Query.EQ("AtId", ObjectId.Parse(AtId)));
-            foreach (Comments item in objCollection.Find(query))
+            if (Type == 1)
             {
-               
-                               lst.Add(item);
-
-               
-
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcretePhotoComment());
+                return commentobject.getCommentsList(Type, AtId);
             }
-           
-           
-
-   
-            return lst;
+            else if (Type == 2)
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcreteVideoComment());
+                return commentobject.getCommentsList(Type, AtId);
+            }
+            else
+            {
+                StrategyContextComment commentobject = new StrategyContextComment(new StrategyConcreteOtherComment());
+                return commentobject.getCommentsList(Type, AtId);
+            }
 
         }
 
