@@ -27,12 +27,17 @@ using System.Collections;
 /// </summary>
 public class _MongoDatabase : DAC
 {
-
-    public _MongoDatabase()
+    private static _MongoDatabase clsObj = new _MongoDatabase();
+    private _MongoDatabase()
     {
         //
         // TODO: Add constructor logic here
         //
+    }
+
+    public static _MongoDatabase getObject()
+    {
+        return clsObj;
     }
 
     // TODO: Apply Singleton Pattern
