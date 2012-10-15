@@ -5,8 +5,7 @@ using System.Collections;
 
 public abstract class DAC
 {
-    public string connectionString;
-
+    public string connectionString;    
     public abstract Object buildConnection();
     public abstract string insert(Object obj, string tableName);
     public abstract bool update(Object obj, string paramName, string paramVal, string tableName);
