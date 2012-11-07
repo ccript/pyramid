@@ -64,9 +64,13 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     }
     protected void LoadDataListMedia()
     {
-
-        DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);
+        // ***  Proxy driver to get image     **********/
+        ProxyVirtualSubject proxyobj = new ProxyVirtualSubject();
+        DataList1.DataSource = proxyobj.getImage(albumid);
         DataList1.DataBind();
+
+        //DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);
+        //DataList1.DataBind();
 
     }
 

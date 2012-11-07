@@ -27,10 +27,13 @@ public partial class UI_User_ViewVideoAlbum : System.Web.UI.Page
 
     protected void LoadDataListMedia()
     {
-
-        DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);
+        // ***  Proxy driver to get image     **********/
+        ProxyVirtualVideoSubject proxyobj = new ProxyVirtualVideoSubject();
+        DataList1.DataSource = proxyobj.getVideo(albumid);
         DataList1.DataBind();
 
+        //DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);
+        //DataList1.DataBind();
     }
 
 }
