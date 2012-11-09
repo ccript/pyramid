@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using BuinessLayer;
 using ObjectLayer;
 using System.Globalization;
+using DataLayer;
 public partial class EducationWork : System.Web.UI.Page
 {
     string userid;
@@ -194,7 +195,7 @@ public partial class EducationWork : System.Web.UI.Page
     }
     protected void SaveEmployer()
     {
-        EmployerBO objEmployer = new EmployerBO();
+        TemplateBO objEmployer = new EmployerBO();
 
         objEmployer.UserId = userid;
   
@@ -215,7 +216,9 @@ public partial class EducationWork : System.Web.UI.Page
             objEmployer.Image = txtEmployer.Text + ".png";
         else
              objEmployer.Image = "DefaultEmployer.png";
-        EmployerBLL.insertEmployer(objEmployer);
+
+       // EmployerBLL.insertEmployer(objEmployer);
+        TemplateInfoBLL.insert(objEmployer, new EmployerDAL());
         LoadDataListEmployer();
     }
     protected void SaveProject()
@@ -324,7 +327,7 @@ public partial class EducationWork : System.Web.UI.Page
     protected void LoadDataListEmployer()
     {
 
-        DListEmployer.DataSource = EmployerBLL.getEmployerTop5(userid);
+        DListEmployer.DataSource=TemplateInfoBLL.SelectEmployerTop5(new EmployerDAL(), userid);
         DListEmployer.DataBind();
 
     }
@@ -352,7 +355,9 @@ public partial class EducationWork : System.Web.UI.Page
     }
     protected void DListEmployer_SelectedIndexChanged(object sender, EventArgs e)
     {
-       EmployerBLL.deleteEmployer(DListEmployer.DataKeys[DListEmployer.SelectedIndex].ToString());
+        TemplateInfoBLL.delete(new EmployerDAL(), DListEmployer.DataKeys[DListEmployer.SelectedIndex].ToString());
+
+       //EmployerBLL.deleteEmployer(DListEmployer.DataKeys[DListEmployer.SelectedIndex].ToString());
        LoadDataListEmployer();
     }
     protected void DListProject_SelectedIndexChanged(object sender, EventArgs e)

@@ -11,6 +11,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using BuinessLayer;
 using ObjectLayer;
+using DataLayer;
 using System.Globalization;
 public partial class ViewProfile : System.Web.UI.Page
 {
@@ -131,7 +132,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListEmployer()
     {
 
-        DListEmployer.DataSource = EmployerBLL.getEmployerTop5(userid);
+        DListEmployer.DataSource = TemplateInfoBLL.SelectEmployerTop5(new EmployerDAL(), userid);     //EmployerBLL.getEmployerTop5(userid);
         DListEmployer.DataBind();
         if (DListEmployer.Items.Count <= 0)
         {
@@ -393,7 +394,7 @@ public partial class ViewProfile : System.Web.UI.Page
     }
     protected void LoadLanguages()
     {
-        DListLanguage.DataSource = LanguageBLL.getLanguages(userid);
+        DListLanguage.DataSource = TemplateInfoBLL.SelectLanguageByid(new LanguageDAL(), userid);    //LanguageBLL.getLanguages(userid);
         DListLanguage.DataBind();
         if (DListLanguage.Items.Count <= 0)
         {

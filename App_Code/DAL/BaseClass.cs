@@ -23,9 +23,8 @@ using MongoDB.Driver.Builders;
 /// <summary>
 /// Summary description for Class1
 /// </summary>
-public class BaseClass
+public  class BaseClass
 {
-
 
 
 

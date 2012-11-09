@@ -6,7 +6,7 @@ using System.Web;
 namespace ObjectLayer
 {
 
-    public class LanguageBO
+    public class LanguageBO: TemplateBO
     {
 
         public string  Id { get;set;}

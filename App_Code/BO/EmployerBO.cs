@@ -6,7 +6,7 @@ using System.Web;
 namespace ObjectLayer
 {
 
-    public class EmployerBO
+    public class EmployerBO : TemplateBO
     {
 
         public string Id { get;set;}

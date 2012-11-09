@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using BuinessLayer;
 using ObjectLayer;
+using DataLayer;
 using System.Globalization;
 public partial class BasicInfoPage : System.Web.UI.Page
 {
@@ -210,22 +211,27 @@ public partial class BasicInfoPage : System.Web.UI.Page
 
         if (lstLanguages.SelectedValue != "Select Languages:")
         {
-            LanguageBO langObj = new LanguageBO();
+            TemplateBO langObj = new LanguageBO();
             langObj.Name = lstLanguages.SelectedValue;
             langObj.UserId = userid;
+            
 
-            LanguageBLL.insertLanguage(langObj);
+            //elbll.insert(langObj);
+        TemplateInfoBLL.insert(langObj, (new LanguageDAL())); 
+           // LanguageBLL.insertLanguage(langObj);
             LoadLanguages();
         }
     }
     protected void DListLanguage_SelectedIndexChanged(object sender, EventArgs e)
     {
-        LanguageBLL.deleteLanguage(DListLanguage.DataKeys[DListLanguage.SelectedIndex].ToString());
+
+        TemplateInfoBLL.delete(new LanguageDAL(), DListLanguage.DataKeys[DListLanguage.SelectedIndex].ToString());
+        //LanguageBLL.deleteLanguage(DListLanguage.DataKeys[DListLanguage.SelectedIndex].ToString());
         LoadLanguages();
     }
     protected void LoadLanguages()
     {
-        DListLanguage.DataSource =LanguageBLL.getLanguages(userid);
+        DListLanguage.DataSource = TemplateInfoBLL.SelectLanguageByid(new LanguageDAL(), userid);  //LanguageBLL.getLanguages(userid);
         DListLanguage.DataBind();
     }
 }
