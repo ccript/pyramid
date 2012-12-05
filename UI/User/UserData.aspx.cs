@@ -43,18 +43,15 @@ public partial class Wall : System.Web.UI.Page
     public static string uploadedvideoname;
     public static bool isSeeFriendshipPage = false;
     public static bool isWall = false;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
-       
 
         try
         {
 
             if (Request.QueryString.Count == 2)
             {
-
-
                 Session["FriendID"] = Request.QueryString.Get(0);
             }
             if (Request.QueryString.Count == 0)
@@ -81,7 +78,7 @@ public partial class Wall : System.Web.UI.Page
                 userid = Request.QueryString.Get(0);
                 if(userid.Equals(Session["UserId"].ToString()))
                 {
-                        btnAddAsFriend.Visible = false;
+                    btnAddAsFriend.Visible = false;
                     btnCancelRequest.Visible = false;
                     userid = Session["UserId"].ToString();
                     Session["TempUserId"] = null;

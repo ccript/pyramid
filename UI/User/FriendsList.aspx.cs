@@ -68,27 +68,13 @@ public partial class FriendsList : System.Web.UI.Page
     }
 
 
-   /* protected void GridViewFriendsList_SelectedIndexChanged(object sender, EventArgs e)
-    {
-         FriendsBLL.deleteFriends(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value.ToString());
-       LoadFriendsList();
-       // Response.Write(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value);
-    }
-    protected void GridViewFriendsListRequest_SelectedIndexChanged(object sender, EventArgs e)
-    {
-       // FriendsBLL.deleteFriends(GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString());
-        FriendsBO objClass=new FriendsBO();
-        objClass.Status=true;
-        objClass.Id = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
-        FriendsBLL.confirmRequest(objClass);
-        LoadFriendsList();
-    }*/
+  
 
     protected void GridViewFriendsList_SelectedIndexChanged(object sender, EventArgs e)
     {
         FriendsBLL.deleteFriends(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value.ToString());
         LoadFriendsList();
-        // Response.Write(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value);
+       
     }
 
     protected void GridViewFriendsListRequest_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,62 +82,27 @@ public partial class FriendsList : System.Web.UI.Page
         string friendid = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
 
         Response.Redirect("FriendofFriendsList.aspx?UserId=" + friendid + "&Type=Mutual");
-        // FriendsBLL.deleteFriends(GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString());
-        //FriendsBO objClass=new FriendsBO();
-        //objClass.Status=Global.CONFIRMED;
-        //objClass.Id = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
-        //FriendsBLL.confirmRequest(objClass);
-        //LoadFriendsList();
+        
     }
 
     protected void gvList_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-        //GridViewFriendsList.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
-        //GridViewFriendsList.DataBind();
+        
         GridViewFriendsList.PageIndex = GridViewFriendsList.PageIndex + 1;
        
     }
-
+    private Boolean validate_checkbox(string CheckBox)
+    {
+        return (CheckBox == "Name" || CheckBox == "CurrrentCity" || CheckBox == "HomeTown" || CheckBox == "School" || CheckBox == "WorkPlace");
+    }
     protected void SearchButton_Click(object sender, EventArgs e)
     {
         string fieldValue = SearchTextBox.Text;
-        string CheckBox = SearchDropDownList.Text;
-
-        if (CheckBox == "Name")
+        if (validate_checkbox(SearchDropDownList.Text))
         {
             GridViewFriendsList.DataSource = FriendsBLL.FindByListName(userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
         }
-
-        if (CheckBox == "CurrrentCity")
-        {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListCurrent(userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-            //   Response.Write("current");
-        }
-
-        if (CheckBox == "HomeTown")
-        {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListHomeTown(userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-            //   Response.Write("current");
-        }
-
-        if (CheckBox == "School")
-        {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListSchool(userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-            //   Response.Write("current");
-        }
-
-        if (CheckBox == "WorkPlace")
-        {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListWorkPlace(userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-
-        }
-
-
 
     }
 

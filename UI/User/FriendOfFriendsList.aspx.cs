@@ -28,21 +28,19 @@ public partial class User_FriendOfFriendsList : System.Web.UI.Page
             type = Request.QueryString.Get(1);
         }
         catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-        if(type.Equals("FOF"))
-        {
-        ((Label)Master.FindControl("lblTitle")).Text = "Friends Of Friend";
-        }
-        else
-        {
-            ((Label)Master.FindControl("lblTitle")).Text = "Mutual Friends";
-        }
+
         if (!IsPostBack)
         {
-
             LoadFriendsList();
-
-
+            return;
         }
+        if (!type.Equals("FOF"))
+        {
+            ((Label)Master.FindControl("lblTitle")).Text = "Friends Of Friend";
+            return;
+        }
+        ((Label)Master.FindControl("lblTitle")).Text = "Mutual Friends";
+       
 
     }
     protected void LoadFriendsList()

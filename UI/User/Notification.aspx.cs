@@ -95,7 +95,7 @@ public partial class User_Notification : System.Web.UI.Page
             return string.Format("{0} months ago", Math.Round(timeSince.TotalDays / 30));
         if (timeSince.TotalDays < 730)
             return "last year";
-        //last but not least...
+
         return string.Format("{0} years ago", Math.Round(timeSince.TotalDays / 365));
     }
  

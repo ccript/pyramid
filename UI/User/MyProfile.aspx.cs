@@ -28,7 +28,6 @@ public partial class MyProfile : System.Web.UI.Page
         ((Label)Master.FindControl("lblTitle")).Text = "View Profile";
         if (!IsPostBack)
         {
-
             LoadDataListEmployer();
             LoadDataListProject();
             LoadDataListUniversity();

@@ -34,8 +34,6 @@ public partial class MultiSelect : System.Web.UI.Page
         {
 
             LoadFriendsList();
-
-
         }
         
     }
@@ -43,13 +41,8 @@ public partial class MultiSelect : System.Web.UI.Page
 
     protected void LoadFriendsList()
     {
-
-
         MultiSelectGrid.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
         MultiSelectGrid.DataBind();
-
-        // GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.PENDING);
-        // GridViewFriendsListRequest.DataBind();
     }
 
 
@@ -58,30 +51,13 @@ public partial class MultiSelect : System.Web.UI.Page
     {
         FriendsBLL.deleteFriends(MultiSelectGrid.DataKeys[MultiSelectGrid.SelectedIndex].Value.ToString());
         LoadFriendsList();
-        // Response.Write(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value);
+
     }
-    //protected void GridViewFriendsListRequest_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    string friendid = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
 
-    //    Response.Redirect("FriendofFriendsList.aspx?UserId=" + friendid + "&Type=Mutual");
-
-    //}
 
     protected void btnPostback_Click(object sender, EventArgs e)
     {
-        //string selectedName = "";
 
-        //foreach (GridViewRow row in MultiSelectGrid.Rows)
-        //{
-        //    HiddenField selectionButton = (HiddenField)row.FindControl("hdnIsItemSelected");
-        //    if (selectionButton.Value == "true")
-        //    {
-        //        selectedName += (selectedName == "" ? "" : " / ") + ((Label)row.FindControl("lblFirstName")).Text;
-        //    }
-        //}
-
-        //lblSelectedName.Text = selectedName;
         int[] arr = GetSelectedIndices();
         List<int> lst = new List<int>();
         
@@ -93,7 +69,6 @@ public partial class MultiSelect : System.Web.UI.Page
         for (int i = 0; i < MultiSelectGrid.Rows.Count; i++)
         {
             GridViewRow row = MultiSelectGrid.Rows[i];
-            // 0 means the first column if your Select column is not first write it 's correct index
             CheckBox chk = row.Cells[0].FindControl("chkSelect") as CheckBox;
             if (chk != null && chk.Checked)
             {

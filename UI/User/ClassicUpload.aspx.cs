@@ -21,108 +21,45 @@ public partial class User_ClassicUpload : System.Web.UI.Page
         }
         catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
     }
+    private void upload_file(HttpPostedFile File)
+    {
+        int size = File.ContentLength / 1024;
+
+        try
+        {
+            string fileid = SavePhotos();
+            WallPost(fileid);
+            generateThumbnail(File, fileid);
+            FileUpload1.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
+
+        }
+        catch (Exception ex)
+        {
+            //  lblMsg.Text += ex;
+            lblMsg.Text = "Error Uploading Image !!";
+            lblMsg.Visible = true;
+        }
+    }
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if (FileUpload1.HasFile)
         {
-            HttpPostedFile myFile = FileUpload1.PostedFile;
-            int size = myFile.ContentLength / 1024;
-       
-                try
-                {
-                    string fileid = SavePhotos();
-                    WallPost(fileid);
-                    generateThumbnail(myFile, fileid);
-                    FileUpload1.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
-                    
-                }
-                catch (Exception ex)
-                {
-                    //  lblMsg.Text += ex;
-                    lblMsg.Text = "Error Uploading Image !!";
-                    lblMsg.Visible = true;
-                }
-          
+            upload_file(FileUpload1.PostedFile);
         }
 
         if (FileUpload2.HasFile)
         {
-            HttpPostedFile myFile = FileUpload2.PostedFile;
-            int size = myFile.ContentLength / 1024;
-
-            try
-            {
-                string fileid = SavePhotos();
-                WallPost(fileid);
-                generateThumbnail(myFile, fileid);
-                FileUpload2.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
-            }
-            catch (Exception ex)
-            {
-                //  lblMsg.Text += ex;
-                lblMsg.Text = "Error Uploading Image !!";
-                lblMsg.Visible = true;
-            }
-
-        }
-        if (FileUpload3.HasFile)
-        {
-            HttpPostedFile myFile = FileUpload3.PostedFile;
-            int size = myFile.ContentLength / 1024;
-
-            try
-            {
-                string fileid = SavePhotos();
-                WallPost(fileid);
-                generateThumbnail(myFile, fileid);
-                FileUpload3.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
-            }
-            catch (Exception ex)
-            {
-                //  lblMsg.Text += ex;
-                lblMsg.Text = "Error Uploading Image !!";
-                lblMsg.Visible = true;
-            }
+            upload_file(FileUpload2.PostedFile);
 
         }
         if (FileUpload4.HasFile)
         {
-            HttpPostedFile myFile = FileUpload4.PostedFile;
-            int size = myFile.ContentLength / 1024;
-
-            try
-            {
-                string fileid = SavePhotos();
-                WallPost(fileid);
-                generateThumbnail(myFile, fileid);
-                FileUpload4.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
-            }
-            catch (Exception ex)
-            {
-                //  lblMsg.Text += ex;
-                lblMsg.Text = "Error Uploading Image !!";
-                lblMsg.Visible = true;
-            }
+            upload_file(FileUpload4.PostedFile);
 
         }
         if (FileUpload5.HasFile)
         {
-            HttpPostedFile myFile = FileUpload5.PostedFile;
-            int size = myFile.ContentLength / 1024;
-
-            try
-            {
-                string fileid = SavePhotos();
-                WallPost(fileid);
-                generateThumbnail(myFile, fileid);
-                FileUpload5.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
-            }
-            catch (Exception ex)
-            {
-                //  lblMsg.Text += ex;
-                lblMsg.Text = "Error Uploading Image !!";
-                lblMsg.Visible = true;
-            }
+            upload_file(FileUpload5.PostedFile);
 
         }
         Response.Redirect("ManagePhotos.aspx");
