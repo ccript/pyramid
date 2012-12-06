@@ -59,6 +59,7 @@ public static class Global
     public const int WEIGHT_SHAREDFRIENDS = 8;
     public const int WEIGHT_RELIGIONPOLITICS = 2;
 
+    public const int SUGGESTIONS_MINIMUM_SCORE = 2;
 
     //weights for post types
     public const int WEIGHT_PHOTO = 5;
