@@ -90,5 +90,22 @@ public static class Global
     public static string PATH_COMPRESSED_USER_VIDEO = ConfigurationSettings.AppSettings["PathCompressedVideos"];
     // 
     public const string Signup_Mail_Link = "http://203.135.63.151:8080/team5/UI/SignUp/";
-    
+
+    public const string JUST_NOW = "Just now";
+    public const string ONE_MINUTE_AGO = "1 minute ago";
+    public const string ONE_HOUR_AGO = "1 hour ago";
+    public const string YESTERDAY = "yesterday";
+    public const string LAST_WEEK = "last week";
+    public const string TWO_WEEKS_AGO = "2 weeks ago";
+    public const string THREE_WEEKS_AGO = "3 weeks ago";
+    public const string LAST_MONTH = "last month";
+    public const string LAST_YEAR = "last year";
+    public const string MONTHS_AGO = "{0} months ago";
+    public const string YEARS_AGO = "{0} years ago";
+    public const string DAYS_AGO = "{0} days ago";
+    public const string HOURS_AGO = "{0} hours ago";
+    public const string MINTUES_AGO = "{0} minutes ago";
+    public const string NOT_YET = "not yet";
+
+
 }

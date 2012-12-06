@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BuinessLayer;
 using ObjectLayer;
+using DataLayer;
+
 public partial class ContactInfo : System.Web.UI.Page
 {
     string userid;
@@ -143,7 +145,7 @@ public partial class ContactInfo : System.Web.UI.Page
         objContactInfo.Name=txtEmail.Text;
         objContactInfo.UserId = userid;
         objContactInfo.Type="Email";
-        ContactInfoBLL.insertContactInfo(objContactInfo);
+        ContactInfoDAL.insertContactInfo(objContactInfo);
         LoadGridView();
     }
     protected void lbtnAddPhoneNumber_Click(object sender, EventArgs e)
@@ -152,7 +154,7 @@ public partial class ContactInfo : System.Web.UI.Page
         objContactInfo.Name = lstCountryCode.SelectedValue +"-"+ txtPhoneNumber.Text;
         objContactInfo.UserId = userid;
         objContactInfo.Type = "PhoneNumber";
-        ContactInfoBLL.insertContactInfo(objContactInfo);
+        ContactInfoDAL.insertContactInfo(objContactInfo);
         LoadPhoneNumber();
     }
     protected void GridViewPhone_OnRowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -183,14 +185,14 @@ public partial class ContactInfo : System.Web.UI.Page
         objContactInfo.Name= txtWebsites.Text;
         objContactInfo.UserId = userid;
         objContactInfo.Type = "Website";
-        ContactInfoBLL.insertContactInfo(objContactInfo);
+        ContactInfoDAL.insertContactInfo(objContactInfo);
         LoadWebsites();
     }
 
     protected void LoadOthersEmail()
     {
 
-        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", userid);
+        GridViewEmail.DataSource = ContactInfoDAL.getContactInfo("Email", userid);
        GridViewEmail.DataBind();
 
     }
@@ -198,7 +200,7 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void LoadWebsites()
     {
 
-        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", userid);
+        GridViewWebsites.DataSource = ContactInfoDAL.getContactInfo("Website", userid);
         GridViewWebsites.DataBind();
 
     }
@@ -206,7 +208,7 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void LoadPhoneNumber()
     {
 
-        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", userid);
+        GridViewPhone.DataSource = ContactInfoDAL.getContactInfo("PhoneNumber", userid);
         GridViewPhone.DataBind();
 
     }
