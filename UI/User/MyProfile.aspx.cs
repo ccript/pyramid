@@ -68,7 +68,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadDataListUniversity()
     {
 
-        DListUniversity.DataSource = UniversityBLL.getUniversityTop5(Userid);
+        DListUniversity.DataSource = UniversityDAL.getUniversityTop5(Userid);
         DListUniversity.DataBind();
 
     }

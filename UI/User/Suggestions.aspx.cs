@@ -14,6 +14,7 @@ using ObjectLayer;
 using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
+using DataLayer;
 //using System.Linq;//
 
 public partial class UI_User_Suggestions : System.Web.UI.Page
@@ -70,7 +71,7 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
     protected void LoadUserUnisFilterItems(string userid)
     {
         ArrayList sUnis;
-        sUnis = UniversityBLL.getUnisByUserId(userid);
+        sUnis = UniversityDAL.getUnisByUserId(userid);
         GridViewUnis.DataSource = sUnis;
 
         GridViewUnis.DataBind();
@@ -180,7 +181,7 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
             mutualfriendmatches = false;
 
             sEmployers = EmployerBLL.getEmployersByUserId(Useritem.FriendUserId);
-            sUniversity = UniversityBLL.getUnisByUserId(Useritem.FriendUserId);
+            sUniversity = UniversityDAL.getUnisByUserId(Useritem.FriendUserId);
             sSchool = SchoolBLL.getSchoolsByUserId(Useritem.FriendUserId);
 
             if (HomeTownValue.Equals(""))//if no value specified by user by default true
