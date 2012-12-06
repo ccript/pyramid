@@ -84,28 +84,8 @@ public partial class Wall : System.Web.UI.Page
         if(type==Global.POST_VIDEOLINK)
         ImagePreview.ImageUrl= Session["EmbedPost"].ToString();
      
-        //////// Sharing the post on the wall
-        //////ShareStatus(p);
-
-        //////// Registering the Share after successful completion of the above process
-        //////ShareBLL.insertShare(objClass);
-      
         ((Label)Master.FindControl("lblTitle")).Text = "Share Post";
-      
-
-        //if (!IsPostBack)
-        //{
-
-        //    LoadBasicInfo();
-        //    LoadLanguages();
-        //    LoadUserData();
-        //    LoadDataListTagPhotos();
-        //    LoadWall(100);
-            
-            
-        //}
-
-   
+     
     }
 
     protected void LoadUserData()
@@ -116,13 +96,6 @@ public partial class Wall : System.Web.UI.Page
 
     }
 
-
-
- 
- 
-
-    
-    
     protected void btnSuggestFriends_Click(object sender, EventArgs e)
     {
         UserBO objUser = new UserBO();
@@ -154,8 +127,7 @@ public partial class Wall : System.Web.UI.Page
             string p = txtUpdatePost.Text + " <br/>" + wall.Post;
 
             // Sharing the post on the wall
-            ShareStatus(p);
-                //////////////////////////////////////////////////////////////////////
+            ShareStatus(p);                
         foreach (string item in lstTag)
         {
 
@@ -175,26 +147,13 @@ public partial class Wall : System.Web.UI.Page
             RWallPost(" tag post to <a  href=\"ViewProfile.aspx?UserId=" + item + "\">" + objUser2.FirstName + " " + objUser2.LastName + "</a>");
            
             WallBLL.insertWall(objWall2);
-        }
-           /////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // Registering the Share after successful completion of the above process
+        }           
+        // Registering the Share after successful completion of the above process
             ShareBLL.insertShare(objClass);
            
             RWallPost(" Share a Post");
             // Sending Notifications to the one with which post has been shared and the one who were tagged
-            Response.Redirect("UserData.aspx");
-            ////////////////////////////////////////////////////////////////////////////
-            // Put "follow" record for each user that has been tagged, traverse the list
-            //FollowPostBO objFollow = new FollowPostBO();
-            //objFollow.AtId = hfId.Value;
-            //objFollow.Type = Global.WALL;
-            //objFollow.UserId = Session["hello"].ToString(); //////////////////////////////////
-            //objFollow.FirstName = objUser.FirstName;
-            //objFollow.LastName = objUser.LastName;
-            //FollowPostBLL.insertFollowPost(objFollow);
-            ////////////////////////////////////////////////////////////////////////////
-        
-
+            Response.Redirect("UserData.aspx");                
         }
     }
 
@@ -203,52 +162,11 @@ public partial class Wall : System.Web.UI.Page
         
     }
 
-    //protected void UpdateStatus()
-    //{
-    //    string status = txtUpdatePost.Text;
-
-    //    if (lblFriendsWith.Text != "")
-    //        status += " with " + lblFriendsWith.Text.Remove(lblFriendsWith.Text.LastIndexOf(","));
-
-    //    if (lblLocation.Text != "")
-    //        status += lblLocation.Text;
-
-    //    if (lblFriendsTag.Text != "")
-    //        status += " and Tag to " + lblFriendsTag.Text.Remove(lblFriendsTag.Text.LastIndexOf(","));
-
-    //    UserBO objUser = new UserBO();
-    //    objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
-
-    //    WallBO objWall = new WallBO();
-    //    objWall.PostedByUserId = Session["UserId"].ToString();
-    //    objWall.WallOwnerUserId = userid;
-    //    objWall.FirstName = objUser.FirstName;
-    //    objWall.LastName = objUser.LastName;
-    //    objWall.Post = status;
-    //    objWall.AddedDate = DateTime.Now;
-    //    objWall.Type = Global.TEXT_POST;
-    //    WallBLL.insertWall(objWall);
-    //    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtUpdatePost.ClientID + "').value = '';", true);
-    //    lblLocation.Text = "";
-    //    lblFriendsWith.Text = "";
-    //    LoadWall(100);
-
-    //}
-
     protected void LoadWall(int top)
     {
-       
-        //GridViewWall.DataSource = WallBLL.getWallByUserId(userid, top);
-        //GridViewWall.DataBind();
-
-
-        //LoadComments();
-        //YouLikes();
-        //CountShare();
-        
-    
-
+     
     }
+
     protected void txtComments_TextChanged(object sender, EventArgs e)
     {
        
@@ -290,11 +208,9 @@ public partial class Wall : System.Web.UI.Page
       
     }
     protected void GridViewWall_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        //GridViewWall.PageIndex = e.NewPageIndex;
+    {     
         LoadWall(50);
     }
-
 
     protected void RWallPost(string post)
     {
@@ -310,7 +226,6 @@ public partial class Wall : System.Web.UI.Page
         objWall.AddedDate = DateTime.Now;
         objWall.Type = Global.TEXT_POST;
         WallBLL.insertWall(objWall);
-
 
     }
 
@@ -384,21 +299,7 @@ public partial class Wall : System.Web.UI.Page
             ShareStatus(p); 
             
             // Registering the Share after successful completion of the above process
-            ShareBLL.insertShare(objClass);
-            
-            // Sending Notifications to the one with which post has been shared and the one who were tagged
-
-            ////////////////////////////////////////////////////////////////////////////
-            // Put "follow" record for each user that has been tagged, traverse the list
-            //FollowPostBO objFollow = new FollowPostBO();
-            //objFollow.AtId = hfId.Value;
-            //objFollow.Type = Global.WALL;
-            //objFollow.UserId = Session["hello"].ToString(); //////////////////////////////////
-            //objFollow.FirstName = objUser.FirstName;
-            //objFollow.LastName = objUser.LastName;
-            //FollowPostBLL.insertFollowPost(objFollow);
-            ////////////////////////////////////////////////////////////////////////////
-      
+            ShareBLL.insertShare(objClass);            
         }
         
         LoadWall(50);
@@ -414,38 +315,29 @@ public partial class Wall : System.Web.UI.Page
         
         if (lblLocation.Text != "")
             status += lblLocation.Text;
-        
-        //if (lblFriendsTag.Text != "")
-        //    status += " and Shared  " + lblFriendsTag.Text.Remove(lblFriendsTag.Text.LastIndexOf(","));
-
+                
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
+        objUser = UserBLL.getUserByUserId(SessionClass.getUserId());
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = Session["UserId"].ToString();
-        
-        //string temp = Session["ShareWithID"].ToString();
-        //string temp = Session["ShareWithID"].ToString();
+        objWall.PostedByUserId = SessionClass.getUserId();
 
-        //string id = Session["hello"].ToString();
-        
-        if (Session["ShareWithID"] != null)
+        if (SessionClass.getShareWithID() != null)
         {
-            if (Session["ShareWithID"].ToString() != "")
+            if (SessionClass.getShareWithID() != "")
             {
-                objWall.WallOwnerUserId = Session["ShareWithID"].ToString();
+                objWall.WallOwnerUserId = SessionClass.getShareWithID();
                 UserBO objFriendObj = new UserBO();
-                objFriendObj = UserBLL.getUserByUserId(Session["ShareWithID"].ToString());
+                objFriendObj = UserBLL.getUserByUserId(SessionClass.getShareWithID());
                 
-                // Sending notification with which the post is beind shared 
-               // sendEmail(objFriendObj.Email);
+                // Sending notification with which the post is beind shared         
                 if (!CheckBox1.Checked)
                 {
                     ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objFriendObj.Email);
-                    notif(Session["ShareWithID"].ToString(), Session["PostID"].ToString());
+                    notif(SessionClass.getShareWithID(), SessionClass.getPostID());
                 }
                 //Sending notification to all tagged friends
-                List<string> temp = (List<string>)Session["TaggedFriends"];
+                List<string> temp = (List<string>)SessionClass.getTaggedFriends();
 
                 if (temp != null)
                 {
@@ -457,11 +349,11 @@ public partial class Wall : System.Web.UI.Page
                         if (!CheckBox1.Checked)
                         {
                             ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objFriendObj1.Email);
-                            notif(str, Session["PostID"].ToString());
+                            notif(str, SessionClass.getPostID());
                         }
                         //Inserting follow post record for each tagged user
                         FollowPostBO fp = new FollowPostBO();
-                        fp.AtId = Session["PostID"].ToString();
+                        fp.AtId = SessionClass.getPostID();
                         fp.UserId = objFriendObj1.Id;
                         fp.FirstName = objFriendObj1.FirstName;
                         fp.LastName = objFriendObj1.LastName;
@@ -470,23 +362,21 @@ public partial class Wall : System.Web.UI.Page
                         FollowPostBLL.insertFollowPost(fp);
                     }
                 }
-
             }
             else
             {
-                objWall.WallOwnerUserId = Session["UserId"].ToString();
+                objWall.WallOwnerUserId = SessionClass.getUserId();
                 UserBO objUserEmail = new UserBO();
-                objUserEmail = UserBLL.getUserByUserId(Session["UserId"].ToString());
+                objUserEmail = UserBLL.getUserByUserId(SessionClass.getUserId());
 
-                // Sending notification with which the post is beind shared 
-                //sendEmail(objUserEmail.Email);
+                // Sending notification with which the post is beind shared                 
                 if (!CheckBox1.Checked)
                 {
                     ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserEmail.Email);
-                    notif(Session["ShareWithID"].ToString(), Session["PostID"].ToString());
+                    notif(SessionClass.getShareWithID(), SessionClass.getPostID());
                 }
                 //Sending notification to all tagged friends
-                List<string> temp = (List<string>)Session["TaggedFriends"];
+                List<string> temp = (List<string>)SessionClass.getTaggedFriends();
 
                 if (temp != null)
                 {
@@ -494,15 +384,15 @@ public partial class Wall : System.Web.UI.Page
                     {
                         UserBO objFriendObj1 = new UserBO();
                         objFriendObj1 = UserBLL.getUserByUserId(str);
-                        //sendEmail(objFriendObj1.Email);
+
                         if (!CheckBox1.Checked)
                         {
                             ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objFriendObj1.Email);
                         }
-                        notif(str, Session["PostID"].ToString());
+                        notif(str, SessionClass.getPostID());
                         //Inserting follow post record for each tagged user
                         FollowPostBO fp = new FollowPostBO();
-                        fp.AtId = Session["PostID"].ToString();
+                        fp.AtId = SessionClass.getPostID();
                         fp.UserId = objFriendObj1.Id;
                         fp.FirstName = objFriendObj1.FirstName;
                         fp.LastName = objFriendObj1.LastName;
@@ -515,18 +405,16 @@ public partial class Wall : System.Web.UI.Page
         }
         else
         {
-            objWall.WallOwnerUserId = Session["UserId"].ToString();
+            objWall.WallOwnerUserId = SessionClass.getUserId();
             UserBO objUserEmail = new UserBO();
-            objUserEmail = UserBLL.getUserByUserId(Session["UserId"].ToString());
+            objUserEmail = UserBLL.getUserByUserId(SessionClass.getUserId());
 
-            // Sending notification with which the post is beind shared 
-            //sendEmail(objUserEmail.Email);
             if (!CheckBox1.Checked)
             {
                 ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserEmail.Email);
             }
             //Sending notification to all tagged friends
-            List<string> temp = (List<string>)Session["TaggedFriends"];
+            List<string> temp = (List<string>)SessionClass.getTaggedFriends();
             if (temp != null)
             {
                 foreach (string str in temp)
@@ -537,11 +425,11 @@ public partial class Wall : System.Web.UI.Page
                     if (!CheckBox1.Checked)
                     {
                         ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objFriendObj1.Email);
-                        notif(str, Session["PostID"].ToString());
+                        notif(str, SessionClass.getPostID());
                     }
                     //Inserting follow post record for each tagged user
                     FollowPostBO fp = new FollowPostBO();
-                    fp.AtId = Session["PostID"].ToString();
+                    fp.AtId = SessionClass.getPostID();
                     fp.UserId = objFriendObj1.Id;
                     fp.FirstName = objFriendObj1.FirstName;
                     fp.LastName = objFriendObj1.LastName;
@@ -552,59 +440,7 @@ public partial class Wall : System.Web.UI.Page
             }
         }
 
-        status ="Share a post "+ status;
-        objWall.FirstName = objUser.FirstName;
-        objWall.LastName = objUser.LastName;
-        objWall.Post = status;
-        objWall.EmbedPost = Session["EmbedPost"].ToString();
-        objWall.AddedDate = DateTime.Now;
-        objWall.Type = Convert.ToInt32(Session["PostType"]);
-        string wid=WallBLL.insertWall(objWall);
-        
-        //////////////////////////////////////////////
-
-        ////////////////////////////////////TICKER CODE //////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-        List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(), Global.CONFIRMED);
-        //get the education,hometown and employer of people in list
-        foreach (UserFriendsBO Useritem in listtag)
-        {
-            TickerBO objTicker = new TickerBO();
-
-
-            objTicker.PostedByUserId = objWall.PostedByUserId;
-            objTicker.TickerOwnerUserId = Useritem.FriendUserId;
-            objTicker.FirstName = objWall.FirstName;
-            objTicker.LastName = objWall.LastName;
-            objTicker.Post = objWall.Post;
-            objTicker.Title = "share a post";
-            objTicker.AddedDate = DateTime.UtcNow;
-            objTicker.Type = objWall.Type;
-            objTicker.EmbedPost = objWall.EmbedPost;
-            objTicker.WallId = wid;
-            TickerBLL.insertTicker(objTicker);
-
-        }
-        TickerBO objTickerUserTag = new TickerBO();
-
-
-        objTickerUserTag.PostedByUserId = Session["UserId"].ToString();
-        objTickerUserTag.TickerOwnerUserId = Session["UserId"].ToString();
-        objTickerUserTag.FirstName = objUser.FirstName;
-        objTickerUserTag.LastName = objUser.LastName;
-        objTickerUserTag.Post = objWall.Post;
-        objTickerUserTag.Title = "share a post";
-        objTickerUserTag.AddedDate = DateTime.UtcNow;
-        objTickerUserTag.Type = objWall.Type;
-        objTickerUserTag.EmbedPost = objWall.EmbedPost;
-        objTickerUserTag.WallId = wid;
-        TickerBLL.insertTicker(objTickerUserTag);
-
-        ////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-
-        //////////////////////////////////////////////
-
+        TickerBLL.InsertBulkTickerData(objWall, "Share a post " + status);
 
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtUpdatePost.ClientID + "').value = '';", true);
         lblLocation.Text = "";
@@ -632,10 +468,6 @@ public partial class Wall : System.Web.UI.Page
         objNotify.FriendFName = objUser.FirstName;
         objNotify.FriendLName = objUser.LastName;
 
-
-        // ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserNotify.Email);
-
-
         NotificationBLL.insertNotification(objNotify);
     }
     void notif(string uid,string atid)
@@ -655,10 +487,6 @@ public partial class Wall : System.Web.UI.Page
         objNotify.FriendId = userid;
         objNotify.FriendFName = objUser.FirstName;
         objNotify.FriendLName = objUser.LastName;
-        
-
-        // ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserNotify.Email);
-
 
         NotificationBLL.insertNotification(objNotify);
     }
@@ -693,80 +521,28 @@ public partial class Wall : System.Web.UI.Page
         //string url = "<a  href=\"SharePost.aspx=" + atid + "\">" + "Click here to see the post." + "</a>,";
 
         msg.Body = "Dear Pyramid Plus user, You have got a share post notification. Please see the attached link to check the post on Pyramid Plus Website. " + "<br/><br/>" ;
-       
-        //Session["randomCode"] = randomCode;
-        //generate the randomCode and place it in the c_User
 
         try
-        {
-           
-            client.Send(msg);
-            
+        {           
+            client.Send(msg);            
         }
         catch (Exception ex)
         {
-            // lblResult.ForeColor = Color.Red;
-            //lblResult.Text = "Error occured while sending your message." + ex.Message + "with code " + randomCode;
+
         }
             
     }
 
-    
-
-    //protected void lbtnLike_Click(object sender, EventArgs e)
-    //{
-
-    //    GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
-    //    LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
-    //    Label labelLike = (Label)row.FindControl("lblLike");
-    //    HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
-
-
-
-    //    if (linkLike.Text == "Like")
-    //    {
-    //        UserBO objUser = new UserBO();
-    //        objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
-    //        LikesBO objClass = new LikesBO();
-    //        objClass.AtId = hfId.Value;
-    //        objClass.Type = Global.WALL;
-    //        objClass.UserId = Session["UserId"].ToString();
-    //        objClass.FirstName = objUser.FirstName;
-    //        objClass.LastName = objUser.LastName;
-    //        LikesBLL.insertLikes(objClass);
-    //        labelLike.Text = "You Like this";
-    //        linkLike.Text = "UnLike";
-
-    //    }
-    //    else
-    //    {
-    //        LikesBO objClass = new LikesBO();
-    //        objClass.AtId = hfId.Value;
-    //        objClass.Type = Global.WALL;
-    //        objClass.UserId = Session["UserId"].ToString();
-    //        LikesBLL.unLikes(objClass);
-    //        labelLike.Text = "";
-    //        linkLike.Text = "Like";
-    //    }
-    //    LoadWall(50);
-
-    //}
-    // @@@@@@@@@@@@@@@@@@@@ by Nabeel
     protected void lbtnUser_Click(object sender, EventArgs e)
     {
         GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
         LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
 
-       
         GridView gridviewLikesUser = (GridView)row.FindControl("GridViewLikesUser"); 
         gridviewLikesUser.DataSource = LikesBLL.getLikesTop(Global.WALL, hfId.Value); 
-        gridviewLikesUser.DataBind();
-       // LoadWall(50);
-
+        gridviewLikesUser.DataBind();       
     }
-
-
 
     // @@@@@@@@@@@@@@@@@@@@ by Nabeel
     protected void lbtnViewComments_Click(object sender, EventArgs e)
@@ -813,12 +589,8 @@ public partial class Wall : System.Web.UI.Page
             lbtnCommentLike.Text = "Like";
             
         }
-       // 
-       // Comment_YouLikes();
-
+       
         LoadWall(50);
-
-       // Response.Redirect("main.aspx?c="+hfId.Value);
     }
 
     
@@ -830,12 +602,9 @@ public partial class Wall : System.Web.UI.Page
        // LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
 
-  
         GridView gridviewLikesUser = (GridView)row.FindControl("GridViewLikesCommentUser");
         gridviewLikesUser.DataSource = LikesBLL.getLikesTop(Global.WALL_COMMENT, hfId.Value);
-        gridviewLikesUser.DataBind();
-       // LoadWall(50);
-
+        gridviewLikesUser.DataBind();       
     }
 
     protected void lbtnDeleteComment_Click(object sender, EventArgs e)
@@ -845,8 +614,6 @@ public partial class Wall : System.Web.UI.Page
         CommentsDAL.deleteComments(hfId.Value);
         LoadWall(50);
     }
-
-
 
     protected void txtLocation_TextChanged(object sender, EventArgs e)
     {
@@ -891,14 +658,9 @@ public partial class Wall : System.Web.UI.Page
         // registering the JavaScript on the page and controls with postback
         this.Page.ClientScript.RegisterStartupScript(typeof(Page), "alert", message);
         string s = "var jqi = $.prompt('Hello World!');";
-
-str+=" jqi.bind('promptsubmit', function(event, val, msg, fields){";
-    // To hold the prompt open you can either:
-    // event.preventDefault()
-    // or
-    // return false;
-str+="});";
-//ScriptManager.RegisterStartupScript(UpdatePanel2, UpdatePanel2.GetType(), "alert", "$.prompt('Your Post Successfully Post !!',{buttons: { Ok:false } , show:'slideDown' });return false;", true);
+            str+=" jqi.bind('promptsubmit', function(event, val, msg, fields){";
+    
+            str+="});";
     }
   
     protected void btn_Click(object sender, EventArgs e)
@@ -907,12 +669,7 @@ str+="});";
     protected void lbtnAddPhotos_Click(object sender, EventArgs e)
     {
        showmsg("Hello");
-
-       
-       
     }
-
-    
 
     protected void UpdatePhoto()
     {
@@ -922,10 +679,7 @@ str+="});";
             status += " with " + lblFriendsWith.Text.Remove(lblFriendsWith.Text.LastIndexOf(","));
 
         if (lblLocation.Text != "")
-            status += lblLocation.Text;
-        // if (lblFriendsTag.Text != "")
-
-        // status += " and Tag to " + lblFriendsTag.Text.Remove(lblFriendsTag.Text.LastIndexOf(","));
+            status += lblLocation.Text;    
 
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
@@ -1012,8 +766,6 @@ str+="});";
 
         WallBO objWall = new WallBO();
         objWall.PostedByUserId = Session["UserId"].ToString();
-
-        // Whether the wall is owned by some other person or by me
 
         try
         {

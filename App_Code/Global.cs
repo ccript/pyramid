@@ -107,5 +107,14 @@ public static class Global
     public const string MINTUES_AGO = "{0} minutes ago";
     public const string NOT_YET = "not yet";
 
+    public const string SHARE_A_POST = "share a post";
 
+    public const string SESSION_USER_ID = "UserId";
+    public const string SESSION_PHOTO_ALBUM_ID = "PhotoAlbumId";
+    public const string SESSION_TEMP_USER_ID = "TempUserId";
+    public const string SESSION_POST_TYPE = "PostType";
+    public const string SESSION_EMBED_POST = "EmbedPost";
+    public const string SESSION_SHARE_WITH_ID = "ShareWithID";
+    public const string SESSION_POST_ID = "PostID";
+    public const string SESSION_TAGGED_FRIENDS = "TaggedFriends";
 }
