@@ -16,17 +16,16 @@ using DataLayer;
 using System.Globalization;
 public partial class BasicInfoPage : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = SessionClass.getUserId();
         imgSave.Visible = false;
         lblSave.Visible = false;
         ((Label)Master.FindControl("lblTitle")).Text = "Basic Information";
@@ -86,7 +85,7 @@ public partial class BasicInfoPage : System.Web.UI.Page
         {
             BasicInfoBO objBasicInfo = new BasicInfoBO();
 
-            objBasicInfo.UserId = userid;
+            objBasicInfo.UserId = Userid;
             objBasicInfo.CurrentCity = txtCurrentCity.Text;
             objBasicInfo.HomeTown = txtHometown.Text;
 
@@ -106,11 +105,11 @@ public partial class BasicInfoPage : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -161,7 +160,7 @@ public partial class BasicInfoPage : System.Web.UI.Page
     protected void LoadBasicInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
 
       
             txtHometown.Text = objBasicInfo.HomeTown;
@@ -171,7 +170,7 @@ public partial class BasicInfoPage : System.Web.UI.Page
     protected void UpdateUserInfo()
     {
         UserBO objUser = new UserBO();
-       objUser.Id=userid;
+       objUser.Id=Userid;
       // objUser.Gender=rdGender.SelectedValue;
 
         string Birthday_string = lstMonth.SelectedValue + "/" + lstDay.SelectedValue + "/" + lstYear.SelectedValue;
@@ -185,7 +184,7 @@ public partial class BasicInfoPage : System.Web.UI.Page
     protected void LoadUserInfo()
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
     
      lstYear.SelectedValue = objUser.DateOfBirth.Year.ToString();
       lstMonth.SelectedValue = objUser.DateOfBirth.Month.ToString();
@@ -213,7 +212,7 @@ public partial class BasicInfoPage : System.Web.UI.Page
         {
             TemplateBO langObj = new LanguageBO();
             langObj.Name = lstLanguages.SelectedValue;
-            langObj.UserId = userid;
+            langObj.UserId = Userid;
             
 
             //elbll.insert(langObj);
@@ -231,7 +230,7 @@ public partial class BasicInfoPage : System.Web.UI.Page
     }
     protected void LoadLanguages()
     {
-        DListLanguage.DataSource = TemplateInfoBLL.SelectLanguageByid(new LanguageDAL(), userid);  //LanguageBLL.getLanguages(userid);
+        DListLanguage.DataSource = TemplateInfoBLL.SelectLanguageByid(new LanguageDAL(), Userid);  //LanguageBLL.getLanguages(userid);
         DListLanguage.DataBind();
     }
 }

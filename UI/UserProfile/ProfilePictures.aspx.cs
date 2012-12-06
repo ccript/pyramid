@@ -9,18 +9,18 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class UserProfile_ProfilePictures : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Profile Pictures";
-       
-        try
-        {
-            userid = Session["UserId"].ToString();
-           
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-        imgProfile.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
+        Userid = SessionClass.getUserId();
+        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
     }
     protected void btnSaveUpload_Click(object sender, EventArgs e)
     {
@@ -34,7 +34,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
                 {
                     try
                     {
-                        FileUpload1.SaveAs(Server.MapPath(Global.PROFILE_PICTURE) + userid + ".jpg");
+                        FileUpload1.SaveAs(Server.MapPath(Global.PROFILE_PICTURE) + Userid + ".jpg");
                         WallPost("Profile Picture Change");
                     }
                     catch (Exception ex)
@@ -55,7 +55,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
     }
     protected void btnCamSave_Click(object sender, EventArgs e)
     {
-       imgProfile.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
+       imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
        WallPost("Profile Picture Change");
      //  Response.Redirect("ImageConversions.aspx");
       
@@ -64,10 +64,10 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
     {
 
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
         
         string oldfile = Server.MapPath("../../Resources/images/"+objUser.Gender+".png");
-        string newfile = Server.MapPath(Global.PROFILE_PICTURE) + userid + ".jpg";
+        string newfile = Server.MapPath(Global.PROFILE_PICTURE) + Userid + ".jpg";
               string backup = Server.MapPath(Global.PROFILE_PICTURE) +"backup.jpg";
               if (System.IO.File.Exists(newfile))
               {
@@ -76,18 +76,18 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
                   System.IO.File.Copy(oldfile, newfile);
               }
 
-        imgProfile.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
+        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
         WallPost("Profile Picture Change");
     }
 
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;

@@ -16,18 +16,18 @@ using System.Globalization;
 using DataLayer;
 public partial class EducationWork : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         imgSave.Visible = false;
         lblSave.Visible = false;
-        
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = SessionClass.getUserId();
         ((Label)Master.FindControl("lblTitle")).Text = "Education & Work";
         if (!IsPostBack)
         {
@@ -141,11 +141,11 @@ public partial class EducationWork : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -197,7 +197,7 @@ public partial class EducationWork : System.Web.UI.Page
     {
         TemplateBO objEmployer = new EmployerBO();
 
-        objEmployer.UserId = userid;
+        objEmployer.UserId = Userid;
   
         objEmployer.Organization =txtEmployer.Text;
         objEmployer.Position = txtEmployerPosition.Text;
@@ -225,7 +225,7 @@ public partial class EducationWork : System.Web.UI.Page
     {
         ProjectBO objProject = new ProjectBO();
 
-        objProject.UserId = userid;
+        objProject.UserId = Userid;
         objProject.ProjectName = txtProject.Text;
         objProject.EmployerId = "4f366d5c745cb3006cb76079";
         objProject.Description = txtProjectDescription.Text;
@@ -269,7 +269,7 @@ public partial class EducationWork : System.Web.UI.Page
     {
        UniversityBO objUniversity = new UniversityBO();
 
-        objUniversity.UserId = userid;
+        objUniversity.UserId = Userid;
         objUniversity.UniversityName = txtUniversity.Text;
 
         objUniversity.AttendedFor = txtAttendFor.Text;
@@ -313,7 +313,7 @@ public partial class EducationWork : System.Web.UI.Page
     {
         SchoolBO objSchool = new SchoolBO();
 
-        objSchool.UserId = userid;
+        objSchool.UserId = Userid;
         objSchool.Name = txtSchool.Text;
         objSchool.Description = txtSchoolDescription.Text;
 
@@ -330,14 +330,14 @@ public partial class EducationWork : System.Web.UI.Page
     protected void LoadDataListEmployer()
     {
 
-        DListEmployer.DataSource=TemplateInfoBLL.SelectEmployerTop5(new EmployerDAL(), userid);
+        DListEmployer.DataSource=TemplateInfoBLL.SelectEmployerTop5(new EmployerDAL(), Userid);
         DListEmployer.DataBind();
 
     }
     protected void LoadDataListProject()
     {
 
-       DListProject.DataSource = ProjectBLL.getProjectTop5(userid);
+       DListProject.DataSource = ProjectBLL.getProjectTop5(Userid);
        DListProject.DataBind();
 
     }
@@ -345,14 +345,14 @@ public partial class EducationWork : System.Web.UI.Page
     protected void LoadDataListUniversity()
     {
 
-        DListUniversity.DataSource = UniversityDAL.getUniversityTop5(userid);
+        DListUniversity.DataSource = UniversityDAL.getUniversityTop5(Userid);
        DListUniversity.DataBind();
 
     }
     protected void LoadDataListSchool()
     {
 
-        DListSchool.DataSource = SchoolBLL.getSchoolTop5(userid);
+        DListSchool.DataSource = SchoolBLL.getSchoolTop5(Userid);
         DListSchool.DataBind();
 
     }

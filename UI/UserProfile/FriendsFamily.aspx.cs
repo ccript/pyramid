@@ -15,18 +15,19 @@ using ObjectLayer;
 using System.Globalization;
 public partial class FriendsFamily : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         imgSave.Visible = false;
         lblSave.Visible = false;
-       
-        try
-        {
-            userid = Session["UserId"].ToString();
 
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = SessionClass.getUserId();
         ((Label)Master.FindControl("lblTitle")).Text = "Friends and Family";
         if (!IsPostBack)
         {
@@ -45,7 +46,7 @@ public partial class FriendsFamily : System.Web.UI.Page
     protected void LoadBasicInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
         lstRelationshipStatus.SelectedValue = objBasicInfo.RelationshipStatus;
     }
 
@@ -72,11 +73,11 @@ public partial class FriendsFamily : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -129,7 +130,7 @@ public partial class FriendsFamily : System.Web.UI.Page
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
 
-        objBasicInfo.UserId = userid;
+        objBasicInfo.UserId = Userid;
         objBasicInfo.RelationshipStatus = lstRelationshipStatus.SelectedValue;
 
         BasicInfoBLL.updateFamilyPage(objBasicInfo);
@@ -141,7 +142,7 @@ public partial class FriendsFamily : System.Web.UI.Page
     {
 
 
-        DataListFriends.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
+        DataListFriends.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);
         DataListFriends.DataBind();
 
 

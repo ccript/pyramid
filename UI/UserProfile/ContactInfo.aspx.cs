@@ -11,18 +11,19 @@ using DataLayer;
 public partial class ContactInfo : System.Web.UI.Page
 {
     string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
 
         imgSave.Visible = false;
         lblSave.Visible = false;
-        
-        try
-        {
-            userid = Session["UserId"].ToString();
 
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = SessionClass.getUserId();
         ((Label)Master.FindControl("lblTitle")).Text = "Contact Information";
         if (!IsPostBack)
         {
@@ -45,7 +46,7 @@ public partial class ContactInfo : System.Web.UI.Page
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
 
-        objBasicInfo.UserId = userid;
+        objBasicInfo.UserId = Userid;
         objBasicInfo.CityTown = txtTownCity.Text;
         objBasicInfo.Address = txtAddress.Text;
         objBasicInfo.ZipCode = txtZipCode.Text;
@@ -62,11 +63,11 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -118,7 +119,7 @@ public partial class ContactInfo : System.Web.UI.Page
     {
         UserBO userObj = new UserBO();
         userObj.Email = txtPrimaryEmail.Text;
-         userObj.Id = userid;
+         userObj.Id = Userid;
        UserBLL.updateEmail(userObj);
        LoadContactInfo();
      }
@@ -126,7 +127,7 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void LoadContactInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
 
 
         txtTownCity.Text = objBasicInfo.CityTown;
@@ -134,7 +135,7 @@ public partial class ContactInfo : System.Web.UI.Page
         txtZipCode.Text = objBasicInfo.ZipCode;
         txtNeighbourhood.Text = objBasicInfo.Neighbourhood;
         UserBO userObj= new UserBO();
-        userObj = UserBLL.getUserByUserId(userid);
+        userObj = UserBLL.getUserByUserId(Userid);
         txtPrimaryEmail.Text = userObj.Email;
         
     }
@@ -143,7 +144,7 @@ public partial class ContactInfo : System.Web.UI.Page
 
          ContactInfoBO objContactInfo = new ContactInfoBO();
         objContactInfo.Name=txtEmail.Text;
-        objContactInfo.UserId = userid;
+        objContactInfo.UserId = Userid;
         objContactInfo.Type="Email";
         ContactInfoDAL.insertContactInfo(objContactInfo);
         LoadGridView();
@@ -152,7 +153,7 @@ public partial class ContactInfo : System.Web.UI.Page
     {
         ContactInfoBO objContactInfo = new ContactInfoBO();
         objContactInfo.Name = lstCountryCode.SelectedValue +"-"+ txtPhoneNumber.Text;
-        objContactInfo.UserId = userid;
+        objContactInfo.UserId = Userid;
         objContactInfo.Type = "PhoneNumber";
         ContactInfoDAL.insertContactInfo(objContactInfo);
         LoadPhoneNumber();
@@ -183,7 +184,7 @@ public partial class ContactInfo : System.Web.UI.Page
     {
         ContactInfoBO objContactInfo = new ContactInfoBO();
         objContactInfo.Name= txtWebsites.Text;
-        objContactInfo.UserId = userid;
+        objContactInfo.UserId = Userid;
         objContactInfo.Type = "Website";
         ContactInfoDAL.insertContactInfo(objContactInfo);
         LoadWebsites();
@@ -192,7 +193,7 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void LoadOthersEmail()
     {
 
-        GridViewEmail.DataSource = ContactInfoDAL.getContactInfo("Email", userid);
+        GridViewEmail.DataSource = ContactInfoDAL.getContactInfo("Email", Userid);
        GridViewEmail.DataBind();
 
     }
@@ -200,7 +201,7 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void LoadWebsites()
     {
 
-        GridViewWebsites.DataSource = ContactInfoDAL.getContactInfo("Website", userid);
+        GridViewWebsites.DataSource = ContactInfoDAL.getContactInfo("Website", Userid);
         GridViewWebsites.DataBind();
 
     }
@@ -208,7 +209,7 @@ public partial class ContactInfo : System.Web.UI.Page
     protected void LoadPhoneNumber()
     {
 
-        GridViewPhone.DataSource = ContactInfoDAL.getContactInfo("PhoneNumber", userid);
+        GridViewPhone.DataSource = ContactInfoDAL.getContactInfo("PhoneNumber", Userid);
         GridViewPhone.DataBind();
 
     }

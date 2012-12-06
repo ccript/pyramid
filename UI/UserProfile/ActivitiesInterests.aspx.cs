@@ -14,18 +14,20 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class ActivitiesInterests : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         imgSave.Visible = false;
         lblSave.Visible = false;
-        
-        try
-        {
-            userid =Session["UserId"].ToString();
 
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid =  SessionClass.getUserId();
+        
         ((Label)Master.FindControl("lblTitle")).Text = "Activities & Interests";
         if (!IsPostBack)
         {
@@ -63,11 +65,11 @@ public partial class ActivitiesInterests : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -119,7 +121,7 @@ public partial class ActivitiesInterests : System.Web.UI.Page
     {
         ActivityBO objClass = new ActivityBO();
 
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
         objClass.Name = txtActivities.Text;
 
         objClass.Description = txtActivitiesDescription.Text;
@@ -174,7 +176,7 @@ public partial class ActivitiesInterests : System.Web.UI.Page
     {
         ActivityBO objClass = new ActivityBO();
 
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
         objClass.Name = txtInterests.Text;
 
         objClass.Description = txtInterestsDescription.Text;
@@ -197,7 +199,7 @@ public partial class ActivitiesInterests : System.Web.UI.Page
     protected void LoadDataListActivities()
     {
 
-        DListActivities.DataSource = ActivityBLL.getActivityTop5(Global.ACTIVITIES, userid);
+        DListActivities.DataSource = ActivityBLL.getActivityTop5(Global.ACTIVITIES, Userid);
         DListActivities.DataBind();
 
     }
@@ -206,7 +208,7 @@ public partial class ActivitiesInterests : System.Web.UI.Page
     protected void LoadDataListInterests()
     {
 
-        DListInterests.DataSource = ActivityBLL.getActivityTop5(Global.INTERESTS, userid);
+        DListInterests.DataSource = ActivityBLL.getActivityTop5(Global.INTERESTS, Userid);
         DListInterests.DataBind();
 
     }

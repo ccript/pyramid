@@ -8,21 +8,21 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class Entertainment : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     public string ListBooks;
     protected void Page_Load(object sender, EventArgs e)
     {
         imgSave.Visible = false;
         lblSave.Visible = false;
-       
-        try
-        {
-            userid = Session["UserId"].ToString();
 
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = SessionClass.getUserId();
 
-   
         ((Label)Master.FindControl("lblTitle")).Text = "Arts & Entertainment";
 
         LoadDataListBooks();
@@ -49,11 +49,11 @@ public partial class Entertainment : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -104,35 +104,35 @@ public partial class Entertainment : System.Web.UI.Page
     protected void LoadDataListBooks()
     {
 
-        DListBooks.DataSource = EntertainmentBLL.getEntertainmentTop(Global.BOOKS,userid);
+        DListBooks.DataSource = EntertainmentBLL.getEntertainmentTop(Global.BOOKS,Userid);
         DListBooks.DataBind();
        
     }
     protected void LoadDataListMusic()
     {
 
-        DListMusic.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MUSIC, userid);
+        DListMusic.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MUSIC, Userid);
         DListMusic.DataBind();
 
     }
     protected void LoadDataListMovie()
     {
 
-        DListMovie.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MOVIE, userid);
+        DListMovie.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MOVIE, Userid);
         DListMovie.DataBind();
 
     }
     protected void LoadDataListTelevision()
     {
 
-        DListTelevision.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TELEVISION, userid);
+        DListTelevision.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TELEVISION, Userid);
         DListTelevision.DataBind();
 
     }
     protected void LoadDataListGame()
     {
 
-        DListGame.DataSource = EntertainmentBLL.getEntertainmentTop(Global.GAME, userid);
+        DListGame.DataSource = EntertainmentBLL.getEntertainmentTop(Global.GAME, Userid);
         DListGame.DataBind();
 
     }
@@ -144,7 +144,7 @@ public partial class Entertainment : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtBooks.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + ".jpg")))
                 objClass.Image = txtBooks.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + ".png")))
@@ -169,7 +169,7 @@ public partial class Entertainment : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtMusic.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMusic.Text + ".jpg")))
                 objClass.Image = txtMusic.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMusic.Text + ".png")))
@@ -193,7 +193,7 @@ public partial class Entertainment : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtMovie.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMovie.Text + ".jpg")))
                 objClass.Image = txtMovie.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMovie.Text + ".png")))
@@ -216,7 +216,7 @@ public partial class Entertainment : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtTelevision.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTelevision.Text + ".jpg")))
                 objClass.Image = txtTelevision.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTelevision.Text + ".png")))
@@ -240,7 +240,7 @@ public partial class Entertainment : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtGame.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtGame.Text + ".jpg")))
                 objClass.Image = txtGame.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtGame.Text + ".png")))

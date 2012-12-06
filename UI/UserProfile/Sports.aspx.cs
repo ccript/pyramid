@@ -8,19 +8,19 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class Sports : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
 
         imgSave.Visible = false;
         lblSave.Visible = false;
-       
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = SessionClass.getUserId(); 
         ((Label)Master.FindControl("lblTitle")).Text = "Sports";
     
         LoadDataListSports();
@@ -43,11 +43,11 @@ public partial class Sports : System.Web.UI.Page
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;
@@ -98,21 +98,21 @@ public partial class Sports : System.Web.UI.Page
     protected void LoadDataListSports()
     {
 
-        DListSports.DataSource = EntertainmentBLL.getEntertainmentTop(Global.SPORTS, userid);
+        DListSports.DataSource = EntertainmentBLL.getEntertainmentTop(Global.SPORTS, Userid);
         DListSports.DataBind();
        
     }
     protected void LoadDataListTeam()
     {
 
-        DListTeam.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TEAM, userid);
+        DListTeam.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TEAM, Userid);
         DListTeam.DataBind();
 
     }
     protected void LoadDataListAthelete()
     {
 
-        DListAthelete.DataSource = EntertainmentBLL.getEntertainmentTop(Global.ATHELETE, userid);
+        DListAthelete.DataSource = EntertainmentBLL.getEntertainmentTop(Global.ATHELETE, Userid);
         DListAthelete.DataBind();
 
     }
@@ -125,7 +125,7 @@ public partial class Sports : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtSports.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
 
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtSports.Text + ".jpg")))
                 objClass.Image = txtSports.Text + ".jpg";
@@ -150,7 +150,7 @@ public partial class Sports : System.Web.UI.Page
             EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtTeam.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
 
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTeam.Text + ".jpg")))
                 objClass.Image = txtTeam.Text + ".jpg";
@@ -175,7 +175,7 @@ public partial class Sports : System.Web.UI.Page
           EntertainmentBO objClass = new EntertainmentBO();
 
             objClass.Name = txtAthelete.Text;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtAthelete.Text + ".jpg")))
                 objClass.Image = txtAthelete.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtAthelete.Text + ".png")))
