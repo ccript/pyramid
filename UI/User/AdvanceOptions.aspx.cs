@@ -13,20 +13,7 @@ public partial class User_AdvanceOptions : System.Web.UI.Page
     string userid;
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            if (Request.QueryString.Count == 0)
-            {
-                userid = Session["UserId"].ToString();
-            }
-            else
-            {
-                userid = Request.QueryString.Get(0);
-                Session["TempUserId"] = userid;
-            }
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        userid = LoginClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Your Friends";
         if (!IsPostBack)

@@ -12,12 +12,7 @@ public partial class User_AddAlbum : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Create new Album";
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        userid = LoginClass.getUserId();
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {

@@ -17,31 +17,12 @@ public partial class FriendsList : System.Web.UI.Page
     string userid;
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        
-        try
-        {
-            if (Request.QueryString.Count == 0)
-            {
-                 userid = Session["UserId"].ToString();
-                 Session["TempUserId"] = null;
-            }           
-            else
-            {
-                userid = Request.QueryString.Get(0);
-                Session["TempUserId"] = userid;
-            }
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        userid = LoginClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "View Friends";
         if (!IsPostBack)
         {
-
-            LoadFriendsList();
-            
-          
+            LoadFriendsList();          
         }
 
         if (GridViewFriendsListRequest.Rows.Count == 0)
