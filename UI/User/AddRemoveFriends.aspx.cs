@@ -74,36 +74,28 @@ public partial class User_AddRemoveFriends : System.Web.UI.Page
         if (CheckBox == "Name")
         {
             GridViewFriendsList.DataSource = FriendsBLL.FindByListName(Userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
         }
 
         if (CheckBox == "CurrrentCity")
         {
             GridViewFriendsList.DataSource = FriendsBLL.FindByListCurrent(Userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-            //   Response.Write("current");
         }
 
         if (CheckBox == "HomeTown")
         {
             GridViewFriendsList.DataSource = FriendsBLL.FindByListHomeTown(Userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-            //   Response.Write("current");
         }
 
         if (CheckBox == "School")
         {
             GridViewFriendsList.DataSource = FriendsBLL.FindByListSchool(Userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-            //   Response.Write("current");
         }
 
         if (CheckBox == "WorkPlace")
         {
             GridViewFriendsList.DataSource = FriendsBLL.FindByListWorkPlace(Userid, fieldValue, Global.CONFIRMED);
-            GridViewFriendsList.DataBind();
-
         }
+        GridViewFriendsList.DataBind();
     }
 
     protected void GridViewFriendsList_PageIndexChanging(object sender, GridViewPageEventArgs e)
