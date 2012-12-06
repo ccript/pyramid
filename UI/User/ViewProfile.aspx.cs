@@ -274,7 +274,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadOthersEmail()
     {
 
-        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", Userid);
+        GridViewEmail.DataSource = ContactInfoDAL.getContactInfo("Email", Userid);
         GridViewEmail.DataBind();
         if (GridViewEmail.Rows.Count <= 0)
         {
@@ -287,7 +287,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadWebsites()
     {
 
-        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", Userid);
+        GridViewWebsites.DataSource = ContactInfoDAL.getContactInfo("Website", Userid);
         GridViewWebsites.DataBind();
         if (GridViewWebsites.Rows.Count <= 0)
         {
@@ -300,7 +300,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadPhoneNumber()
     {
 
-        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", Userid);
+        GridViewPhone.DataSource = ContactInfoDAL.getContactInfo("PhoneNumber", Userid);
         GridViewPhone.DataBind();
         if (GridViewPhone.Rows.Count <= 0)
         {

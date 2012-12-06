@@ -12,6 +12,8 @@ using System.Xml.Linq;
 using BuinessLayer;
 using ObjectLayer;
 using System.Globalization;
+using DataLayer;
+
 public partial class MyProfile : System.Web.UI.Page
 {
     private string userid;
@@ -133,16 +135,14 @@ public partial class MyProfile : System.Web.UI.Page
 
     protected void LoadOthersEmail()
     {
-
-        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", Userid);
+        GridViewEmail.DataSource = ContactInfoDAL.getContactInfo("Email", Userid);
         GridViewEmail.DataBind();
-
     }
 
     protected void LoadWebsites()
     {
 
-        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", Userid);
+        GridViewWebsites.DataSource = ContactInfoDAL.getContactInfo("Website", Userid);
         GridViewWebsites.DataBind();
 
     }
@@ -150,7 +150,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadPhoneNumber()
     {
 
-        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", Userid);
+        GridViewPhone.DataSource = ContactInfoDAL.getContactInfo("PhoneNumber", Userid);
         GridViewPhone.DataBind();
 
     }
