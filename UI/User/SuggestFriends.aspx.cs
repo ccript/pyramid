@@ -65,26 +65,47 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
 
 
     }
-  
 
-    protected void LoadSuggestions(string FilterByListName)
+    public List<UserFriendsBO> getfriends_list(string FilterByListName)
     {
-        list = new List<UserFriendsBO>();
-        list2 = new List<UserFriendsBO>();
-        List<UserFriendsBO> userlist = new List<UserFriendsBO>();//one person only for which suggestions are shown
-        List<UserFriendsBO> reclist = new List<UserFriendsBO>();//recommendation list
-        if (!FilterByListName.Equals("")&& !FilterByListName.Equals("None"))
+        if (!FilterByListName.Equals("") && !FilterByListName.Equals("None"))
         {
-            list = FriendsBLL.getAllFriendsFilterByList(Userid, Global.CONFIRMED,FilterByListName);// FriendsBLL.getAllSuggestions(userid);
+            list = FriendsBLL.getAllFriendsFilterByList(Userid, Global.CONFIRMED, FilterByListName);// FriendsBLL.getAllSuggestions(userid);
         }
         else
         {
             list = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);// FriendsBLL.getAllSuggestions(userid);
         }
+
+        return list;
+    }
+
+    public Boolean VerifyUserItem(string fname, string lname)
+    {
+        if (fname.Equals(Fname) && lname.Equals(Lname))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    protected void LoadSuggestions(string FilterByListName)
+    {
+        list = new List<UserFriendsBO>();
+        list2 = new List<UserFriendsBO>();
+        List<UserFriendsBO> userlist = new List<UserFriendsBO>();
+        List<UserFriendsBO> reclist = new List<UserFriendsBO>();
+        
+        list = getfriends_list(FilterByListName);
+
         foreach (UserFriendsBO Useritem in list)
         {
 
-            if (Useritem.FirstName.Equals(Fname) && Useritem.LastName.Equals(Lname))//if no value specified by user by default true
+            if (VerifyUserItem(Useritem.FirstName, Useritem.LastName))
             {
                 userlist.Add(Useritem);
                 fid = Useritem.FriendUserId;
@@ -94,17 +115,10 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
                 list2.Add(Useritem);
             }
         }
-        //GridViewFriendsList.DataSource = list2;
 
-        //GridViewFriendsList.DataBind();
-        //get mutual friends
         List<UserFriendsBO> mutualfriendslist = FriendsBLL.getMutualFriends(Userid, fid, Global.CONFIRMED);
-        //take difference of the two lists: items in lst that are not in lst1
         IEqualityComparer<UserFriendsBO> comparer = new UserFriendsComparer();
-
         List<UserFriendsBO> l3 = list2.Except(mutualfriendslist, comparer).ToList();
-
-        //check if any person suggested is in a pending or suggested status with the user then exclude that
         List<UserFriendsBO> PSlist = FriendsBLL.getPSFriends(fid);
         List<UserFriendsBO> l4 = l3.Except(PSlist, comparer).ToList();
 
@@ -113,23 +127,16 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
         MutualDataList.DataSource = mutualfriendslist;
         MutualDataList.DataBind();
 
-
-        //get list name to which the person for whom suggestions are being given belongs
         string belongsto = ListViewBLL.getListName(Userid, fid);
 
-        //Check person in userlist "belongs to" which list and get matching people as recommended suggestions
         foreach (UserFriendsBO Useritem in l4)
         {
             Useritem.Score = 0;
-
-            //get list name to which the user belongs
             string belongsto1 = ListViewBLL.getListName(Userid, Useritem.FriendUserId);
-
             string belongsto2 = ListViewBLL.getListName(Useritem.FriendUserId, Userid);
 
             if (belongsto1.Equals(belongsto) || belongsto2.Equals(belongsto))//if no value specified by user by default true
             {
-                //   reclist.Add(Useritem);
                 Useritem.Score += 1 * Global.WEIGHT_LIST;
             }
 
@@ -143,35 +150,20 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
 
         PagedDataSource objPds = new PagedDataSource();
 
-        //objPds.DataSource = Items.Tables[0].DefaultView;
-
-
-
-
-
         objPds.DataSource = l4;
-
         objPds.AllowPaging = true;
-
         objPds.PageSize = 6;
-
         objPds.CurrentPageIndex = CurrentPage;
-
-        lblCurrentPage.Text = "Page: " + (CurrentPage + 1).ToString() + " of "
-
-        + objPds.PageCount.ToString();
-
-        // Disable Prev or Next buttons if necessary
+        lblCurrentPage.Text = "Page: " + (CurrentPage + 1).ToString() + " of "+ objPds.PageCount.ToString();
 
         cmdPrev.Enabled = !objPds.IsFirstPage;
-
         cmdNext.Enabled = !objPds.IsLastPage;
-
 
         AllSuggestionsDataList.DataSource = objPds;
         AllSuggestionsDataList.DataBind();
  
     }
+
 
     protected void cmdPrev_Click(object sender, System.EventArgs e)
     {

@@ -81,7 +81,6 @@ namespace BuinessLayer
         }
         public static List<UserFriendsBO> getAllFriendsFilterByList(string UserId, string status,string FilterByListName)
         {
-
             return FriendsDAL.getAllFriendsFilterByList(UserId, status,FilterByListName);
         }
 

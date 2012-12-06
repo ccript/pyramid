@@ -535,6 +535,7 @@ public partial class Wall : System.Web.UI.Page
         userbll.notify_subscribers(Session["UserId"].ToString(), objWall, ConvertUrlsToLinks(ConvertUrlsToLinks(status)), wid);
         LoadWall(100); 
     }
+
     void notifTag(string uid, string atid)
     {
         UserBO objUser = new UserBO();
@@ -553,6 +554,7 @@ public partial class Wall : System.Web.UI.Page
         objNotify.FriendLName = objUser.LastName;
         NotificationBLL.insertNotification(objNotify);
     }
+
     protected void RWallPost(string post)
     {
         UserBO objUser = new UserBO();
