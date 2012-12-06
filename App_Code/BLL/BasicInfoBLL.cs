@@ -11,28 +11,20 @@ using System.Collections;
 using Pramyid;
 using MongoDB.Bson;
 
-/// <summary>
-/// Summary description for DeviceBLL
-/// </summary>
 public class BasicInfoBLL : DataWorker
 {
     public BasicInfoBLL()
     {
-        //
-        // TODO: Add constructor logic here
-        //
     }
 
     public static void insertBasicInfo(BasicInfoBO objBasicInfo)
     {
-        //BasicInfoDAL.insertBasicInfo(objBasicInfo);
         database.insert(objBasicInfo, "c_BasicInfo");
     }
 
     public static void updateBasicInfo(BasicInfoBO objBasicInfo)
     {
         database.update(objBasicInfo, "_Id", objBasicInfo.Id, "c_BasicInfo");
-        //BasicInfoDAL.updateBasicInfo(objBasicInfo);
     }
 
     public static void updateBasicInfoPage(BasicInfoBO objBasicInfo)
@@ -70,7 +62,6 @@ public class BasicInfoBLL : DataWorker
         }
 
         return obj;
-        //return BasicInfoDAL.getBasicInfoByUserId(UserId);
     }
 
     private static BasicInfoBO getConvertedObject(Object _o)

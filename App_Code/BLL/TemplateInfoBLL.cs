@@ -17,24 +17,15 @@ namespace BuinessLayer
         {
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void insert(TemplateBO obj, TemplateInfoDAL baseobj)
         {
-            //if (!objEmployer.Organization.Equals(""))
-            //    EmployerDAL.insertEmployer(obj);
                 baseobj.insert(obj);
-            
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void update(TemplateBO obj,TemplateInfoDAL baseobj)
         {
             baseobj.insert(obj);
-            //EmployerDAL.updateEmployer(objEmployer);
         }
 
 
@@ -58,9 +49,7 @@ namespace BuinessLayer
             return baseobj.SelectLanguageByid(UserId);
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static EmployerBO SelectEmployerByUserId(TemplateInfoDAL baseobj,string UserId)
         {
             return baseobj.SelectEmployerByUserId(UserId);
@@ -71,41 +60,28 @@ namespace BuinessLayer
             return baseobj.SelectEmployerTop5(UserId);
         }
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void deleteEmployer(string EmployerId)
         {
             EmployerDAL.deleteEmployer(EmployerId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateEmployer(EmployerBO objEmployer)
         {
             EmployerDAL.updateEmployer(objEmployer);
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT ALL DATA
-        //////////////////////////////////////////////////////////////
         public static List<Employer> getAllEmployerList()
         {
             return EmployerDAL.getAllEmployerList();
         }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static EmployerBO getEmployerByUserId(string UserId)
         {
             return EmployerDAL.getEmployerByUserId(UserId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
-
+        
+        
         public static List<Employer> getEmployerTop5(string UserId)
         {
             return EmployerDAL.getEmployerTop5(UserId);

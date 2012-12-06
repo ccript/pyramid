@@ -16,51 +16,32 @@ using System.Net;
 
 namespace BuinessLayer
 {
-    /// <summary>
-    /// Summary description for DeviceBLL
-    /// </summary>
     public class FriendsBLL
     {
         public FriendsBLL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+        
         public static string insertFriends(FriendsBO objFriends)
         {
-
-
             return FriendsDAL.insertFriends(objFriends);
-
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteFriends(string FriendsId)
         {
             FriendsDAL.deleteFriends(FriendsId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateFriends(FriendsBO objFriends)
         {
             FriendsDAL.updateFriends(objFriends);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT ALL DATA
-        //////////////////////////////////////////////////////////////
+
         public static List<Friends> getAllFriendsList()
         {
             return FriendsDAL.getAllFriendsList();
         }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static FriendsBO getFriendsByFriendsId(string FriendsId)
         {
             return FriendsDAL.getFriendsByFriendsId(FriendsId);
@@ -71,9 +52,6 @@ namespace BuinessLayer
             return FriendsDAL.getBirthdayAlertFriends(UserId);
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<UserFriendsBO> getAllFriendsListName(string UserId, string status)
         {
 
@@ -92,9 +70,8 @@ namespace BuinessLayer
 
         public static List<UserFriendsBO> getAllSuggestions(string UserId)
         {
-            //get suggestions and mutual friends
             List<UserFriendsBO> list= FriendsDAL.getAllSuggestions(UserId);
-            //get the education,hometown and employer of people in list
+         
             foreach (UserFriendsBO Useritem in list)
             {
                 BasicInfoBO info = BasicInfoDAL.getBasicInfoByUserId(Useritem.FriendUserId);
@@ -102,13 +79,8 @@ namespace BuinessLayer
                 Useritem.Location=info.CurrentCity;
                 EmployerBO emp = EmployerDAL.getEmployerByUserId(Useritem.FriendUserId);
 
-               // Useritem.Employers = new ArrayList();
-
-                //foreach (string item in emp)
-                //
-                    Useritem.Employer=emp.Organization;
-                //}
-               
+                Useritem.Employer=emp.Organization;
+                
                 UniversityBO uni = UniversityDAL.getUniversityByUniversityId(Useritem.FriendUserId);
                 Useritem.Education = uni.UniversityName;
             }
@@ -234,15 +206,12 @@ namespace BuinessLayer
 
             return FriendsDAL.getAllFriendRequests(UserId, status);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
+
         public static void confirmRequest(FriendsBO objClass)
         {
 
             FriendsDAL.confirmRequest(objClass);
-            //send email to user that his request was acknowledged
-
 
             string emailHost = ConfigurationSettings.AppSettings["EmailHost"];
             SmtpClient client = new SmtpClient(emailHost);
@@ -253,15 +222,13 @@ namespace BuinessLayer
             client.Port = 587;
             string myEmail = ConfigurationSettings.AppSettings["Email"];
             string Password = ConfigurationSettings.AppSettings["Password"];
-            // setup Smtp authentication
-            System.Net.NetworkCredential credentials =
-                new System.Net.NetworkCredential(myEmail, Password);
+
+            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(myEmail, Password);
             client.UseDefaultCredentials = false;
             client.Credentials = credentials;
 
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress(myEmail);
-            //Get email address of person whose request was accepted
            UserBO ub = UserDAL.getUserByUserId(objClass.FriendUserId);
 
             msg.To.Add(new MailAddress(ub.Email));
@@ -270,21 +237,13 @@ namespace BuinessLayer
             msg.IsBodyHtml = true;
 
             msg.Body = "Dear Pyramid Plus user, Your friend request has been accepted. ";
-            //Session["randomCode"] = randomCode;
-            //generate the randomCode and place it in the c_User
-
+           
             try
             {
                 client.Send(msg);
-                //Response.Redirect("CodesSent.aspx?UserEmail=" + lblEmail.Text);
-                //lblResult.Text = "Your message has been successfully sent.";
-                //txtSubject.Text = "";
-                //FCKeditor1.Value = "";
-            }
+           }
             catch (Exception ex)
             {
-                // lblResult.ForeColor = Color.Red;
-                //lblResult.Text = "Error occured while sending your message." + ex.Message + "with code " + randomCode;
             }
             
         }
@@ -293,11 +252,9 @@ namespace BuinessLayer
         {
 
             FriendsDAL.delayRequest(objClass);
-            //send email to user that his request was acknowledged
         }
-        ///////////////////////////////////////////////////////////////
-        //                       send friend request FUNCTION
-        //////////////////////////////////////////////////////////////
+
+        
         public static void sendFriendRequest(string UserId, string FriendId)
         {
 
@@ -309,8 +266,6 @@ namespace BuinessLayer
         {
 
             FriendsDAL.sendFriendSuggestion(UserId, FriendId);
-            //send email to user telling hime he has been suggested to someone
-
 
             string emailHost = ConfigurationSettings.AppSettings["EmailHost"];
             SmtpClient client = new SmtpClient(emailHost);
@@ -321,44 +276,32 @@ namespace BuinessLayer
             client.Port = 587;
             string myEmail = ConfigurationSettings.AppSettings["Email"];
             string Password = ConfigurationSettings.AppSettings["Password"];
-            // setup Smtp authentication
+
             System.Net.NetworkCredential credentials =
-                new System.Net.NetworkCredential(myEmail, Password);
+            new System.Net.NetworkCredential(myEmail, Password);
             client.UseDefaultCredentials = false;
             client.Credentials = credentials;
 
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress(myEmail);
-            //Get email address of person whose request was accepted
             UserBO ub = UserDAL.getUserByUserId(UserId);
             UserBO ub2 = UserDAL.getUserByUserId(FriendId);
 
             msg.To.Add(new MailAddress(ub.Email));
-
             msg.Subject = "Pyramid Plus Friend Suggestion";
             msg.IsBodyHtml = true;
 
             msg.Body = "Dear Pyramid Plus user, Your have been introduced by your friend to "+ ub2.FirstName+" "+ub2.LastName +". ";
-            //Session["randomCode"] = randomCode;
-            //generate the randomCode and place it in the c_User
-
+            
             try
             {
                 client.Send(msg);
-                //Response.Redirect("CodesSent.aspx?UserEmail=" + lblEmail.Text);
-                //lblResult.Text = "Your message has been successfully sent.";
-                //txtSubject.Text = "";
-                //FCKeditor1.Value = "";
             }
             catch (Exception ex)
             {
-                // lblResult.ForeColor = Color.Red;
-                //lblResult.Text = "Error occured while sending your message." + ex.Message + "with code " + randomCode;
             }
         }
-        ///////////////////////////////////////////////////////////////
-        //                       cancel friend request FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void cancelFriendRequest(string UserId, string FriendId)
         {
 

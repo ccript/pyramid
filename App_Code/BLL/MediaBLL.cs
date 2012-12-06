@@ -10,37 +10,22 @@ using System.Security.Authentication;
 
 namespace BuinessLayer
 {
-    /// <summary>
-    /// Summary description for DeviceBLL
-    /// </summary>
     public class MediaBLL
     {
         public MediaBLL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+        
         public static string insertMedia(MediaBO objMedia)
         {
-           
-
-                return MediaDAL.insertMedia(objMedia);
-     
+              return MediaDAL.insertMedia(objMedia);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+     
         public static void deleteMedia(string MediaId)
         {
             MediaDAL.deleteMedia(MediaId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+        
         public static void updateMedia(MediaBO objMedia)
         {
             MediaDAL.updateMedia(objMedia);
@@ -57,24 +42,17 @@ namespace BuinessLayer
         {
             MediaDAL.updateFollow(objClass);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT ALL DATA
-        //////////////////////////////////////////////////////////////
+        
         public static List<Media> getAllMediaList()
         {
             return MediaDAL.getAllMediaList();
         }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static MediaBO getMediaByMediaId(string MediaId)
         {
             return MediaDAL.getMediaByMediaId(MediaId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
-
+        
         public static List<Media> getMediaByAlbum(string AlbumId)
         {
 

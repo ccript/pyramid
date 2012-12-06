@@ -12,17 +12,12 @@ using System.Collections;
 using MongoDB.Bson;
 
 
-/// <summary>
-/// Summary description for DeviceBLL
-/// </summary>
+
 public class ActivityBLL : DataWorker
 {
     private static string _tableName = "c_Activities";
     public ActivityBLL()
     {
-        //
-        // TODO: Add constructor logic here
-        //
     }
 
     public static string insertActivity(ActivityBO objActivity)
@@ -39,7 +34,6 @@ public class ActivityBLL : DataWorker
     public static void deleteActivity(string ActivityId)
     {
         database.delete(ActivityId, _tableName);
-        //ActivityDAL.deleteActivity(ActivityId);
     }
 
     public static List<Activity> getActivityTop5(string Type, string UserId)
@@ -63,8 +57,6 @@ public class ActivityBLL : DataWorker
         }
 
         return retList;
-
-        //return ActivityDAL.getActivityTop5(Type, UserId);
     }
 
     private static Activity getConvertedObject(Object _o)

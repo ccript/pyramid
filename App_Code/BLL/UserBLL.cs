@@ -13,7 +13,6 @@ namespace BuinessLayer
 {
     public class UserBLL:notifier,subscriber
     {
-        //////////////////////////////////////////////////////////////
         public static string insertUser(UserBO objUser)
         {
             return UserDAL.UserSignup(objUser);
@@ -40,9 +39,6 @@ namespace BuinessLayer
             DataLayer.UserDAL.updateEmail(objUser);
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static UserBO getUserByUserId(string UserId)
         {
 

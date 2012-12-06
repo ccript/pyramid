@@ -10,52 +10,33 @@ using System.Security.Authentication;
 
 namespace BuinessLayer
 {
-    /// <summary>
-    /// Summary description for DeviceBLL
-    /// </summary>
-    public class WallBLL
+     public class WallBLL
     {
         public WallBLL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+ 
         public static string insertWall(WallBO objWall)
         {
-
-
             return WallDAL.insertWall(objWall);
-
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteWall(string WallId)
         {
             WallDAL.deleteWall(WallId);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateWall(WallBO objWall)
         {
             WallDAL.updateWall(objWall);
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT ALL DATA
-        //////////////////////////////////////////////////////////////
+        
         public static List<Wall> getAllWallList()
         {
             return WallDAL.getAllWallList();
         }
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static WallBO getWallByWallId(string WallId)
         {
             return WallDAL.getWallByWallId(WallId);
@@ -65,9 +46,6 @@ namespace BuinessLayer
             WallDAL.updateLiteral(wallid, postval, embedval);
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                        SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Wall> getWallByUserId(string UserId, int top)
         {
             return WallDAL.getWallByUserId(UserId, top);
@@ -83,11 +61,6 @@ namespace BuinessLayer
         {
             return WallDAL.getWallByUserIdAndFriendID(UserId, FriendID, top);
         }
-
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////////////////
 
         public static List<Newsfeed> getNewsfeedByUserId(string UserId, int top, int type)
         {
@@ -130,12 +103,6 @@ namespace BuinessLayer
                 }
 
             }
-            //sorting the combined newsfeed by date
-            /* var result2 = from em in lstNewsfeed
-                          orderby em.PostRank ascending                         
-                          select em;
-            */
-            //putting the newfeed in sorted list
 
             return lstNewsfeedSorted;
         }
@@ -167,12 +134,12 @@ namespace BuinessLayer
 
                             }
                 long likesCount = LikesDAL.countPost(post._id.ToString(), Global.WALL);
-                //int tagsCount = getTagsCount();
+
                 long sharesCount = ShareDAL.countPost(post._id.ToString(), Global.WALL);
                 long commentsCount = CommentsDAL.countComment(post._id.ToString(), Global.WALL);
 
                 post.PostWeight += (int)likesCount;
-                //post.PostWeight += tagsCount;
+
                 post.PostWeight += (int)sharesCount;
                 post.PostWeight += (int)commentsCount;
 

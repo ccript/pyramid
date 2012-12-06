@@ -10,16 +10,11 @@ using System.Security.Authentication;
 
 namespace BuinessLayer
 {
-    /// <summary>
-    /// Summary description for DeviceBLL
-    /// </summary>
+
     public class SubscriptionBLL
     {
         public SubscriptionBLL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
         
         public static string insertSubscription(SubscriptionBO objTicker)
