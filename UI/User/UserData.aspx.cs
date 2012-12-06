@@ -288,32 +288,22 @@ public partial class Wall : System.Web.UI.Page
     protected void LoadWall(int top)
     {
         pnlVideoLink.Visible = false;
-
         if (isSeeFriendshipPage)
         {
-
-
             GridViewWall.DataSource = WallBLL.getSeeFriendShipWall(userid,Session["UserId"].ToString(), top);
-            GridViewWall.DataBind();
             PanelSort.Visible = false;
-
         }
         else if (isWall)
         {
             GridViewWall.DataSource = WallBLL.getWallByUserId(userid, top);
-            GridViewWall.DataBind();
             PanelSort.Visible = false;
         }
 
         else
         {
             GridViewWall.DataSource = WallBLL.getNewsfeedByUserId(Session["UserId"].ToString(), top, 1);//1 is for topstories
-            GridViewWall.DataBind();
         }
-
-
-
-
+        GridViewWall.DataBind();
         LoadComments();
         YouLikes();
         Comment_YouLikes();
@@ -345,9 +335,7 @@ public partial class Wall : System.Web.UI.Page
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected void btnPost_Click(object sender, EventArgs e)
     {
-       // Post_ModalPopupExtender.Show();
         UpdateStatus();
-       // ScriptManager.RegisterClientScriptBlock(UpdatePanel2, UpdatePanel2.GetType(), "script", "alert('Your successfully posts on Wall !!');", true);
     }
     
     protected void UpdateStatus()
@@ -355,14 +343,12 @@ public partial class Wall : System.Web.UI.Page
         string status = txtUpdatePost.Text;
         bool isVideoLink = false;
         UserBLL userbll = new UserBLL();
+        
         if(lblFriendsWith.Text!="")
             status += " <font color='#838181'> -- with <font/>" + lblFriendsWith.Text.Remove(lblFriendsWith.Text.LastIndexOf(","));
         if (lblLocation.Text != "")
-        status += lblLocation.Text;
-       // if (lblFriendsTag.Text != "")
+            status += lblLocation.Text;
 
-           // status += " and Tag to " + lblFriendsTag.Text.Remove(lblFriendsTag.Text.LastIndexOf(","));
-  
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
 
@@ -375,7 +361,6 @@ public partial class Wall : System.Web.UI.Page
         objWall.AddedDate = DateTime.UtcNow;
         objWall.Type = Global.TEXT_POST;
 
-
         if (ConvertUrlsToLinks(status).IndexOf("http") > 0)
         {
             objWall.Type = Global.LINK;
@@ -383,7 +368,6 @@ public partial class Wall : System.Web.UI.Page
         }
 
         string imagesrc="";
-        /////////////////////////////////////////////////////////////////////////////////////
 
         if (!GetYouTubeURL(txtUpdatePost.Text).Equals(""))
         {
@@ -397,26 +381,15 @@ public partial class Wall : System.Web.UI.Page
             string url = GetYouTubeURL(txtUpdatePost.Text);
             string id = GetYouTubeID(txtUpdatePost.Text);
             string embedsrc = "http://www.youtube.com/embed/" + id + "?rel=0";
-
-            if (chkThumbnail.Checked)
-            {
-                objWall.Type = Global.POST_VIDEOLINK;
-                objWall.Post = "<br/><br/><a href='" + url + "'>" + url + "</a><br/><br/>";
-            }
-            else
+            objWall.Type = Global.POST_VIDEOLINK;
+            objWall.Post = "<br/><br/><a href='" + url + "'>" + url + "</a><br/><br/>";
+            if (!chkThumbnail.Checked)
             {
                 imagesrc = getCurrentSelectedVideoThumbnail(id);
-                objWall.Type = Global.POST_VIDEOLINK;
-                //objWall.Post = "<br/><br/><a href='" + url + "'>" + url + "</a><br/><br/><img name='image' id='image' src='" + imagesrc + "'/>";
-                //vidthumbdisp = true;
-                //objWall.EmbedPost = "<br/><br/><a href='" + url + "'>" + url + "</a><br/><a href='" + url + "'><br/><iframe width='320' height='215' src=" + embedsrc + " frameborder='0' allowfullscreen></iframe><a />";
-                objWall.Post = "<br/><br/><a href='" + url + "'>" + url + "</a><br/>";
                 vidthumbdisp = true;
                 objWall.EmbedPost = imagesrc;
             }
             objWall.Type = Global.POST_VIDEOLINK;
-            //objWall.Post = "<br/><br/><a href='" + url + "'>" + url + "</a><br/><br/><img name='image' id='image' src='" + ds + "'/><script type='text/javascript'>function test(){alert('Hello Shamsa!');document.getElementsByName('vidframe')[0].src='http://www.youtube.com/watch?feature=player_embedded&v=DeZAy4yZF5U'; }</script><button type='button' onclick='test()'>Click Me!</button>";
-            //<script type='text/javascript'>function test(){alert('Hello Shamsa!');document.getElementsByName('vidframe')[0].src='http://www.youtube.com/watch?feature=player_embedded&v=DeZAy4yZF5U'; }</script><button type='button' onclick='test()'>Click Me!</button>    
             txtUpdatePost.Text = "";
             isVideoLink = true;
             status = " added a new video";
@@ -425,19 +398,14 @@ public partial class Wall : System.Web.UI.Page
         {
             objWall.Type = Global.VIDEO;
             string wallpost = objWall.Post;
-            //objWall.Post = wallpost + "<br/><br/><img name='image' id='image' src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + uploadedvideothumbname + "'/>";
             objWall.EmbedPost = Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + uploadedvideothumbname;
-            //objWall.EmbedPost = wallpost + "<br/><br/><embed src='Players/flvplayer.swf' width='425' height='355' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + "SWF/" + uploadedvideoname + "&autostart=false'></embed>";
-           
             uploadedvideoembedliteral = wallpost + "<br/><br/><embed src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Players/flvplayer.swf' width='320' height='215' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + Global.PATH_COMPRESSED_USER_VIDEO + "SWF/" + uploadedvideoname + "&autostart=true&frontcolor=0xCCCCCC&backcolor=0x000000&lightcolor=0x996600&showdownload=false&showeq=false&repeat=false&volume=100&useaudio=false&usecaptions=false&usefullscreen=true&usekeys=true'></embed>";
-
             LiteralUploadVideo.Text = "";
             status = " added a new video";
         }
         if (photofileuploaded)
         {
             objWall.Type = Global.PHOTO;
-            //objWall.Post+=uploadedPhotoliteral;
             LiteralUploadPhoto .Text= "";
             uploadedPhotoliteral = "";
             objWall.EmbedPost = photoid;
@@ -448,11 +416,8 @@ public partial class Wall : System.Web.UI.Page
         {
 
             objWall.Type = Global.PHOTO;
-            //objWall.Post += "<br/><br/><img name='image' id='image' src='../../Resources/ThumbnailPhotos/" + Session["WebCamPhotoId"] .ToString()+ ".jpg" + "'/>";
-        
             objWall.EmbedPost = Session["WebCamPhotoId"].ToString();
             status = " added a new photo";
-
         }
         if (isphotoalbum)
         {
@@ -465,7 +430,6 @@ public partial class Wall : System.Web.UI.Page
             objAClass.isFollow = true;
             string aid=MediaAlbumBLL.insertMediaAlbum(objAClass);
             objWall.Post = objWall.Post + " add new <a  href=\"ViewPhotoAlbum.aspx?AlbumId=" + aid + "\">photo album</a>.";
-          
             objWall.Type = Global.PHOTO_ALBUM;
             status = " added a new photo album";
         }
@@ -490,7 +454,6 @@ public partial class Wall : System.Web.UI.Page
             if (isphotoalbum)
             {
                 objWall2.Type = Global.TAG_PHOTO_ALBUM;
-                
                 objWall2.Post = objWall.Post + " <font color='#838181'> was tagged by <font/><a  href=\"ViewProfile.aspx?UserId=" + Session["UserId"].ToString() + "\">" + objUser.FirstName + " " + objUser.LastName + "</a>.";
                 notifTag(item, userid);
                 tagstatus = "tagged a photo album";
@@ -513,10 +476,6 @@ public partial class Wall : System.Web.UI.Page
                 tagstatus = "tagged a video";
            
            }
-            
-           
-
-           
             if (photofileuploaded)
             {
                 TagsBO objTags = new TagsBO();
@@ -545,7 +504,6 @@ public partial class Wall : System.Web.UI.Page
                 objTags.FriendId = item;
                 objTags.FriendFName = objUser2.FirstName;
                 objTags.FriendLName = objUser2.LastName;
-
                 TagsBLL.insertTags(objTags);
                 objWall2.Type = Global.TAG_PHOTO;
                 objWall2.EmbedPost = Session["WebCamPhotoId"].ToString();
@@ -553,64 +511,12 @@ public partial class Wall : System.Web.UI.Page
                 tagstatus = "tagged a photo";
             }
             
-
             RWallPost(" tag post to <a  href=\"ViewProfile.aspx?UserId=" + item + "\">" + objUser2.FirstName + " " + objUser2.LastName + "</a>");
             string twid= WallBLL.insertWall(objWall2);
             
-            ////////////////////////////////////TICKER CODE //////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////
-
-            
             userbll.notify_subscribers(Session["UserId"].ToString(), objWall2, ConvertUrlsToLinks(tagstatus), twid);
-
-            /*List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(), Global.CONFIRMED);
-            //get the education,hometown and employer of people in list
-            foreach (UserFriendsBO Useritem in listtag)
-            {
-                TickerBO objTicker = new TickerBO();
-                
-
-                objTicker.PostedByUserId = objWall2.PostedByUserId;
-                objTicker.TickerOwnerUserId = Useritem.FriendUserId;
-                objTicker.FirstName = objWall2.FirstName;
-                objTicker.LastName = objWall2.LastName;
-                objTicker.Post = objWall2.Post;
-                objTicker.Title = ConvertUrlsToLinks(tagstatus);
-                objTicker.AddedDate = DateTime.UtcNow;
-                objTicker.Type = objWall2.Type;
-                objTicker.EmbedPost = objWall2.EmbedPost;
-                objTicker.WallId = twid;
-                TickerBLL.insertTicker(objTicker);
-            
-            }
-            TickerBO objTickerUserTag = new TickerBO();
-
-
-            objTickerUserTag.PostedByUserId = Session["UserId"].ToString();
-            objTickerUserTag.TickerOwnerUserId = Session["UserId"].ToString();
-            objTickerUserTag.FirstName = objUser.FirstName;
-            objTickerUserTag.LastName = objUser.LastName;
-            objTickerUserTag.Post = objWall2.Post;
-            objTickerUserTag.Title = "you tag a post";
-            objTickerUserTag.AddedDate = DateTime.UtcNow;
-            objTickerUserTag.Type = objWall2.Type;
-            objTickerUserTag.EmbedPost = objWall2.EmbedPost;
-            objTickerUserTag.WallId = twid;
-            TickerBLL.insertTicker(objTickerUserTag);
-
-                ////////////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////////////*/
-
-
-            
         }
-           
-         
-
         }
-      
-        
-        /////////////////////////////////////////////////////////////////////////////////////
         string wid= WallBLL.insertWall(objWall);
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtUpdatePost.ClientID + "').value = '';", true);
         lblLocation.Text = "";
@@ -624,65 +530,12 @@ public partial class Wall : System.Web.UI.Page
         photofileuploaded = false;
         isVideoLink = false;
         isphotoalbum = false;
-   
         lstTag.Clear();
-        ////////////////////////////////////TICKER CODE //////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-
-
-        
         userbll.notify_subscribers(Session["UserId"].ToString(), objWall, ConvertUrlsToLinks(ConvertUrlsToLinks(status)), wid);
-
-        /*List<UserFriendsBO> list = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(),Global.CONFIRMED);
-            //get the education,hometown and employer of people in list
-          foreach (UserFriendsBO Useritem in list)
-          {
-              
-              TickerBO objTicker = new TickerBO();
-              
-            
-              objTicker.PostedByUserId = objWall.PostedByUserId;
-              objTicker.TickerOwnerUserId = Useritem.FriendUserId;
-              objTicker.FirstName = objWall.FirstName;
-              objTicker.LastName = objWall.LastName;
-              objTicker.Post = objWall.Post;
-              objTicker.Title = ConvertUrlsToLinks(status);
-              objTicker.AddedDate = DateTime.UtcNow;
-              objTicker.Type = objWall.Type;
-              objTicker.EmbedPost = objWall.EmbedPost;
-              objTicker.WallId = wid;
-              TickerBLL.insertTicker(objTicker);
-             
-          }
-          TickerBO objTickerUser = new TickerBO();
-
-
-          objTickerUser.PostedByUserId = objWall.PostedByUserId;
-          objTickerUser.TickerOwnerUserId = Session["UserId"].ToString();
-          objTickerUser.FirstName = objWall.FirstName;
-          objTickerUser.LastName = objWall.LastName;
-          objTickerUser.Post = objWall.Post;
-          objTickerUser.Title = ConvertUrlsToLinks(status);
-          objTickerUser.AddedDate = DateTime.UtcNow;
-          objTickerUser.Type = objWall.Type;
-          objTickerUser.EmbedPost = objWall.EmbedPost;
-          objTickerUser.WallId = wid;
-
-          TickerBLL.insertTicker(objTickerUser);
-        ////////////////////////////////////////////////////////////////////////////////////
-        */
-
-
-
-
         LoadWall(100); 
-
-     
-
     }
     void notifTag(string uid, string atid)
     {
-
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(userid);
         UserBO objUserNotify = new UserBO();
@@ -697,18 +550,12 @@ public partial class Wall : System.Web.UI.Page
         objNotify.FriendId = userid;
         objNotify.FriendFName = objUser.FirstName;
         objNotify.FriendLName = objUser.LastName;
-
-
-        // ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserNotify.Email);
-
-
         NotificationBLL.insertNotification(objNotify);
     }
     protected void RWallPost(string post)
     {
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(userid);
-
         WallBO objWall = new WallBO();
         objWall.PostedByUserId = userid;
         objWall.WallOwnerUserId = userid;
@@ -718,8 +565,6 @@ public partial class Wall : System.Web.UI.Page
         objWall.AddedDate = DateTime.Now;
         objWall.Type = Global.PROFILE_CHANGE;
         WallBLL.insertWall(objWall);
-
-
     }
     private string ConvertUrlsToLinks(string msg)
     {
@@ -763,8 +608,8 @@ public partial class Wall : System.Web.UI.Page
 
         pnlVideoLink.Visible = false;
         //LoadComments();
-       Comment_YouLikes();
-       YouLikes();
+        Comment_YouLikes();
+        YouLikes();
         pnlVideoLink.Visible = false;
 
 
