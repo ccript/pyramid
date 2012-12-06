@@ -12,6 +12,8 @@ using System.IO;
 using System.Net;
 using BuinessLayer;
 using ObjectLayer;
+using DataLayer;
+
 public partial class UI_User_ViewVideo : System.Web.UI.Page
 {
     private string photoid;
@@ -65,7 +67,7 @@ public partial class UI_User_ViewVideo : System.Web.UI.Page
     protected void LoadDataListComments()
     {
 
-        DataList1.DataSource = CommentsBLL.getComments(Global.VIDEO, Photoid);
+        DataList1.DataSource = CommentsDAL.getComments(Global.VIDEO, Photoid);
         DataList1.DataBind();
 
     }
@@ -81,11 +83,17 @@ public partial class UI_User_ViewVideo : System.Web.UI.Page
         objClass.UserId = Userid;
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
-        CommentsBLL.insertComments(objClass);
+
+        if (objClass.MyComments.Equals(""))
+        {
+           CommentsDAL.insertComments(objClass);
+        }
+
+        
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtComments.ClientID + "').value = '';", true);
         
         List<string> lst = new List<string>();
-        lst = CommentsBLL.getCommentsUserIdbyAtId(Global.VIDEO, Photoid);
+        lst = CommentsDAL.getCommentsUserIdbyAtId(Global.VIDEO, Photoid);
         if (Isfollow == true)
         {
             foreach (string item in lst)

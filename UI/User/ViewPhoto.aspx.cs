@@ -13,6 +13,7 @@ using System.IO;
 using System.Net;
 using BuinessLayer;
 using ObjectLayer;
+using DataLayer;
 
 public partial class UI_User_ViewPhotos : System.Web.UI.Page
 {
@@ -82,7 +83,7 @@ public partial class UI_User_ViewPhotos : System.Web.UI.Page
     protected void LoadDataListComments()
     {
 
-        DataList1.DataSource = CommentsBLL.getComments(Global.PHOTO, Photoid);
+        DataList1.DataSource = CommentsDAL.getComments(Global.PHOTO, Photoid);
         DataList1.DataBind();
 
     }
@@ -98,12 +99,15 @@ public partial class UI_User_ViewPhotos : System.Web.UI.Page
         objClass.UserId = Userid;
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
-        
-        CommentsBLL.insertComments(objClass);
+
+        if (!objClass.MyComments.Equals(""))
+        {
+           CommentsDAL.insertComments(objClass);
+        }
 
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtComments.ClientID + "').value = '';", true);
         List<string> lst = new List<string>();
-        lst = CommentsBLL.getCommentsUserIdbyAtId( Global.PHOTO,Photoid);
+        lst = CommentsDAL.getCommentsUserIdbyAtId(Global.PHOTO, Photoid);
       
         LoadDataListComments();
         if (Isfollow == true)

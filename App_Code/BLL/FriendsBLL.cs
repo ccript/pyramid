@@ -117,46 +117,28 @@ namespace BuinessLayer
         }
         public static List<UserFriendsBO> RecommendationScoring(List<UserFriendsBO> list,string UserId)
         {
-            int threshold = 2;
             string uGender;
             string uHomeTown;
             ArrayList uInterests;
             ArrayList uEmployers;
             ArrayList uUniversity;
-
             string sGender;
             string sHomeTown;
             ArrayList sInterests;
             ArrayList sEmployers;
             ArrayList sUniversity;
-
-
-
             List<UserFriendsBO> scoredlist = new List<UserFriendsBO>();
-            
-            //first get the info of the userid user i.e the person for whom suggestions being shown
             BasicInfoBO info = BasicInfoDAL.getBasicInfoByUserId(UserId);
-                uHomeTown = info.HomeTown;
+            uHomeTown = info.HomeTown;
             UserBO uinfo = UserDAL.getUserByUserId(UserId);  
-                uGender=uinfo.Gender;
-                uEmployers = EmployerDAL.getEmployersByUserId(UserId);
-                uUniversity = UniversityDAL.getUnisByUserId(UserId);
-                uInterests = ActivityDAL.getActivitiesByUserId(UserId);
-                
-              
-               // Useritem.Employers = new ArrayList();
-
-                //foreach (string item in emp)
-                //
-                //    Useritem.Employer=emp.Organization;
-                //}
-               
-                //UniversityBO uni = UniversityDAL.getUniversityByUniversityId(Useritem.FriendUserId);
-                //Useritem.Education = uni.UniversityName;
+            uGender=uinfo.Gender;
+            uEmployers = EmployerDAL.getEmployersByUserId(UserId);
+            uUniversity = UniversityDAL.getUnisByUserId(UserId);
+            uInterests = ActivityDAL.getActivitiesByUserId(UserId);
+  
             foreach (UserFriendsBO item in list)
             {
                 item.Score = 0;
-                //get gender,hometown,employers of suggested item
                 BasicInfoBO sinfo = BasicInfoDAL.getBasicInfoByUserId(item.FriendUserId);
                 sHomeTown = sinfo.HomeTown;
                 UserBO suinfo = UserDAL.getUserByUserId(item.FriendUserId);
@@ -164,8 +146,7 @@ namespace BuinessLayer
                 sEmployers = EmployerDAL.getEmployersByUserId(item.FriendUserId);
                 sUniversity = UniversityDAL.getUnisByUserId(item.FriendUserId);
                 sInterests = ActivityDAL.getActivitiesByUserId(item.FriendUserId);
-                //match userinfo with suggested item info
-                //if a match occurs add to item score
+                
                 if (uGender.Equals(sGender))
                 {
                     item.Score += 1 * Global.WEIGHT_GENDER;
@@ -186,8 +167,6 @@ namespace BuinessLayer
                         }
 
                     }
-
- 
                 }
                 foreach (string uUni in uUniversity)
                 {
@@ -200,8 +179,6 @@ namespace BuinessLayer
                         }
 
                     }
-
-
                 }
                 foreach (string uInterest in uInterests)
                 {
@@ -214,28 +191,19 @@ namespace BuinessLayer
                         }
 
                     }
-
-
                 }
-
                 item.Score += item.MutualFriendsCount * Global.WEIGHT_SHAREDFRIENDS;
-
-                
             }
-            //sort the list according to highest score at the top
-            //scoredlist.Sort((x, y) => int.Compare(x.Score, y.Score));
             var result = from em in list
                          orderby em.Score descending
                          select em;
             foreach (var em in result)
             {
-                if(em.Score>=threshold)
+                if(em.Score>=Global.SUGGESTIONS_MINIMUM_SCORE)
                 scoredlist.Add(em);
             }
 
             return scoredlist;
-
-
         }
         public static List<UserFriendsBO> getMutualFriends(string UserId,string FriendId, string status)
         {

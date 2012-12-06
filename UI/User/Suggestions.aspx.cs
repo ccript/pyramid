@@ -342,30 +342,7 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
 
                     }
                 }
-            /*
-            if (UniversityValue.Equals(""))
-            {
-                unimatches = true;
-
-            }
-            else
-            {
-                
-               
-                    foreach (string sUni in sUniversity)
-                    {
-                        if (sUni.Equals(UniversityValue))
-                        {
-                            unimatches = true;
-
-                        }
-
-                    }
-
-
-                
-            }
-        */
+            
                 bool schoolchecked = false;
 
                 for (int i = 0; i < GridViewSchool.Rows.Count; i++)
