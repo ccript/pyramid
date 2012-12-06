@@ -28,7 +28,7 @@ public partial class User_ClassicUpload : System.Web.UI.Page
 
         try
         {
-            string fileid = SavePhotos();
+            string fileid = SaveAlbumPhoto();
             WallPost(fileid);
             generateThumbnail(File, fileid);
             FileUpload1.SaveAs(Server.MapPath(Global.USER_PHOTOS) + fileid + ".jpg");
@@ -79,7 +79,8 @@ public partial class User_ClassicUpload : System.Web.UI.Page
         byte[] bytest = resizert.Resize(postedFile);
         File.WriteAllBytes(thumpath + @"\" + fileid + ".jpg", bytest);
     }
-    public string SavePhotos()
+
+    public string SaveAlbumPhoto()
     {
         string albumId;
         if (Session["PhotoAlbumId"] == null)

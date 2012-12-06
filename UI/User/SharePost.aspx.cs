@@ -415,19 +415,12 @@ public partial class Wall : System.Web.UI.Page
         if (lblLocation.Text != "")
             status += lblLocation.Text;
         
-        //if (lblFriendsTag.Text != "")
-        //    status += " and Shared  " + lblFriendsTag.Text.Remove(lblFriendsTag.Text.LastIndexOf(","));
-
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
 
         WallBO objWall = new WallBO();
         objWall.PostedByUserId = Session["UserId"].ToString();
         
-        //string temp = Session["ShareWithID"].ToString();
-        //string temp = Session["ShareWithID"].ToString();
-
-        //string id = Session["hello"].ToString();
         
         if (Session["ShareWithID"] != null)
         {
@@ -437,14 +430,12 @@ public partial class Wall : System.Web.UI.Page
                 UserBO objFriendObj = new UserBO();
                 objFriendObj = UserBLL.getUserByUserId(Session["ShareWithID"].ToString());
                 
-                // Sending notification with which the post is beind shared 
-               // sendEmail(objFriendObj.Email);
                 if (!CheckBox1.Checked)
                 {
                     ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objFriendObj.Email);
                     notif(Session["ShareWithID"].ToString(), Session["PostID"].ToString());
                 }
-                //Sending notification to all tagged friends
+
                 List<string> temp = (List<string>)Session["TaggedFriends"];
 
                 if (temp != null)
