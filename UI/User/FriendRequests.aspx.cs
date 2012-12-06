@@ -47,44 +47,29 @@ public partial class User_FriendRequests : System.Web.UI.Page
  
     protected void GridViewFriendsListRequest_RowCommand(object sender,  GridViewCommandEventArgs e)
     {
-
-        if (e.CommandName == "notnow")
-            {
                 FriendsBO objClass = new FriendsBO();
-                objClass.Status = Global.NOTNOW;
-                //objClass.Id = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
                 GridViewRow row = GridViewFriendsListRequest.Rows[Convert.ToInt32(e.CommandArgument)];
                 objClass.Id = GridViewFriendsListRequest.DataKeys[row.RowIndex].Value.ToString();
-              
+
+        if (e.CommandName == "notnow")
+         {
+                objClass.Status = Global.NOTNOW;
                 Response.Write(objClass.FriendUserId);
                 FriendsBLL.delayRequest(objClass);
-                LoadFriendRequests();
- 
-            }
-            else
-                if(e.CommandName=="confirmnow")
-                {
-                    FriendsBO objClass = new FriendsBO();
-
-                    objClass.Status = Global.CONFIRMED;
-                    //objClass.Id = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
-                  
-                    GridViewRow row = GridViewFriendsListRequest.Rows[Convert.ToInt32(e.CommandArgument)];
-                    objClass.Id = GridViewFriendsListRequest.DataKeys[row.RowIndex].Value.ToString();
-                   
-                   string sValue = ((HiddenField)row.FindControl("HiddenField1")).Value;
-                   //Response.Write("Product Id=" + sValue);
-                   objClass.FriendUserId = sValue;
-                  //  Response.Write(objClass2.FriendUserId);
-                     UserBO objUser = new UserBO();
-                    objUser = UserBLL.getUserByUserId(sValue);
+                LoadFriendRequests(); 
+          }
+          else if(e.CommandName=="confirmnow")
+          {
+                objClass.Status = Global.CONFIRMED;
+                string sValue = ((HiddenField)row.FindControl("HiddenField1")).Value;
+                objClass.FriendUserId = sValue;
+                UserBO objUser = new UserBO();
+                objUser = UserBLL.getUserByUserId(sValue);
               
-             
-
-                    FriendsBLL.confirmRequest(objClass);
-                    WallPost(" accept friend request of  <a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> ");
-                    LoadFriendRequests();
-                }
+                FriendsBLL.confirmRequest(objClass);
+                WallPost(" accept friend request of  <a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> ");
+                LoadFriendRequests();
+           }
     }
     protected void WallPost(string post)
     {
@@ -146,36 +131,25 @@ public partial class User_FriendRequests : System.Web.UI.Page
     protected void GridViewSuggestions_RowCommand(object sender, GridViewCommandEventArgs e)
     {
 
+        FriendsBO objClass = new FriendsBO();
+        GridViewRow row = GridViewFriendsListRequest.Rows[Convert.ToInt32(e.CommandArgument)];
+        objClass.Id = GridViewFriendsListRequest.DataKeys[row.RowIndex].Value.ToString();
+
         if (e.CommandName == "notnow")
         {
-            FriendsBO objClass = new FriendsBO();
-            objClass.Status = Global.NOTNOW;
-            //objClass.Id = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
-            GridViewRow row = GridViewFriendsListRequest.Rows[Convert.ToInt32(e.CommandArgument)];
-            objClass.Id = GridViewFriendsListRequest.DataKeys[row.RowIndex].Value.ToString();
-
+            objClass.Status = Global.NOTNOW;   
             Response.Write(objClass.FriendUserId);
             FriendsBLL.delayRequest(objClass);
             LoadFriendRequests();
 
         }
-        else
-            if (e.CommandName == "confirmnow")
-            {
-                FriendsBO objClass = new FriendsBO();
-
+        else if (e.CommandName == "confirmnow")
+        {
                 objClass.Status = Global.CONFIRMED;
-                //objClass.Id = GridViewFriendsListRequest.DataKeys[GridViewFriendsListRequest.SelectedIndex].Value.ToString();
-
-                GridViewRow row = GridViewFriendsListRequest.Rows[Convert.ToInt32(e.CommandArgument)];
-                objClass.Id = GridViewFriendsListRequest.DataKeys[row.RowIndex].Value.ToString();
-
                 string sValue = ((HiddenField)row.FindControl("HiddenField1")).Value;
-                //Response.Write("Product Id=" + sValue);
                 objClass.FriendUserId = sValue;
-                //  Response.Write(objClass2.FriendUserId);
                 FriendsBLL.confirmRequest(objClass);
                 LoadFriendRequests();
-            }
+         }
     }
 }

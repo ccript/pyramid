@@ -13,6 +13,7 @@ using BuinessLayer;
 using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
+using DataLayer;
 
 public partial class UI_User_MasterPage : System.Web.UI.MasterPage
 {
@@ -388,7 +389,7 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
                 linkLikeCount.Visible = false;
 
             LinkButton linkcountComments = (LinkButton)gvr.FindControl("lbtnViewComments");
-            long totalcomments = CommentsBLL.countComments(hfId.Value, Global.WALL);
+            long totalcomments = CommentsDAL.countComment(hfId.Value, Global.WALL); 
             if (totalcomments > 2)
                 linkcountComments.Text = "View All " + totalcomments.ToString() + " Comments";
             else
@@ -629,7 +630,7 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldWallId");
 
         GridView gridviewComments = (GridView)row.FindControl("GridViewComments");
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, hfId.Value, 100);
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, hfId.Value, 100);
         gridviewComments.DataBind();
 
     }
@@ -895,17 +896,15 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
         GridView gridviewLikesUser = (GridView)row.FindControl("GridViewLikesCommentUser");
         gridviewLikesUser.DataSource = LikesBLL.getLikesTop(Global.WALL_COMMENT, hfId.Value);
         gridviewLikesUser.DataBind();
-        // LoadWall(50);
 
     }
 
-    // @@@@@@@@@@@@@@@@@@@@ by Nabeel
+
     protected void lbtnDeleteComment_Click(object sender, EventArgs e)
     {
         GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
-        // LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
-        CommentsBLL.deleteComments(hfId.Value);
+        CommentsDAL.deleteComments(hfId.Value);
 
     }
     public static string TimeAgo(DateTime date)
@@ -965,12 +964,16 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
 
-        CommentsBLL.insertComments(objClass);
+        if (!objClass.MyComments.Equals(""))
+        {
+            CommentsDAL.insertComments(objClass);
+        }
+
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtcomments.ClientID + "').value = '';", true);
 
         GridView gridviewComments = (GridView)row.FindControl("GridViewComments");
 
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, hfId.Value, 2);
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, hfId.Value, 2);
         gridviewComments.DataBind();
 
 
@@ -1047,7 +1050,7 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
 
         YouLikes(row);
         CountShare(row);
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, sValue, 2);
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, sValue, 2);
         gridviewComments.DataBind();
         Comment_YouLikes(row);
 

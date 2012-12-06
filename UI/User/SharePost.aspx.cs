@@ -19,6 +19,8 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Threading;
+using DataLayer;
+
 public partial class Wall : System.Web.UI.Page
 {
     string userid;
@@ -266,12 +268,16 @@ public partial class Wall : System.Web.UI.Page
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
 
-        CommentsBLL.insertComments(objClass);
+        if (!objClass.MyComments.Equals(""))
+        {
+           CommentsDAL.insertComments(objClass);
+        }
+
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtcomments.ClientID + "').value = '';", true);
 
         GridView gridviewComments = (GridView)row.FindControl("GridViewComments");
 
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL,hfId.Value,2);
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, hfId.Value, 2);
         gridviewComments.DataBind();
 
         LoadWall(50);
@@ -769,7 +775,7 @@ public partial class Wall : System.Web.UI.Page
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
 
         GridView gridviewComments = (GridView)row.FindControl("GridViewComments"); 
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, hfId.Value, 100); 
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, hfId.Value, 100); 
         gridviewComments.DataBind(); 
 
     }
@@ -832,13 +838,11 @@ public partial class Wall : System.Web.UI.Page
 
     }
 
-    // @@@@@@@@@@@@@@@@@@@@ by Nabeel
     protected void lbtnDeleteComment_Click(object sender, EventArgs e)
     {
         GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
-        // LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
-        CommentsBLL.deleteComments(hfId.Value);
+        CommentsDAL.deleteComments(hfId.Value);
         LoadWall(50);
     }
 
