@@ -330,122 +330,14 @@ public partial class Wall : System.Web.UI.Page
     ///                                      ADD VIDEO MODULE                                                  ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected void lbtnAddVideos_Click(object sender, EventArgs e)
-    {
-        //Response.Redirect("../../Default.aspx");
-
+    {        
         if (FileUpload1.HasFile )
-        {
-            postedfilename = FileUpload1.PostedFile.FileName;
-            SavePath = Server.MapPath(Global.PATH_COMPRESSED_USER_VIDEO);// AppDomain.CurrentDomain.BaseDirectory + "Video\\";
-            string NewFName = postedfilename;
-            NewFName = NewFName.Substring(NewFName.LastIndexOf("\\") + 1, NewFName.Length - NewFName.LastIndexOf(".")) + "." + NewFName.Substring(NewFName.LastIndexOf(".") + 1);
-            //Filenamewithpath = SavePath + NewFName;
-
-            string fullPath = Path.Combine(SavePath, NewFName);
-            Filenamewithpath = fullPath;
-
-            //Save The file
-            FileUpload1.PostedFile.SaveAs(Filenamewithpath);
-
-            //Start Converting
-            string inputfile, outputfile, filargs;
-            string withoutext;
-
-            //Get the file name without Extension
-            withoutext = Path.GetFileNameWithoutExtension(Filenamewithpath);
-
-            //Input file path of uploaded image
-            inputfile = SavePath + NewFName;
-
-            //output file format in swf
-            outputfile = SavePath + "SWF\\" + withoutext + ".swf";
-            uploadedvideoname = withoutext + ".swf";
-
-            //file orguments for FFMEPG
-            filargs = "-i \"" + inputfile + "\" -deinterlace -ab 32 -r 15 -ar 22050 -ac 1 \"" + outputfile + "\"";
-            //filargs = "-i \"" + inputfile + "\" -deinterlace -ab 32 -r 15 -ar 22050 -ac 1 \"" + outputfile + "\"";
-
-            //string spath;
-            //spath = Server.MapPath(".");
-            Process proc;
-            proc = new Process();
-            proc.StartInfo.FileName = SavePath + "\\ffmpeg\\ffmpeg.exe";
-            //proc.StartInfo.FileName = "D:\\ffmpeg\\ffmpeg.exe";
-            proc.StartInfo.Arguments = filargs;
-            proc.StartInfo.UseShellExecute = false;
-            proc.StartInfo.CreateNoWindow = false;
-            proc.StartInfo.RedirectStandardOutput = false;
-            bool started = false;
-            try
-            {
-                //while (!started)
-                //{                
-                started = proc.Start();
-
-
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-            }
-
-            proc.WaitForExit();
-            proc.Close();
-
-
-
-
-            //Create Thumbs 
-
-            string thumbpath, thumbname;
-            string thumbargs;
-            string thumbre;
-            thumbpath = Server.MapPath(Global.PATH_COMPRESSED_USER_VIDEO) + "Thumb\\";
-
-            thumbname = thumbpath + withoutext + ".jpg";
-            uploadedvideothumbname = withoutext + ".jpg";
-
-            //thumbargs = "-i " + inputfile + " -vframes 1 -ss 00:00:07 -s 150x150 " + thumbname;
-            thumbargs = "-i \"" + inputfile + "\" -f image2 -vframes 1 -ss 3 -s 150x130 \"" + thumbname + "\"";
-            Process thumbproc = new Process();
-            thumbproc = new Process();
-
-            thumbproc.StartInfo.FileName = SavePath + "\\ffmpeg\\ffmpeg.exe";
-
-            //thumbproc.StartInfo.FileName = "D:\\ffmpeg\\ffmpeg.exe";
-            thumbproc.StartInfo.Arguments = thumbargs;
-            thumbproc.StartInfo.UseShellExecute = false;
-            thumbproc.StartInfo.CreateNoWindow = false;
-            thumbproc.StartInfo.RedirectStandardOutput = false;
-            try
-            {
-
-                thumbproc.Start();
-
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-            }
-            thumbproc.WaitForExit();
-            thumbproc.Close();
-
-            File.Delete(inputfile);
-            //txtUpdatePost.Text += " Video2 Uploaded Successfully";
-            videofileuploaded = true;
-            string  uploadedvideoliteral="";
-              uploadedvideoliteral +=  "<br/><br/><img name='image' id='image' src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + uploadedvideothumbname + "'/>";
-
-            //objWall.EmbedPost = wallpost + "<br/><br/><embed src='Players/flvplayer.swf' width='425' height='355' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + "SWF/" + uploadedvideoname + "&autostart=false'></embed>";
-            //videofileuploaded = false;
-            uploadedvideoliteral +=   "<embed src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Players/flvplayer.swf' width='320' height='215' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + Global.PATH_COMPRESSED_USER_VIDEO + "SWF/" + uploadedvideoname + "&autostart=false&frontcolor=0xCCCCCC&backcolor=0x000000&lightcolor=0x996600&showdownload=false&showeq=false&repeat=false&volume=100&useaudio=false&usecaptions=false&usefullscreen=true&usekeys=true'></embed>";
-
-            LiteralUploadVideo.Text = uploadedvideoliteral;
-            //hyp.Visible = true;
-            //hyp.NavigateUrl = "Play.aspx";
-            //UpdateStatus();
+        {            
+            Video.Upload(FileUpload1);
+            Thumbnail.Build(FileUpload1);
+            videofileuploaded = true;            
+            LiteralUploadVideo.Text = Video.uploadedVideoLiteral(FileUpload1);            
         }
-
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
