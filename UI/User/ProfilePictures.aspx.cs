@@ -20,7 +20,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Profile Pictures";
 
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
 
         imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
     }

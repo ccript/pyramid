@@ -18,7 +18,7 @@ public partial class ImageConversions : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         CreatePhoto();       
     }
 

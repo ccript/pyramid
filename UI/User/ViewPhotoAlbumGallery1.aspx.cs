@@ -41,7 +41,7 @@ public partial class UI_User_ViewPhotoAlbumGallery1 : System.Web.UI.Page
         ((Label)Master.FindControl("lblTitle")).Text = "Photos Album";
 
         Albumid = QueryString.getQueryStringOnIndex(0);
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         imgBtnComments.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
         LoadDataListMedia();
         LoadDataListComments();

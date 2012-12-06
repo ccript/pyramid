@@ -43,7 +43,7 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         Fname = QueryString.getQueryStringOnIndex(0);
         Lname = QueryString.getQueryStringOnIndex(1);
         ((Label)Master.FindControl("lblTitle")).Text = "Suggest Friends to " +Fname+" "+Lname;

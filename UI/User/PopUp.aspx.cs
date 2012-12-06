@@ -22,7 +22,7 @@ public partial class popup_calendar : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
     }
 
     protected void btnSaveUpload_Click(object sender, EventArgs e)

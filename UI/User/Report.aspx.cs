@@ -20,7 +20,7 @@ public partial class UI_User_Report : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Report";
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
 
         if (Session["SpamPhoto"] != null)
             Photo.ImageUrl = Session["SpamPhoto"].ToString();

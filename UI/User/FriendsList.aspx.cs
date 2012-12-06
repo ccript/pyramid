@@ -23,7 +23,7 @@ public partial class FriendsList : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserIdOrTempUserId();
+        Userid = SessionClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "View Friends";
         if (!IsPostBack)

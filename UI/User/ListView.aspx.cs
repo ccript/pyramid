@@ -28,7 +28,7 @@ public partial class User_ListView : System.Web.UI.Page
         Label l = (Label)Page.Master.FindControl("lblTitle");
         l.Text = "View List";
 
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
        
         ListViewGrid.DataSource = ListViewBLL.getList(Userid, Global.CONFIRMED);
         ListViewGrid.DataBind();

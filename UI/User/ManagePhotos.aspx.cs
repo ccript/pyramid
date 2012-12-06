@@ -26,8 +26,8 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Photos";
-        Userid = LoginClass.getUserId();
-        Albumid = LoginClass.getPhotoAlbumId();
+        Userid = SessionClass.getUserId();
+        Albumid = SessionClass.getPhotoAlbumId();
         
         if (!IsPostBack)
         {

@@ -27,7 +27,7 @@ public partial class UI_User_ViewVideoAlbum : System.Web.UI.Page
         ((Label)Master.FindControl("lblTitle")).Text = "Video Album";
 
         Albumid = QueryString.getQueryStringOnIndex(0);
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         Session["VideoAlbumId"] = Albumid;
         LoadDataListMedia();
     }

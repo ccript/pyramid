@@ -19,7 +19,7 @@ public partial class User_AdvanceOptions : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserIdOrTempUserId();
+        Userid = SessionClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Your Friends";
         if (!IsPostBack)

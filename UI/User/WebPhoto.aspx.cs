@@ -18,7 +18,7 @@ public partial class User_WebPhotos : System.Web.UI.Page
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Upload Picture from your webcam";
 
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
      
     }
 

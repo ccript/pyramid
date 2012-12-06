@@ -55,7 +55,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
                 friendID = Session["FriendID"].ToString();
             }
         }
-        Userid = LoginClass.getUserId(); ;
+        Userid = SessionClass.getUserId(); ;
         ((Label)Master.FindControl("lblTitle")).Text = "See Friendship";
         if (!IsPostBack)
         {

@@ -41,7 +41,7 @@ public partial class UI_User_ViewVideo : System.Web.UI.Page
 
         ((Label)Master.FindControl("lblTitle")).Text = "View Video";
         Photoid = QueryString.getQueryStringOnIndex(0);
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         LoadFollow();
         LoadDataListComments();
         YouLikes();

@@ -20,7 +20,7 @@ public partial class User_ClassicUpload : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Upload Multiple Photos";
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
     }
     private void upload_file(HttpPostedFile File)
     {

@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Summary description for CommonClass
 /// </summary>
-public class LoginClass
+public class SessionClass
 {
     public static string getUserId()
     {
@@ -47,7 +47,7 @@ public class LoginClass
             if (HttpContext.Current.Request.QueryString.Count == 0)
             {
                 HttpContext.Current.Session["TempUserId"] = null;
-                return LoginClass.getUserId();
+                return SessionClass.getUserId();
             }
             else
             {

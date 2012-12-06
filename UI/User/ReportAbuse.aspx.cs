@@ -21,7 +21,7 @@ public partial class UI_User_ReportAbuse : System.Web.UI.Page
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Report Abuse";
 
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         AboutDropDownList.Items.Add("I don't like this");
         AboutDropDownList.Items.Add("It's harassing me");
         AboutDropDownList.Items.Add("It's harassing a friend");

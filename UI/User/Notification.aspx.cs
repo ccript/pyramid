@@ -18,7 +18,7 @@ public partial class User_Notification : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Notifications";
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         LoadDataListMedia();
     }
 

@@ -18,7 +18,7 @@ public partial class User_Photos : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Photos";        
-        Userid = LoginClass.getUserIdOrTempUserId();
+        Userid = SessionClass.getUserIdOrTempUserId();
         Session["PhotoAlbumId"] = null;
         Session["HighResoultion"] = null;
         LoadDataListMediaAlbum();

@@ -23,7 +23,7 @@ public partial class MyProfile : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
       
         ((Label)Master.FindControl("lblTitle")).Text = "View Profile";
         if (!IsPostBack)

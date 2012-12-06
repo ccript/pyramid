@@ -19,7 +19,7 @@ public partial class UI_User_ManageVideo : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Video";
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
 
         if(!IsPostBack)
         LoadDataListMedia();

@@ -20,7 +20,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Upload Wall Photo";
 
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
     }
 

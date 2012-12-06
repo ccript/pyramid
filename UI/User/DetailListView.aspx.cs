@@ -25,7 +25,7 @@ public partial class User_DetailListView : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         
         string listname=Request.QueryString["ListName"];
         ((Label)Page.Master.FindControl("lblTitle")).Text = "Friends in " + listname + " list";

@@ -44,7 +44,7 @@ public partial class UI_User_ViewPhotos : System.Web.UI.Page
 
         ((Label)Master.FindControl("lblTitle")).Text = "View Photos";
         Photoid = QueryString.getQueryStringOnIndex(0);
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
 
         LoadFollow();
         LoadDataListComments();

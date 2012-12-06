@@ -43,7 +43,7 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Userid = LoginClass.getUserIdOrTempUserId();
+        Userid = SessionClass.getUserIdOrTempUserId();
         ((Label)Master.FindControl("lblTitle")).Text = "Suggestions";
         if (!IsPostBack)
         {

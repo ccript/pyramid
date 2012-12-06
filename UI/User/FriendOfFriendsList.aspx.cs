@@ -40,7 +40,7 @@ public partial class User_FriendOfFriendsList : System.Web.UI.Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {        
-        Userid = LoginClass.getUserId();
+        Userid = SessionClass.getUserId();
         Friendsoffriend = QueryString.getQueryStringOnIndex(0);
         Type = QueryString.getQueryStringOnIndex(1);
 
