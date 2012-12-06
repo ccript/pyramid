@@ -14,39 +14,17 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using System.Xml.Linq;
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using ObjectLayer;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using AjaxControlToolkit;
-using System.Text;
-using BuinessLayer;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.Xml.Linq;
-
-
 public partial class UI_User_MasterPage : System.Web.UI.MasterPage
 {
     string userid;
     protected void Page_Load(object sender, EventArgs e)
-    {
-        // Session["UserId"] = "4f37fdd8745cb305e42cd7a0";
-
-
+    {        
         if ((Session["UserId"] == null) || (String.Empty.Equals(Session["UserId"].ToString())))
             Response.Redirect("../../Default.aspx");
 
         try
         {
-            userid = Session["UserId"].ToString();
-            // LoadLoginUserData(userid);
+            userid = Session["UserId"].ToString();            
             if (Session["TempUserId"] == null)
             {
                 imgProfile.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
@@ -68,13 +46,7 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
         LoadSuggestions();
         NotificationCount();
         LoadSeeFriendship();
-        LoadTicker();
-        /* LiteralNotify.Text = "Welcome to Pyramid Plus";
-         if (!Page.ClientScript.IsStartupScriptRegistered("alert"))
-         {
-             Page.ClientScript.RegisterStartupScript
-                 (this.GetType(), "alert", "insideJS();", true);
-         }*/
+        LoadTicker();        
     }
 
     protected void LoadUserData(string id)
@@ -82,18 +54,8 @@ public partial class UI_User_MasterPage : System.Web.UI.MasterPage
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(id);
         lblName.Text = objUser.FirstName + " " + objUser.LastName;
-
-
     }
 
-    /*protected void LoadLoginUserData(string id)
-    {
-        UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(id);
-        lbluser.Text = objUser.FirstName + " " + objUser.LastName;
-        ImgUser.ImageUrl = Global.PROFILE_PICTURE + id + ".jpg";
-
-    }*/
     protected void btnLogout_Click(object sender, EventArgs e)
     {
         Session["UserId"] = null;

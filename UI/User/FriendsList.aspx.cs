@@ -14,10 +14,16 @@ using ObjectLayer;
 using System.Globalization;
 public partial class FriendsList : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-        userid = LoginClass.getUserIdOrTempUserId();
+        Userid = LoginClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "View Friends";
         if (!IsPostBack)
@@ -38,12 +44,12 @@ public partial class FriendsList : System.Web.UI.Page
     {
 
 
-        GridViewFriendsList.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
+        GridViewFriendsList.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);
         GridViewFriendsList.DataBind();
 
-        GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.PENDING);
+        GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.PENDING);
         GridViewFriendsListRequest.DataBind();
-        if (userid != Session["UserId"].ToString())
+        if (Userid != Session["UserId"].ToString())
             GridViewFriendsList.Columns[2].Visible = false;
 
     }
@@ -81,7 +87,7 @@ public partial class FriendsList : System.Web.UI.Page
         string fieldValue = SearchTextBox.Text;
         if (validate_checkbox(SearchDropDownList.Text))
         {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListName(userid, fieldValue, Global.CONFIRMED);
+            GridViewFriendsList.DataSource = FriendsBLL.FindByListName(Userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
         }
 

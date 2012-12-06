@@ -10,10 +10,16 @@ using System.Collections;
 
 public partial class User_AdvanceOptions : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-        userid = LoginClass.getUserIdOrTempUserId();
+        Userid = LoginClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Your Friends";
         if (!IsPostBack)
@@ -26,7 +32,7 @@ public partial class User_AdvanceOptions : System.Web.UI.Page
 
         if (ListDropDownList.Items.Count == 0)
         {
-            foreach (ObjectLayer.ListViewBO obj in ListViewBLL.getList(userid, Global.CONFIRMED))
+            foreach (ObjectLayer.ListViewBO obj in ListViewBLL.getList(Userid, Global.CONFIRMED))
             {
                 ListDropDownList.Items.Add(obj.ListName);
             }
@@ -40,7 +46,7 @@ public partial class User_AdvanceOptions : System.Web.UI.Page
     {
 
 
-        MultiSelectGrid.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
+        MultiSelectGrid.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);
         MultiSelectGrid.DataBind();
 
         // GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.PENDING);

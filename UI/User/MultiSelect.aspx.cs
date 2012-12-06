@@ -10,38 +10,27 @@ using System.Collections;
 public partial class MultiSelect : System.Web.UI.Page
 {
 
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            if (Request.QueryString.Count == 0)
-            {
-                userid = Session["UserId"].ToString();
-                Session["TempUserId"] = null;
-            }
-            else
-            {
-                userid = Request.QueryString.Get(0);
-                Session["TempUserId"] = userid;
-            }
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "FriendsList";
         if (!IsPostBack)
         {
-
             LoadFriendsList();
-        }
-        
+        }        
     }
-
 
     protected void LoadFriendsList()
     {
-        MultiSelectGrid.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
+        MultiSelectGrid.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);
         MultiSelectGrid.DataBind();
     }
 

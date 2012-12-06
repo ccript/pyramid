@@ -8,26 +8,24 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class User_Notification : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Notifications";
-        try
-        {
-
-           
-            userid = Session["UserId"].ToString();
-
-        }
-
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserId();
         LoadDataListMedia();
     }
 
     protected void LoadDataListMedia()
     {
 
-        GridViewNotification.DataSource = NotificationBLL.getNotificationByUserId(userid);
+        GridViewNotification.DataSource = NotificationBLL.getNotificationByUserId(Userid);
         GridViewNotification.DataBind();
 
         foreach (GridViewRow gvr in GridViewNotification.Rows)
@@ -51,7 +49,7 @@ public partial class User_Notification : System.Web.UI.Page
             }
 
         }
-        NotificationBLL.updateNotificationStatus(userid);
+        NotificationBLL.updateNotificationStatus(Userid);
 
     }
     protected void GridViewNotification_PageIndexChanging(object sender, GridViewPageEventArgs e)

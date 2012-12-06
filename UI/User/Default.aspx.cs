@@ -7,14 +7,15 @@ using System.Web.UI.WebControls;
 
 public partial class User_Default : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserId();
     }
 }

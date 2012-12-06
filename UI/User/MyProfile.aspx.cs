@@ -14,16 +14,16 @@ using ObjectLayer;
 using System.Globalization;
 public partial class MyProfile : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserId();
       
         ((Label)Master.FindControl("lblTitle")).Text = "View Profile";
         if (!IsPostBack)
@@ -51,14 +51,14 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadDataListEmployer()
     {
 
-        DListEmployer.DataSource = EmployerBLL.getEmployerTop5(userid);
+        DListEmployer.DataSource = EmployerBLL.getEmployerTop5(Userid);
         DListEmployer.DataBind();
 
     }
     protected void LoadDataListProject()
     {
 
-        DListProject.DataSource = ProjectBLL.getProjectTop5(userid);
+        DListProject.DataSource = ProjectBLL.getProjectTop5(Userid);
         DListProject.DataBind();
 
     }
@@ -66,49 +66,49 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadDataListUniversity()
     {
 
-        DListUniversity.DataSource = UniversityBLL.getUniversityTop5(userid);
+        DListUniversity.DataSource = UniversityBLL.getUniversityTop5(Userid);
         DListUniversity.DataBind();
 
     }
     protected void LoadDataListSchool()
     {
 
-        DListSchool.DataSource = SchoolBLL.getSchoolTop5(userid);
+        DListSchool.DataSource = SchoolBLL.getSchoolTop5(Userid);
         DListSchool.DataBind();
 
     }
     protected void LoadDataListBooks()
     {
 
-        DListBooks.DataSource = EntertainmentBLL.getEntertainmentTop(Global.BOOKS, userid);
+        DListBooks.DataSource = EntertainmentBLL.getEntertainmentTop(Global.BOOKS, Userid);
         DListBooks.DataBind();
 
     }
     protected void LoadDataListMusic()
     {
 
-        DListMusic.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MUSIC, userid);
+        DListMusic.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MUSIC, Userid);
         DListMusic.DataBind();
 
     }
     protected void LoadDataListMovie()
     {
 
-        DListMovie.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MOVIE, userid);
+        DListMovie.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MOVIE, Userid);
         DListMovie.DataBind();
 
     }
     protected void LoadDataListTelevision()
     {
 
-        DListTelevision.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TELEVISION, userid);
+        DListTelevision.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TELEVISION, Userid);
         DListTelevision.DataBind();
 
     }
     protected void LoadDataListGame()
     {
 
-        DListGame.DataSource = EntertainmentBLL.getEntertainmentTop(Global.GAME, userid);
+        DListGame.DataSource = EntertainmentBLL.getEntertainmentTop(Global.GAME, Userid);
         DListGame.DataBind();
 
     }
@@ -116,7 +116,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadDataListActivities()
     {
 
-        DListActivities.DataSource = ActivityBLL.getActivityTop5(Global.ACTIVITIES, userid);
+        DListActivities.DataSource = ActivityBLL.getActivityTop5(Global.ACTIVITIES, Userid);
         DListActivities.DataBind();
 
     }
@@ -125,7 +125,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadDataListInterests()
     {
 
-        DListInterests.DataSource = ActivityBLL.getActivityTop5(Global.INTERESTS, userid);
+        DListInterests.DataSource = ActivityBLL.getActivityTop5(Global.INTERESTS, Userid);
         DListInterests.DataBind();
 
     }
@@ -134,7 +134,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadOthersEmail()
     {
 
-        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", userid);
+        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", Userid);
         GridViewEmail.DataBind();
 
     }
@@ -142,7 +142,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadWebsites()
     {
 
-        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", userid);
+        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", Userid);
         GridViewWebsites.DataBind();
 
     }
@@ -150,7 +150,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadPhoneNumber()
     {
 
-        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", userid);
+        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", Userid);
         GridViewPhone.DataBind();
 
     }
@@ -158,7 +158,7 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadContactInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
 
 
         lblTownCity.Text = objBasicInfo.CityTown;
@@ -174,14 +174,14 @@ public partial class MyProfile : System.Web.UI.Page
     protected void LoadBasicInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
         lblHomeTown.Text = objBasicInfo.HomeTown;
         lblCurrentCity.Text = objBasicInfo.CurrentCity;
     }
 
     protected void LoadLanguages()
     {
-        DListLanguage.DataSource = LanguageBLL.getLanguages(userid);
+        DListLanguage.DataSource = LanguageBLL.getLanguages(Userid);
         DListLanguage.DataBind();
     }
 }

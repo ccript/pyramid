@@ -8,16 +8,22 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class User_AddAlbum : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Create new Album";
-        userid = LoginClass.getUserId();
+        Userid = LoginClass.getUserId();
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
         MediaAlbumBO objAClass = new MediaAlbumBO();
-        objAClass.UserId = userid;
+        objAClass.UserId = Userid;
         objAClass.Name = txtName.Text;
         objAClass.Description = txtDescription.Text;
         objAClass.CoverPictureId = "0000000000000b0000000900";

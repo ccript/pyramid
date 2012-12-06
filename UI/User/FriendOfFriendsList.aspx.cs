@@ -16,25 +16,40 @@ using System.Globalization;
 public partial class User_FriendOfFriendsList : System.Web.UI.Page
 {
     private string friendid;
-    string userid;
-    string friendsoffriend;
-    string type;
-    protected void Page_Load(object sender, EventArgs e)
+
+    private string userid;
+
+    public string Userid
     {
-        try
-        {
-            userid = Session["UserId"].ToString();
-            friendsoffriend = Request.QueryString.Get(0);
-            type = Request.QueryString.Get(1);
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        get { return userid; }
+        set { userid = value; }
+    }
+    private string friendsoffriend;
+
+    public string Friendsoffriend
+    {
+        get { return friendsoffriend; }
+        set { friendsoffriend = value; }
+    }
+    private string type;
+
+    public string Type
+    {
+        get { return type; }
+        set { type = value; }
+    }
+    protected void Page_Load(object sender, EventArgs e)
+    {        
+        Userid = LoginClass.getUserId();
+        Friendsoffriend = QueryString.getQueryStringOnIndex(0);
+        Type = QueryString.getQueryStringOnIndex(1);
 
         if (!IsPostBack)
         {
             LoadFriendsList();
             return;
         }
-        if (!type.Equals("FOF"))
+        if (!Type.Equals("FOF"))
         {
             ((Label)Master.FindControl("lblTitle")).Text = "Friends Of Friend";
             return;
@@ -47,7 +62,7 @@ public partial class User_FriendOfFriendsList : System.Web.UI.Page
     {
 
 
-        GridViewFriendsOfFriend.DataSource = FriendsBLL.getMutualFriends(userid,friendsoffriend, Global.CONFIRMED).ToList();
+        GridViewFriendsOfFriend.DataSource = FriendsBLL.getMutualFriends(Userid,Friendsoffriend, Global.CONFIRMED).ToList();
         GridViewFriendsOfFriend.DataBind();
 
     }
@@ -71,7 +86,7 @@ public partial class User_FriendOfFriendsList : System.Web.UI.Page
         if (s.Equals("Add Friend"))
         {
 
-            FriendsBLL.sendFriendRequest(userid, friendid);
+            FriendsBLL.sendFriendRequest(Userid, friendid);
             
             ((LinkButton)(row.Cells[0].Controls[0])).Text = "Cancel Request";
            
@@ -79,7 +94,7 @@ public partial class User_FriendOfFriendsList : System.Web.UI.Page
         }
         else if (s.Equals("Cancel Request"))
         {
-            FriendsBLL.cancelFriendRequest(userid, friendid);
+            FriendsBLL.cancelFriendRequest(Userid, friendid);
             
             ((LinkButton)(row.Cells[0].Controls[0])).Text = "Add Friend";
           

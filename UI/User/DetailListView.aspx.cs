@@ -16,20 +16,20 @@ using BuinessLayer;
 
 public partial class User_DetailListView : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-      
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserId();
         
         string listname=Request.QueryString["ListName"];
         ((Label)Page.Master.FindControl("lblTitle")).Text = "Friends in " + listname + " list";
-        GridViewFriendsList.DataSource = ListViewBLL.getFreindByList(userid, Global.CONFIRMED,listname);
+        GridViewFriendsList.DataSource = ListViewBLL.getFreindByList(Userid, Global.CONFIRMED,listname);
         GridViewFriendsList.DataBind();
 
         Panel1.DefaultButton = "SearchButton";

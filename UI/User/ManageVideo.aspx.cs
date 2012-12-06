@@ -9,19 +9,18 @@ using ObjectLayer;
 using GrayMatterSoft;
 public partial class UI_User_ManageVideo : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Video";
-        try
-        {
-           
+        Userid = LoginClass.getUserId();
 
-                userid = Session["UserId"].ToString();
-             
-        }
-
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
         if(!IsPostBack)
         LoadDataListMedia();
     }
@@ -29,7 +28,7 @@ public partial class UI_User_ManageVideo : System.Web.UI.Page
     protected void LoadDataListMedia()
     {
 
-        DataList1.DataSource = MediaBLL.getMediaTop5(userid, Global.VIDEO);
+        DataList1.DataSource = MediaBLL.getMediaTop5(Userid, Global.VIDEO);
         DataList1.DataBind();
 
     }

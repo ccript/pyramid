@@ -12,16 +12,17 @@ public partial class popup_calendar : System.Web.UI.Page
 {
 
     private static object _lock = new object();
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserId();
     }
 
     protected void btnSaveUpload_Click(object sender, EventArgs e)
@@ -35,7 +36,7 @@ public partial class popup_calendar : System.Web.UI.Page
                 string fullName = FileUpload1.FileName;
                 string nameWithoutExtension = fullName.Split('.')[0];
 
-                string temp = nameWithoutExtension + DateTime.Now.ToString() + userid;
+                string temp = nameWithoutExtension + DateTime.Now.ToString() + Userid;
                 temp = temp.Replace(@"/", "");
                 temp = temp.Replace(@" ", "");
                 temp = temp.Replace(@":", "");

@@ -16,20 +16,21 @@ using BuinessLayer;
 
 public partial class User_ListView : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         Label l = (Label)Page.Master.FindControl("lblTitle");
         l.Text = "View List";
 
-        try
-        {
-            userid = Session["UserId"].ToString();
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-     
+        Userid = LoginClass.getUserId();
        
-        ListViewGrid.DataSource = ListViewBLL.getList(userid, Global.CONFIRMED);
+        ListViewGrid.DataSource = ListViewBLL.getList(Userid, Global.CONFIRMED);
         ListViewGrid.DataBind();
    
 
@@ -39,7 +40,7 @@ public partial class User_ListView : System.Web.UI.Page
         ListViewBO obj=new ListViewBO();
         obj.ListName=txtListName.Text;
         ListViewBLL.insertListName(obj);
-        ListViewGrid.DataSource = ListViewBLL.getList(userid, Global.CONFIRMED);
+        ListViewGrid.DataSource = ListViewBLL.getList(Userid, Global.CONFIRMED);
         ListViewGrid.DataBind();
     }
 }

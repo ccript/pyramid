@@ -9,12 +9,17 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class ImageConversions : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-        userid = Session["UserId"].ToString();
-        CreatePhoto();
-       // Response.Redirect("Photos.aspx");
+        Userid = LoginClass.getUserId();
+        CreatePhoto();       
     }
 
     void CreatePhoto()
@@ -54,7 +59,7 @@ public partial class ImageConversions : System.Web.UI.Page
         if (Session["PhotoAlbumId"] == null)
         {
             MediaAlbumBO objAClass = new MediaAlbumBO();
-            objAClass.UserId = userid;
+            objAClass.UserId = Userid;
             objAClass.Name = "My Pictures";
             objAClass.Type = Global.PHOTO;
             albumId = MediaAlbumBLL.insertDefaultAlbum(objAClass);
@@ -66,7 +71,7 @@ public partial class ImageConversions : System.Web.UI.Page
         }
         MediaBO objClass = new MediaBO();
 
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
         objClass.AlbumId = albumId;
         objClass.Caption = "";
         objClass.Name = "";
@@ -81,11 +86,11 @@ public partial class ImageConversions : System.Web.UI.Page
     protected void WallPost(string photoid)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = "added a new photo";

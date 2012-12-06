@@ -16,11 +16,30 @@ public class LoginClass
         }
         catch (Exception ex)
         {
-            HttpContext.Current.Response.Redirect("../../Default.aspx");
+            HttpContext.Current.Response.Redirect("~/Default.aspx");
         }
         return null;
     }
 
+    public static string getPhotoAlbumId()
+    {
+        try
+        {
+            return HttpContext.Current.Session["PhotoAlbumId"].ToString();
+        }
+        catch (Exception ex)
+        {
+            HttpContext.Current.Response.Redirect("~/UI/User/Photos.aspx");
+        }
+        return null;
+    }
+
+    public static void clearSession()
+    {
+        HttpContext.Current.Session["UserId"] = null;
+        HttpContext.Current.Session.Clear();
+        HttpContext.Current.Response.Redirect("~/Default.aspx");
+    }
     public static string getUserIdOrTempUserId()
     {
         try
@@ -33,13 +52,12 @@ public class LoginClass
             else
             {
                 HttpContext.Current.Session["TempUserId"] = HttpContext.Current.Request.QueryString.Get(0);
-                return HttpContext.Current.Request.QueryString.Get(0);                
+                return HttpContext.Current.Request.QueryString.Get(0);
             }
-
         }
-        catch (Exception ex) 
-        { 
-            HttpContext.Current.Response.Redirect("../../Default.aspx");            
+        catch (Exception ex)
+        {
+            HttpContext.Current.Response.Redirect("~/Default.aspx");
         }
         return null;
     }

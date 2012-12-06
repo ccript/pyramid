@@ -17,38 +17,29 @@ using System.Globalization;
 public partial class User_FriendRequests : System.Web.UI.Page
 {
     string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-        //GridViewRow row = GridViewFriendsListRequest.Rows[0];
-        //objClass.Id = row.Cells[2].Text;
-        //Response.Write(row.Cells[2].Text);
-
-        try
-        {
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "Friend Requests";
         if (!IsPostBack)
         {
-
             LoadFriendRequests();
-
-
         }
     }
 
 
     protected void LoadFriendRequests()
     {
-
-
-        
-        GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendRequests(userid, Global.PENDING);
+        GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendRequests(Userid, Global.PENDING);
         GridViewFriendsListRequest.DataBind();
-        GridViewSuggestions.DataSource = FriendsBLL.getAllFriendRequests(userid, Global.SUGGESTED);
+        GridViewSuggestions.DataSource = FriendsBLL.getAllFriendRequests(Userid, Global.SUGGESTED);
         GridViewSuggestions.DataBind();
     }
 
@@ -91,18 +82,18 @@ public partial class User_FriendRequests : System.Web.UI.Page
              
 
                     FriendsBLL.confirmRequest(objClass);
-                    WallPost(" accept friend request of  <a  href=\"ViewProfile.aspx?UserId=" + userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> ");
+                    WallPost(" accept friend request of  <a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> ");
                     LoadFriendRequests();
                 }
     }
     protected void WallPost(string post)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = userid;
-        objWall.WallOwnerUserId = userid;
+        objWall.PostedByUserId = Userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = post;

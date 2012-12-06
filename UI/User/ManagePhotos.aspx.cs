@@ -9,32 +9,26 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class UI_User_ManagePhotos : System.Web.UI.Page
 {
-    string userid;
-    string albumid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    private string albumid;
+
+    public string Albumid
+    {
+        get { return albumid; }
+        set { albumid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Manage Photos";
-        try
-        {
-           
-
-                userid = Session["UserId"].ToString();
-     
-            
-        }
-
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-
-        try
-        {
-
-
-           
-
-            albumid = Session["PhotoAlbumId"].ToString();
-        }
-
-        catch (Exception ex) { Response.Redirect("Photos.aspx"); }
+        Userid = LoginClass.getUserId();
+        Albumid = LoginClass.getPhotoAlbumId();
+        
         if (!IsPostBack)
         {
             LoadDataListMedia();
@@ -46,7 +40,7 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
 
         MediaAlbumBO obj = new MediaAlbumBO();
 
-        obj = MediaAlbumBLL.getMediaAlbumByMediaAlbumId(albumid);
+        obj = MediaAlbumBLL.getMediaAlbumByMediaAlbumId(Albumid);
         txtDescription.Text = obj.Description;
         txtTitle.Text = obj.Name;
         lblTitle.Text = obj.Name;
@@ -63,14 +57,14 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
         MediaAlbumBO obj = new MediaAlbumBO();
         obj.Description=txtDescription.Text;
         obj.Name=txtTitle.Text;
-        obj.Id = albumid;
+        obj.Id = Albumid;
         MediaAlbumBLL.EditAlbum(obj);
 
     }
     protected void LoadDataListMedia()
     {
 
-        DataList1.DataSource = MediaBLL.getMediaTop5(userid, Global.PHOTO, albumid);
+        DataList1.DataSource = MediaBLL.getMediaTop5(Userid, Global.PHOTO, Albumid);
         DataList1.DataBind();
 
     }

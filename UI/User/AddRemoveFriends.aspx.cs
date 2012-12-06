@@ -16,26 +16,16 @@ using BuinessLayer;
 
 public partial class User_AddRemoveFriends : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
-        try
-        {
-            if (Request.QueryString.Count == 0)
-            {
-                userid = Session["UserId"].ToString();
-                Session["TempUserId"] = null;
-            }
-            else
-            {
-                userid = Request.QueryString.Get(0);
-                Session["TempUserId"] = userid;
-            }
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserIdOrTempUserId();
 
         ((Label)Master.FindControl("lblTitle")).Text = "Remove Friends";
         if (!IsPostBack)
@@ -53,7 +43,7 @@ public partial class User_AddRemoveFriends : System.Web.UI.Page
     {
 
 
-        GridViewFriendsList.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);
+        GridViewFriendsList.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);
         GridViewFriendsList.DataBind();
 
         // GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendsListName(userid, Global.PENDING);
@@ -83,34 +73,34 @@ public partial class User_AddRemoveFriends : System.Web.UI.Page
 
         if (CheckBox == "Name")
         {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListName(userid, fieldValue, Global.CONFIRMED);
+            GridViewFriendsList.DataSource = FriendsBLL.FindByListName(Userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
         }
 
         if (CheckBox == "CurrrentCity")
         {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListCurrent(userid, fieldValue, Global.CONFIRMED);
+            GridViewFriendsList.DataSource = FriendsBLL.FindByListCurrent(Userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
             //   Response.Write("current");
         }
 
         if (CheckBox == "HomeTown")
         {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListHomeTown(userid, fieldValue, Global.CONFIRMED);
+            GridViewFriendsList.DataSource = FriendsBLL.FindByListHomeTown(Userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
             //   Response.Write("current");
         }
 
         if (CheckBox == "School")
         {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListSchool(userid, fieldValue, Global.CONFIRMED);
+            GridViewFriendsList.DataSource = FriendsBLL.FindByListSchool(Userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
             //   Response.Write("current");
         }
 
         if (CheckBox == "WorkPlace")
         {
-            GridViewFriendsList.DataSource = FriendsBLL.FindByListWorkPlace(userid, fieldValue, Global.CONFIRMED);
+            GridViewFriendsList.DataSource = FriendsBLL.FindByListWorkPlace(Userid, fieldValue, Global.CONFIRMED);
             GridViewFriendsList.DataBind();
 
         }
