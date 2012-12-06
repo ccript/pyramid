@@ -7,17 +7,18 @@ using System.Web.UI.WebControls;
 using System.IO;
 public partial class User_WebPhotos : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Upload Picture from your webcam";
-       
-        try
-        {
-            userid = Session["UserId"].ToString();
-           
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+
+        Userid = LoginClass.getUserId();
      
     }
 

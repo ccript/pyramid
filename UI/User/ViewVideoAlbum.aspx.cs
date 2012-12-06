@@ -8,20 +8,27 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class UI_User_ViewVideoAlbum : System.Web.UI.Page
 {
-    string userid;
-    string albumid;
+    private string userid;
+    private string albumid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+
+    public string Albumid
+    {
+        get { return albumid; }
+        set { albumid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Video Album";
-        try
-        {
 
-            albumid = Request.QueryString.Get(0);
-                userid = Session["UserId"].ToString();
-                Session["VideoAlbumId"] = albumid;
-        }
-
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Albumid = QueryString.getQueryStringOnIndex(0);
+        Userid = LoginClass.getUserId();
+        Session["VideoAlbumId"] = Albumid;
         LoadDataListMedia();
     }
 
@@ -29,7 +36,7 @@ public partial class UI_User_ViewVideoAlbum : System.Web.UI.Page
     {
         // ***  Proxy driver to get image     **********/
         ProxyVirtualVideoSubject proxyobj = new ProxyVirtualVideoSubject();
-        DataList1.DataSource = proxyobj.getVideo(albumid);
+        DataList1.DataSource = proxyobj.getVideo(Albumid);
         DataList1.DataBind();
 
         //DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);

@@ -30,8 +30,8 @@ public partial class UI_User_ViewVideo : System.Web.UI.Page
         }
         catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
         LoadFollow();
-            LoadDataListComments();
-            YouLikes();
+        LoadDataListComments();
+        YouLikes();
          
          string videotag="";
 
