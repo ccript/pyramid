@@ -456,7 +456,7 @@ public partial class Wall : System.Web.UI.Page
             {
                 objWall2.Type = Global.TAG_PHOTO_ALBUM;
                 objWall2.Post = objWall.Post + " <font color='#838181'> was tagged by <font/><a  href=\"ViewProfile.aspx?UserId=" + Session["UserId"].ToString() + "\">" + objUser.FirstName + " " + objUser.LastName + "</a>.";
-                notifTag(item, userid);
+                notify_Tag(item, userid);
                 tagstatus = "tagged a photo album";
             }
 
@@ -465,7 +465,7 @@ public partial class Wall : System.Web.UI.Page
                 objWall2.Type = Global.TAG_VIDEO;
                 objWall2.EmbedPost = Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + uploadedvideothumbname;
                 objWall2.Post = objWall.Post + "<font color='#838181'> was tagged by <font/><a  href=\"ViewProfile.aspx?UserId=" + Session["UserId"].ToString() + "\">" + objUser.FirstName + " " + objUser.LastName + "</a>.";
-                notifTag(item, userid);
+                notify_Tag(item, userid);
                 tagstatus = "tagged a video";
             }
            if (isVideoLink)
@@ -473,7 +473,7 @@ public partial class Wall : System.Web.UI.Page
                 objWall2.Type = Global.TAG_VIDEOLINK;
                 objWall2.EmbedPost = imagesrc;
                 objWall2.Post = objWall.Post + "<font color='#838181'> was tagged by <font/> <a  href=\"ViewProfile.aspx?UserId=" + Session["UserId"].ToString() + "\">" + objUser.FirstName + " " + objUser.LastName + "</a>.";
-                notifTag(item, userid);
+                notify_Tag(item, userid);
                 tagstatus = "tagged a video";
            
            }
@@ -488,7 +488,7 @@ public partial class Wall : System.Web.UI.Page
                 objTags.FriendId = item;
                 objTags.FriendFName = objUser2.FirstName;
                 objTags.FriendLName = objUser2.LastName;
-                notifTag(item, photoid);
+                notify_Tag(item, photoid);
                 TagsBLL.insertTags(objTags);
                 objWall2.Type = Global.TAG_PHOTO;
                 objWall2.EmbedPost = photoid;
@@ -508,7 +508,7 @@ public partial class Wall : System.Web.UI.Page
                 TagsBLL.insertTags(objTags);
                 objWall2.Type = Global.TAG_PHOTO;
                 objWall2.EmbedPost = Session["WebCamPhotoId"].ToString();
-                notifTag(item, Session["WebCamPhotoId"].ToString());
+                notify_Tag(item, Session["WebCamPhotoId"].ToString());
                 tagstatus = "tagged a photo";
             }
             
@@ -536,12 +536,22 @@ public partial class Wall : System.Web.UI.Page
         LoadWall(100); 
     }
 
-    void notifTag(string uid, string atid)
+    public UserBO getUserForNotification(string uid)
+    {
+       return UserBLL.getUserByUserId(uid);
+    }
+
+    public void insertNotification_user(NotificationBO notifyobj)
+    {
+        NotificationBLL.insertNotification(notifyobj);
+    }
+
+    void notify_Tag(string uid, string atid)
     {
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(userid);
         UserBO objUserNotify = new UserBO();
-        objUserNotify = UserBLL.getUserByUserId(uid);
+        objUserNotify = getUserForNotification(uid);
         NotificationBO objNotify = new NotificationBO();
         objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> Tag  a <a  href='UserData.aspx'>post</a>";
         objNotify.AtId = atid;
@@ -552,7 +562,8 @@ public partial class Wall : System.Web.UI.Page
         objNotify.FriendId = userid;
         objNotify.FriendFName = objUser.FirstName;
         objNotify.FriendLName = objUser.LastName;
-        NotificationBLL.insertNotification(objNotify);
+
+        insertNotification_user(objNotify);
     }
 
     protected void RWallPost(string post)
@@ -1957,14 +1968,14 @@ str+="});";
         {
             objWall2.Type = Global.TAG_VIDEO;
             objWall2.EmbedPost = Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + uploadedvideothumbname;
-            notifTag(HiddenFieldWallTagId.Value, userid);
+            notify_Tag(HiddenFieldWallTagId.Value, userid);
             tagstatus = "tagged a video";
         }
         if (hfType.Value.Equals(Global.POST_VIDEOLINK.ToString()))
         {
             objWall2.Type = Global.TAG_VIDEOLINK;
             objWall2.EmbedPost = hfEmbedPost.Value;
-            notifTag(HiddenFieldWallTagId.Value, userid);
+            notify_Tag(HiddenFieldWallTagId.Value, userid);
             tagstatus = "tagged a video";
         }
 
@@ -1979,7 +1990,7 @@ str+="});";
             objTags.FriendId = HiddenFieldWallTagId.Value;
             objTags.FriendFName = objUser2.FirstName;
             objTags.FriendLName = objUser2.LastName;
-            notifTag(HiddenFieldWallTagId.Value, hfEmbedPost.Value);
+            notify_Tag(HiddenFieldWallTagId.Value, hfEmbedPost.Value);
             TagsBLL.insertTags(objTags);
             objWall2.Type = Global.TAG_PHOTO;
             objWall2.EmbedPost = hfEmbedPost.Value;
