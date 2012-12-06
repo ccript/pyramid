@@ -114,95 +114,113 @@ namespace BuinessLayer
             }
             return list;
         }
-        public static List<UserFriendsBO> RecommendationScoring(List<UserFriendsBO> list,string UserId)
+        public static int calculateGenderRecomendationScore(string userId,string friendsId)
         {
-            string uGender;
-            string uHomeTown;
-            ArrayList uInterests;
-            ArrayList uEmployers;
-            ArrayList uUniversity;
-            string sGender;
-            string sHomeTown;
-            ArrayList sInterests;
-            ArrayList sEmployers;
-            ArrayList sUniversity;
-            List<UserFriendsBO> scoredlist = new List<UserFriendsBO>();
-            BasicInfoBO info = BasicInfoDAL.getBasicInfoByUserId(UserId);
-            uHomeTown = info.HomeTown;
-            UserBO uinfo = UserDAL.getUserByUserId(UserId);  
-            uGender=uinfo.Gender;
-            uEmployers = EmployerDAL.getEmployersByUserId(UserId);
-            uUniversity = UniversityDAL.getUnisByUserId(UserId);
-            uInterests = ActivityDAL.getActivitiesByUserId(UserId);
-  
-            foreach (UserFriendsBO item in list)
+            UserBO userInfo = UserDAL.getUserByUserId(userId);
+            UserBO FriendsInfo = UserDAL.getUserByUserId(friendsId);
+            if (userInfo.Gender.Equals(FriendsInfo.Gender))
             {
-                item.Score = 0;
-                BasicInfoBO sinfo = BasicInfoDAL.getBasicInfoByUserId(item.FriendUserId);
-                sHomeTown = sinfo.HomeTown;
-                UserBO suinfo = UserDAL.getUserByUserId(item.FriendUserId);
-                sGender = suinfo.Gender;
-                sEmployers = EmployerDAL.getEmployersByUserId(item.FriendUserId);
-                sUniversity = UniversityDAL.getUnisByUserId(item.FriendUserId);
-                sInterests = ActivityDAL.getActivitiesByUserId(item.FriendUserId);
-                
-                if (uGender.Equals(sGender))
-                {
-                    item.Score += 1 * Global.WEIGHT_GENDER;
+                return 1 * Global.WEIGHT_GENDER;
 
-                }
-                if (uHomeTown.Equals(sHomeTown))
-                {
-                    item.Score += 1 * Global.WEIGHT_HOMETOWN;
-                }
-                foreach (string uemp in uEmployers)
-                {
-                    foreach (string semp in sEmployers)
-                    {
-                        if (uemp.Equals(semp))
-                        {
-                            item.Score += 1 * Global.WEIGHT_WORKPLACE;
- 
-                        }
-
-                    }
-                }
-                foreach (string uUni in uUniversity)
-                {
-                    foreach (string sUni in sUniversity)
-                    {
-                        if (uUni.Equals(sUni))
-                        {
-                            item.Score += 1 * Global.WEIGHT_EDUCATION;
-
-                        }
-
-                    }
-                }
-                foreach (string uInterest in uInterests)
-                {
-                    foreach (string sInterest in sInterests)
-                    {
-                        if (uInterest.Equals(sInterest))
-                        {
-                            item.Score += 1 * Global.WEIGHT_INTERESTS;
-
-                        }
-
-                    }
-                }
-                item.Score += item.MutualFriendsCount * Global.WEIGHT_SHAREDFRIENDS;
             }
-            var result = from em in list
+            return 0;
+        }
+        public static int calculateHomeTownRecomendationScore(string userId, string friendsId)
+        {
+            BasicInfoBO userInfo = BasicInfoDAL.getBasicInfoByUserId(userId);
+            BasicInfoBO friendsInfo = BasicInfoDAL.getBasicInfoByUserId(friendsId);
+            if (userInfo.HomeTown.Equals(friendsInfo.HomeTown))
+            {
+                return 1 * Global.WEIGHT_HOMETOWN;
+
+            }
+            return 0;
+        }
+
+        public static int calculateEmployersRecomendationScore(string userId, string friendsId)
+        {
+            ArrayList userEmployers = EmployerDAL.getEmployersByUserId(userId);
+            ArrayList friendsEmployers = EmployerDAL.getEmployersByUserId(friendsId);
+            int Score = 0;
+            foreach (string userEmploy in userEmployers)
+            {
+                foreach (string friendsEmploy in friendsEmployers)
+                {
+                    if (userEmploy.Equals(friendsEmploy))
+                    {
+                        Score += 1 * Global.WEIGHT_WORKPLACE;
+
+                    }
+                }
+            }
+            return Score;
+        }
+        public static int calculateUniversityRecomendationScore(string userId, string friendsId)
+        {
+            ArrayList userUniversity = UniversityDAL.getUnisByUserId(userId);
+            ArrayList friendsUniversity = UniversityDAL.getUnisByUserId(friendsId);
+            int Score = 0;
+            foreach (string uUni in userUniversity)
+            {
+                foreach (string sUni in friendsUniversity)
+                {
+                    if (uUni.Equals(sUni))
+                    {
+                        Score += 1 * Global.WEIGHT_EDUCATION;
+
+                    }
+
+                }
+            }
+            return Score;
+        }
+        public static int calculateInterestRecomendationScore(string userId, string friendsId)
+        {
+            ArrayList userInterests = ActivityDAL.getActivitiesByUserId(userId);
+            ArrayList friendsInterests = ActivityDAL.getActivitiesByUserId(friendsId); ;
+            int Score = 0;
+            foreach (string uInterest in userInterests)
+            {
+                foreach (string friendInterest in friendsInterests)
+                {
+                    if (uInterest.Equals(friendInterest))
+                    {
+                        Score += 1 * Global.WEIGHT_INTERESTS;
+                    }
+                }
+            }
+            return Score;
+        }
+        public static List<UserFriendsBO> getSortedScoredList(List<UserFriendsBO> FriendList)
+        {
+            List<UserFriendsBO> scoredlist = new List<UserFriendsBO>();
+            var sortedList = from em in FriendList
                          orderby em.Score descending
                          select em;
-            foreach (var em in result)
+            foreach (var friend in sortedList)
             {
-                if(em.Score>=Global.SUGGESTIONS_MINIMUM_SCORE)
-                scoredlist.Add(em);
+                if (friend.Score >= Global.SUGGESTIONS_MINIMUM_SCORE)
+                    scoredlist.Add(friend);
             }
 
             return scoredlist;
+
+        }
+
+        public static List<UserFriendsBO> RecommendationScoring(List<UserFriendsBO> FriendList,string UserId)
+        {
+
+            foreach (UserFriendsBO Friend in FriendList)
+            {
+                Friend.Score = 0;
+                Friend.Score += calculateGenderRecomendationScore(UserId, Friend.FriendUserId);
+                Friend.Score += calculateHomeTownRecomendationScore(UserId, Friend.FriendUserId);
+                Friend.Score += calculateUniversityRecomendationScore(UserId, Friend.FriendUserId);
+                Friend.Score += calculateInterestRecomendationScore(UserId, Friend.FriendUserId);
+                Friend.Score += Friend.MutualFriendsCount * Global.WEIGHT_SHAREDFRIENDS;
+            }
+            return getSortedScoredList(FriendList);
+           
         }
         public static List<UserFriendsBO> getMutualFriends(string UserId,string FriendId, string status)
         {
