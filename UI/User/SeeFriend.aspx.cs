@@ -16,6 +16,7 @@ using System.Globalization;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
+using DataLayer;
 
 
 public partial class UI_User_SeeFriend : System.Web.UI.Page
@@ -252,12 +253,16 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
 
-        CommentsBLL.insertComments(objClass);
+        if (!objClass.MyComments.Equals(""))
+        {
+            CommentsDAL.insertComments(objClass);
+        }
+
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtcomments.ClientID + "').value = '';", true);
 
         GridView gridviewComments = (GridView)row.FindControl("GridViewComments");
 
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, hfId.Value, 2);
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, hfId.Value, 2);
         gridviewComments.DataBind();
 
         LoadWall(50);
@@ -274,7 +279,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
                 string sValue = ((HiddenField)gvr.FindControl("HiddenFieldId")).Value;
                 GridView gridviewComments = (GridView)gvr.FindControl("GridViewComments");
 
-                gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, sValue, 2);
+                gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, sValue, 2);
                 gridviewComments.DataBind();
                 imgbutton.ImageUrl = Global.PROFILE_PICTURE + Session["UserId"].ToString() + ".jpg";
                 imgbutton.PostBackUrl = "ViewProfile.aspx?UserId=" + Session["UserId"].ToString();
@@ -315,7 +320,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
                     linkLikeCount.Visible = false;
 
                 LinkButton linkcountComments = (LinkButton)gvr.FindControl("lbtnViewComments");
-                long totalcomments = CommentsBLL.countComments(hfId.Value, Global.WALL);
+                long totalcomments = CommentsDAL.countComment(hfId.Value, Global.WALL);
                 if (totalcomments > 2)
                     linkcountComments.Text = "View All " + totalcomments.ToString() + " Comments";
                 else
@@ -623,7 +628,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
 
         GridView gridviewComments = (GridView)row.FindControl("GridViewComments");
-        gridviewComments.DataSource = CommentsBLL.getCommentsTop(Global.WALL, hfId.Value, 100);
+        gridviewComments.DataSource = CommentsDAL.getCommentsTop(Global.WALL, hfId.Value, 100);
         gridviewComments.DataBind();
 
     }
@@ -744,7 +749,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
         // LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
-        CommentsBLL.deleteComments(hfId.Value);
+        CommentsDAL.deleteComments(hfId.Value);
         LoadWall(50);
     }
 
