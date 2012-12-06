@@ -14,43 +14,59 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class UI_User_ManagePhotos : System.Web.UI.Page
 {
-    string userid;
-    string albumid;
-    bool isfollow;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    
+    private string albumid;
+
+    public string Albumid
+    {
+        get { return albumid; }
+        set { albumid = value; }
+    }
+    
+    private bool isfollow;
+
+    public bool Isfollow
+    {
+        get { return isfollow; }
+        set { isfollow = value; }
+    }
+    
     static string msgtext;
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Photos Album";
-        try
-        {
-
-            albumid = Request.QueryString.Get(0);
-                userid = Session["UserId"].ToString();
-                Session["PhotoAlbumId"] = albumid;
-        }
-
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-        imgBtnComments.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
+        Albumid = QueryString.getQueryStringOnIndex(0);
+        Userid = LoginClass.getUserId();
+        Session["VideoAlbumId"] = Albumid;
+        imgBtnComments.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
         LoadDataListMedia();
         LoadDataListComments();
         YouLikes();
         LoadDataAlbum();
-       Session["HighResoultion"] = null;
+        Session["HighResoultion"] = null;
     }
     protected void LoadDataAlbum()
     {
 
         MediaAlbumBO obj = new MediaAlbumBO();
 
-        obj=MediaAlbumBLL.getMediaAlbumByMediaAlbumId(albumid);
+        obj=MediaAlbumBLL.getMediaAlbumByMediaAlbumId(Albumid);
         lblDescription.Text = obj.Description;
         lblTitle.Text = obj.Name;
 
         if (obj.Name.Equals("My Pictures")||obj.Name.Equals("Profile Pictures"))
             lnkDelete.Visible = false;
 
-         isfollow = obj.isFollow;
-        if (isfollow)
+         Isfollow = obj.isFollow;
+        if (Isfollow)
         {
             lbtnFollow.Text = "UnFollow Post";
         }
@@ -66,7 +82,7 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     {
         // ***  Proxy driver to get image     **********/
         ProxyVirtualSubject proxyobj = new ProxyVirtualSubject();
-        DataList1.DataSource = proxyobj.getImage(albumid);
+        DataList1.DataSource = proxyobj.getImage(Albumid);
         DataList1.DataBind();
 
         //DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);
@@ -77,20 +93,20 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     protected void LoadDataListComments()
     {
 
-        DataListComments.DataSource = CommentsBLL.getComments(Global.PHOTO_ALBUM, albumid);
+        DataListComments.DataSource = CommentsBLL.getComments(Global.PHOTO_ALBUM, Albumid);
         DataListComments.DataBind();
 
     }
     protected void InsertComments()
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         CommentsBO objClass = new CommentsBO();
         objClass.MyComments = txtComments.Text;
-        objClass.AtId = albumid;
+        objClass.AtId = Albumid;
         objClass.Type = Global.PHOTO_ALBUM;
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
         CommentsBLL.insertComments(objClass);
@@ -98,8 +114,8 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
         
         txtComments.Text = "";
         List<string> lst = new List<string>();
-        lst = CommentsBLL.getCommentsUserIdbyAtId(Global.PHOTO, albumid);
-        if (isfollow == true)
+        lst = CommentsBLL.getCommentsUserIdbyAtId(Global.PHOTO, Albumid);
+        if (Isfollow == true)
         {
             foreach (string item in lst)
             {
@@ -108,13 +124,13 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
                 objUserNotify = UserBLL.getUserByUserId(item);
                 msgtext = "Dear Pyramid Plus user, Comments on your album. ";
                 NotificationBO objNotify = new NotificationBO();
-                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> comments on <a  href=\"ViewPhotoAlbum.aspx?AlbumId=" + albumid + "\">photo album</a>";
-                objNotify.AtId = albumid;
+                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> comments on <a  href=\"ViewPhotoAlbum.aspx?AlbumId=" + Albumid + "\">photo album</a>";
+                objNotify.AtId = Albumid;
                 objNotify.Type = Global.PHOTO_ALBUM;
                 objNotify.UserId = item;
                 objNotify.FirstName = objUserNotify.FirstName;
                 objNotify.LastName = objUserNotify.LastName;
-                objNotify.FriendId = userid;
+                objNotify.FriendId = Userid;
                 objNotify.FriendFName = objUser.FirstName;
                 objNotify.FriendLName = objUser.LastName;
                 objNotify.Status = false;
@@ -128,9 +144,9 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     protected void YouLikes()
     {
         LikesBO objClass = new LikesBO();
-        objClass.AtId = albumid;
+        objClass.AtId = Albumid;
         objClass.Type = Global.PHOTO_ALBUM;
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
         bool islike = LikesBLL.youLikes(objClass);
         if (islike)
         {
@@ -152,18 +168,18 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     }
     protected void imgBtnComments_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("ViewProfile.aspx?UserId=" + userid);
+        Response.Redirect("ViewProfile.aspx?UserId=" + Userid);
     }
     protected void lbtnLike_Click(object sender, EventArgs e)
     {
         if (lbtnLike.Text == "Like")
         {
             UserBO objUser = new UserBO();
-            objUser = UserBLL.getUserByUserId(userid);
+            objUser = UserBLL.getUserByUserId(Userid);
             LikesBO objClass = new LikesBO();
-            objClass.AtId = albumid;
+            objClass.AtId = Albumid;
             objClass.Type = Global.PHOTO_ALBUM;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             objClass.FirstName = objUser.FirstName;
             objClass.LastName = objUser.LastName;
             LikesBLL.insertLikes(objClass);
@@ -174,9 +190,9 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
         else
         {
             LikesBO objClass = new LikesBO();
-            objClass.AtId = albumid;
+            objClass.AtId = Albumid;
             objClass.Type = Global.PHOTO_ALBUM;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             LikesBLL.unLikes(objClass);
             lblLike.Text = "";
             lbtnLike.Text = "Like";
@@ -192,7 +208,7 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
         {
             MediaAlbumBO obj=new MediaAlbumBO();
             obj.isFollow=true;
-            obj.Id = albumid;
+            obj.Id = Albumid;
             MediaAlbumBLL.EditFollowAlbum(obj);
             lbtnFollow.Text = "UnFollow Post";
         }
@@ -200,14 +216,14 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
         {
             MediaAlbumBO obj = new MediaAlbumBO();
             obj.isFollow = false;
-            obj.Id = albumid;
+            obj.Id = Albumid;
             MediaAlbumBLL.EditFollowAlbum(obj);
             lbtnFollow.Text = "Follow Post";
         }
     }
     protected void lnkDelete_Click(object sender, EventArgs e)
     {
-        MediaAlbumBLL.deleteMediaAlbum(albumid);
+        MediaAlbumBLL.deleteMediaAlbum(Albumid);
         Response.Redirect("Photos.aspx"); 
     }
 
@@ -275,15 +291,15 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
             UserBO objFriend = new UserBO();
             objFriend = UserBLL.getUserByUserId(fid);
             UserBO objUser = new UserBO();
-            objUser = UserBLL.getUserByUserId(userid);
+            objUser = UserBLL.getUserByUserId(Userid);
 
 
             //Response.Write(fid);
 
             TagsBO objTags = new TagsBO();
-            objTags.AtId = albumid;
+            objTags.AtId = Albumid;
             objTags.Type = Global.PHOTO_ALBUM;
-            objTags.UserId = userid;
+            objTags.UserId = Userid;
             objTags.FirstName = objUser.FirstName;
             objTags.LastName = objUser.LastName;
             objTags.FriendId = fid;
@@ -295,7 +311,7 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
 
 
             List<string> lst = new List<string>();
-            lst = TagsBLL.getTagsFriendId(Global.PHOTO_ALBUM, albumid);
+            lst = TagsBLL.getTagsFriendId(Global.PHOTO_ALBUM, Albumid);
 
             LoadDataListComments();
 
@@ -305,13 +321,13 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
                 UserBO objUserNotify = new UserBO();
                 objUserNotify = UserBLL.getUserByUserId(item);
                 NotificationBO objNotify = new NotificationBO();
-                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> tags on  <a  href=\"ViewPhotoAlbum.aspx?AlbumId=" + albumid + "\">photo album</a>";
-                objNotify.AtId = albumid;
+                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> tags on  <a  href=\"ViewPhotoAlbum.aspx?AlbumId=" + Albumid + "\">photo album</a>";
+                objNotify.AtId = Albumid;
                 objNotify.Type = Global.VIDEO;
                 objNotify.UserId = item;
                 objNotify.FirstName = objUserNotify.FirstName;
                 objNotify.LastName = objUserNotify.LastName;
-                objNotify.FriendId = userid;
+                objNotify.FriendId = Userid;
                 objNotify.FriendFName = objUser.FirstName;
                 objNotify.FriendLName = objUser.LastName;
                 msgtext = "Dear Pyramid Plus user," + objUser.FirstName + " " + objUser.LastName + " tags you video ";
@@ -327,7 +343,7 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     protected void LoadDataListTags()
     {
 
-        DListTags.DataSource = TagsBLL.getTagsTop5(Global.PHOTO_ALBUM, albumid);
+        DListTags.DataSource = TagsBLL.getTagsTop5(Global.PHOTO_ALBUM, Albumid);
         DListTags.DataBind();
 
     }
@@ -338,6 +354,6 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     }
     protected void lbtnViewSlideShow_Click(object sender, EventArgs e)
     {
-        Response.Redirect("ViewPhotoAlbumGallery1.aspx?AlbumId="+albumid);
+        Response.Redirect("ViewPhotoAlbumGallery1.aspx?AlbumId="+Albumid);
     }
 }

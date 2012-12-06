@@ -17,43 +17,53 @@ using System.Drawing;
 public partial class FriendsList : System.Web.UI.Page
 {
     private string friendid;
-    string userid;
-    string search;
-    bool requestsent = false;
+
+    public string Friendid
+    {
+        get { return friendid; }
+        set { friendid = value; }
+    }
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    private string search;
+
+    public string Search
+    {
+        get { return search; }
+        set { search = value; }
+    }
+    private bool requestsent = false;
+
+    public bool Requestsent
+    {
+        get { return requestsent; }
+        set { requestsent = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        
-        try
-        {
-            userid = Session["UserId"].ToString();
-            search= Request.QueryString.Get(0);
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-
+        Userid = LoginClass.getUserId();
+        Search = QueryString.getQueryStringOnIndex(0);
         ((Label)Master.FindControl("lblTitle")).Text = "Search User";
         if (!IsPostBack)
         {
-
-            LoadFriendsList();
-            
-          
+            LoadFriendsList();   
         }
-
         Panel1.DefaultButton = "imgBtnSearchFriends";
     }
 
 
     protected void LoadFriendsList()
     {
-
-
-        GridViewSearchUser.DataSource = UserBLL.SearchUserList(search,true,userid);
+        GridViewSearchUser.DataSource = UserBLL.SearchUserList(Search,true,Userid);
         GridViewSearchUser.DataBind();
-             inVisibleAddFriends();
+        inVisibleAddFriends();
     }
-
-
 
     protected void imgBtnSearchFriends_Click(object sender, ImageClickEventArgs e)
     {
@@ -70,7 +80,7 @@ public partial class FriendsList : System.Web.UI.Page
         {
             txtSearchBy2.Visible = false;
             txtSearchBy3.Visible = false;
-            GridViewSearchUser.DataSource = UserBLL.SearchUserList(txtSearchBy.Text, true, userid);
+            GridViewSearchUser.DataSource = UserBLL.SearchUserList(txtSearchBy.Text, true, Userid);
             GridViewSearchUser.DataBind();
         }
         else if (lstSearchBy.SelectedValue == "Education")
@@ -211,13 +221,13 @@ public partial class FriendsList : System.Web.UI.Page
 
         GridViewRow row = GridViewSearchUser.Rows[Convert.ToInt32(e.CommandArgument)];
 
-        friendid = GridViewSearchUser.DataKeys[row.RowIndex].Value.ToString();
+        Friendid = GridViewSearchUser.DataKeys[row.RowIndex].Value.ToString();
         string s = ((LinkButton)(row.Cells[1].Controls[0])).Text;
         if (s.Equals("Add Friend"))
         {
 
-            FriendsBLL.sendFriendRequest(userid, friendid);
-            requestsent = true;
+            FriendsBLL.sendFriendRequest(Userid, Friendid);
+            Requestsent = true;
             //e.Row.Cells[0].Controls[0].Attributes.Add("onclick", "alert(‘An alert’);")
             //row.Cells[0].Controls[0].Visible=false;
             //row.Cells[1].Controls[0].Visible = true;
@@ -229,13 +239,9 @@ public partial class FriendsList : System.Web.UI.Page
         }
         else if (s.Equals("Cancel Request"))
         {
-            FriendsBLL.cancelFriendRequest(userid, friendid);
-            requestsent = false;
-            //row.Cells[1].Controls[0]. = false;
-            //row.Cells[0].Controls[0].Visible = true;
+            FriendsBLL.cancelFriendRequest(Userid, Friendid);
+            Requestsent = false;
             ((LinkButton)(row.Cells[1].Controls[0])).Text = "Add Friend";
-            //row.FindControl("btnAddFriend").Visible = false;
-            //row.FindControl("btnCancelRequest").Visible = true;
 
         }
     }
@@ -249,7 +255,7 @@ public partial class FriendsList : System.Web.UI.Page
         }
         else if (lstSearchBy.SelectedValue == "Name")
         {
-            GridViewSearchUser.DataSource = UserBLL.SearchUserList(txtSearchBy.Text, false,userid);
+            GridViewSearchUser.DataSource = UserBLL.SearchUserList(txtSearchBy.Text, false,Userid);
             GridViewSearchUser.DataBind();
         }
         else if (lstSearchBy.SelectedValue == "Education")
@@ -275,7 +281,7 @@ public partial class FriendsList : System.Web.UI.Page
             {
 
                 string sValue = ((HiddenField)gvr.FindControl("HiddenField1")).Value;
-                if (FriendsBLL.isExistingFriend(userid, sValue))
+                if (FriendsBLL.isExistingFriend(Userid, sValue))
                 {
                     gvr.Cells[1].Visible = true;
                     gvr.Cells[1].Text = "Already Friend";

@@ -16,27 +16,37 @@ using System.Collections.Generic;
 
 public partial class UI_User_SuggestFriends : System.Web.UI.Page
 {
-    string userid;
-    string fname;
-    string lname;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    private string fname;
+
+    public string Fname
+    {
+        get { return fname; }
+        set { fname = value; }
+    }
+    private string lname;
+
+    public string Lname
+    {
+        get { return lname; }
+        set { lname = value; }
+    }
     private List<UserFriendsBO> list = new List<UserFriendsBO>();
     private static List<UserFriendsBO> list2 = new List<UserFriendsBO>();
     private static string fid = "";//the person to whom suggestions are being given
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        try
-        {
-            userid = Session["UserId"].ToString();
-            
-            fname = Request.QueryString.Get(0);
-            lname = Request.QueryString.Get(1);
-           //     Session["TempUserId"] = userid;
-            
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-        ((Label)Master.FindControl("lblTitle")).Text = "Suggest Friends to " +fname+" "+lname;
+        Userid = LoginClass.getUserId();
+        Fname = QueryString.getQueryStringOnIndex(0);
+        Lname = QueryString.getQueryStringOnIndex(1);
+        ((Label)Master.FindControl("lblTitle")).Text = "Suggest Friends to " +Fname+" "+Lname;
         if (!IsPostBack)
         {
 
@@ -65,16 +75,16 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
         List<UserFriendsBO> reclist = new List<UserFriendsBO>();//recommendation list
         if (!FilterByListName.Equals("")&& !FilterByListName.Equals("None"))
         {
-            list = FriendsBLL.getAllFriendsFilterByList(userid, Global.CONFIRMED,FilterByListName);// FriendsBLL.getAllSuggestions(userid);
+            list = FriendsBLL.getAllFriendsFilterByList(Userid, Global.CONFIRMED,FilterByListName);// FriendsBLL.getAllSuggestions(userid);
         }
         else
         {
-            list = FriendsBLL.getAllFriendsListName(userid, Global.CONFIRMED);// FriendsBLL.getAllSuggestions(userid);
+            list = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);// FriendsBLL.getAllSuggestions(userid);
         }
         foreach (UserFriendsBO Useritem in list)
         {
 
-            if (Useritem.FirstName.Equals(fname) && Useritem.LastName.Equals(lname))//if no value specified by user by default true
+            if (Useritem.FirstName.Equals(Fname) && Useritem.LastName.Equals(Lname))//if no value specified by user by default true
             {
                 userlist.Add(Useritem);
                 fid = Useritem.FriendUserId;
@@ -88,7 +98,7 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
 
         //GridViewFriendsList.DataBind();
         //get mutual friends
-        List<UserFriendsBO> mutualfriendslist = FriendsBLL.getMutualFriends(userid, fid, Global.CONFIRMED);
+        List<UserFriendsBO> mutualfriendslist = FriendsBLL.getMutualFriends(Userid, fid, Global.CONFIRMED);
         //take difference of the two lists: items in lst that are not in lst1
         IEqualityComparer<UserFriendsBO> comparer = new UserFriendsComparer();
 
@@ -105,7 +115,7 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
 
 
         //get list name to which the person for whom suggestions are being given belongs
-        string belongsto = ListViewBLL.getListName(userid, fid);
+        string belongsto = ListViewBLL.getListName(Userid, fid);
 
         //Check person in userlist "belongs to" which list and get matching people as recommended suggestions
         foreach (UserFriendsBO Useritem in l4)
@@ -113,9 +123,9 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
             Useritem.Score = 0;
 
             //get list name to which the user belongs
-            string belongsto1 = ListViewBLL.getListName(userid, Useritem.FriendUserId);
+            string belongsto1 = ListViewBLL.getListName(Userid, Useritem.FriendUserId);
 
-            string belongsto2 = ListViewBLL.getListName(Useritem.FriendUserId, userid);
+            string belongsto2 = ListViewBLL.getListName(Useritem.FriendUserId, Userid);
 
             if (belongsto1.Equals(belongsto) || belongsto2.Equals(belongsto))//if no value specified by user by default true
             {

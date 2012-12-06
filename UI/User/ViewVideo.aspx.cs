@@ -14,74 +14,79 @@ using BuinessLayer;
 using ObjectLayer;
 public partial class UI_User_ViewVideo : System.Web.UI.Page
 {
-    string photoid;
-    string userid;
+    private string photoid;
+    private string userid;
+    private bool isfollow;
     static string msgtext;
-    bool isfollow;
+
+    public string Photoid
+    {
+        get { return photoid; }
+        set { photoid = value; }
+    }
+    
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    
+    public bool Isfollow
+    {
+        get { return isfollow; }
+        set { isfollow = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
 
         ((Label)Master.FindControl("lblTitle")).Text = "View Video";
-        try
-        {
-            photoid = Request.QueryString.Get(0);
-            userid = Session["UserId"].ToString();
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Photoid = QueryString.getQueryStringOnIndex(0);
+        Userid = LoginClass.getUserId();
         LoadFollow();
         LoadDataListComments();
         YouLikes();
-         
-         string videotag="";
-
-       
+        string videotag="";
         MediaBO objMedia=new MediaBO();
-        objMedia=MediaBLL.getMediaByMediaId(photoid);
+        objMedia=MediaBLL.getMediaByMediaId(Photoid);
 
         videotag += "  <script  type= 'text/javascript'  >";
-     videotag +=" jwplayer('container').setup({";
-     videotag += " file: src='" + Global.USER_VIDEO + objMedia.Id + ".mp4' ,";
-     videotag += " flashplayer: '../../Resources/jwplayer/player.swf',";
-         videotag +=" width: 520";
-     videotag +=" }); "; 
-videotag +="</script> ";
-        //videotag +="<video width='520' height='340' controls='controls'>";
-        //videotag +="<source src='"+Global.USER_VIDEO +  objMedia.Id +".mp4' type='video/mp4' />";
-      
-            this.LiteralVideo.Text = videotag ;
-          
-        imgBtnComments.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
+        videotag +=" jwplayer('container').setup({";
+        videotag += " file: src='" + Global.USER_VIDEO + objMedia.Id + ".mp4' ,";
+        videotag += " flashplayer: '../../Resources/jwplayer/player.swf',";
+        videotag +=" width: 520";
+        videotag +=" }); "; 
+        videotag +="</script> ";
+        this.LiteralVideo.Text = videotag ;  
+        imgBtnComments.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
         Session["SpamPhoto"] = null;
         Session["AbusePhoto"] = null; 
-        //imgPhoto.ImageUrl = "../../Resources/Images/Icon/DefaultVideo.png";
     }
 
     protected void LoadDataListComments()
     {
 
-        DataList1.DataSource = CommentsBLL.getComments(Global.VIDEO, photoid);
+        DataList1.DataSource = CommentsBLL.getComments(Global.VIDEO, Photoid);
         DataList1.DataBind();
 
     }
     protected void InsertComments()
     {
          UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
 
         CommentsBO objClass = new CommentsBO();
         objClass.MyComments = txtComments.Text;
-        objClass.AtId = photoid;
+        objClass.AtId = Photoid;
         objClass.Type = Global.VIDEO;
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
         CommentsBLL.insertComments(objClass);
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtComments.ClientID + "').value = '';", true);
         
         List<string> lst = new List<string>();
-        lst = CommentsBLL.getCommentsUserIdbyAtId(Global.VIDEO, photoid);
-        if (isfollow == true)
+        lst = CommentsBLL.getCommentsUserIdbyAtId(Global.VIDEO, Photoid);
+        if (Isfollow == true)
         {
             foreach (string item in lst)
             {
@@ -90,13 +95,13 @@ videotag +="</script> ";
                 objUserNotify = UserBLL.getUserByUserId(item);
                 msgtext = "Dear Pyramid Plus user, Comments on your video. ";
                 NotificationBO objNotify = new NotificationBO();
-                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> comments on <a  href=\"ViewVideo.aspx?VideoId=" + photoid + "\">video</a>";
-                objNotify.AtId = photoid;
+                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> comments on <a  href=\"ViewVideo.aspx?VideoId=" + Photoid + "\">video</a>";
+                objNotify.AtId = Photoid;
                 objNotify.Type = Global.VIDEO;
                 objNotify.UserId = item;
                 objNotify.FirstName = objUserNotify.FirstName;
                 objNotify.LastName = objUserNotify.LastName;
-                objNotify.FriendId = userid;
+                objNotify.FriendId = Userid;
                 objNotify.FriendFName = objUser.FirstName;
                 objNotify.FriendLName = objUser.LastName;
                 objNotify.Status = false;
@@ -111,9 +116,9 @@ videotag +="</script> ";
     protected void YouLikes()
     {
     LikesBO objClass = new LikesBO();
-    objClass.AtId = photoid;
+    objClass.AtId = Photoid;
     objClass.Type = Global.VIDEO;
-    objClass.UserId = userid;
+    objClass.UserId = Userid;
      bool islike= LikesBLL.youLikes(objClass);
      if (islike)
      {
@@ -135,18 +140,18 @@ videotag +="</script> ";
     }
     protected void imgBtnComments_Click(object sender, ImageClickEventArgs e)
     {
-        Response.Redirect("ViewProfile.aspx?UserId=" + userid);
+        Response.Redirect("ViewProfile.aspx?UserId=" + Userid);
     }
     protected void lbtnLike_Click(object sender, EventArgs e)
     {
         if (lbtnLike.Text == "Like")
         {
             UserBO objUser = new UserBO();
-            objUser = UserBLL.getUserByUserId(userid);
+            objUser = UserBLL.getUserByUserId(Userid);
             LikesBO objClass = new LikesBO();
-            objClass.AtId = photoid;
+            objClass.AtId = Photoid;
             objClass.Type = Global.VIDEO;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             objClass.FirstName = objUser.FirstName;
             objClass.LastName = objUser.LastName;
             LikesBLL.insertLikes(objClass);
@@ -157,9 +162,9 @@ videotag +="</script> ";
         else
         {
             LikesBO objClass = new LikesBO();
-            objClass.AtId = photoid;
+            objClass.AtId = Photoid;
             objClass.Type = Global.VIDEO;
-            objClass.UserId = userid;
+            objClass.UserId = Userid;
             LikesBLL.unLikes(objClass);
             lblLike.Text = "";
             lbtnLike.Text = "Like";
@@ -225,9 +230,9 @@ videotag +="</script> ";
     protected void LoadFollow()
     {
         MediaBO obj = new MediaBO();
-        obj = MediaBLL.getMediaByMediaId(photoid);
-        isfollow = obj.isFollow;
-        if (isfollow)
+        obj = MediaBLL.getMediaByMediaId(Photoid);
+        Isfollow = obj.isFollow;
+        if (Isfollow)
         {
             lbtnFollow.Text = "UnFollow";
         }
@@ -243,7 +248,7 @@ videotag +="</script> ";
         if (lbtnFollow.Text.Equals("Follow"))
         {
             MediaBO obj = new MediaBO();
-            obj.Id = photoid;
+            obj.Id = Photoid;
             obj.isFollow = true;
             MediaBLL.updateFollow(obj);
         
@@ -251,7 +256,7 @@ videotag +="</script> ";
         else if (lbtnFollow.Text.Equals("UnFollow"))
         {
             MediaBO obj = new MediaBO();
-            obj.Id = photoid;
+            obj.Id = Photoid;
             obj.isFollow = false;
             MediaBLL.updateFollow(obj);
       
@@ -269,15 +274,15 @@ videotag +="</script> ";
             UserBO objFriend = new UserBO();
             objFriend = UserBLL.getUserByUserId(fid);
             UserBO objUser = new UserBO();
-            objUser = UserBLL.getUserByUserId(userid);
+            objUser = UserBLL.getUserByUserId(Userid);
 
 
             //Response.Write(fid);
 
             TagsBO objTags = new TagsBO();
-            objTags.AtId = photoid;
+            objTags.AtId = Photoid;
             objTags.Type = Global.VIDEO;
-            objTags.UserId = userid;
+            objTags.UserId = Userid;
             objTags.FirstName = objUser.FirstName;
             objTags.LastName = objUser.LastName;
             objTags.FriendId = fid;
@@ -289,7 +294,7 @@ videotag +="</script> ";
 
 
             List<string> lst = new List<string>();
-            lst = TagsBLL.getTagsFriendId(Global.VIDEO, photoid);
+            lst = TagsBLL.getTagsFriendId(Global.VIDEO, Photoid);
 
             LoadDataListComments();
 
@@ -299,13 +304,13 @@ videotag +="</script> ";
                 UserBO objUserNotify = new UserBO();
                 objUserNotify = UserBLL.getUserByUserId(item);
                 NotificationBO objNotify = new NotificationBO();
-                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> tags on <a  href=\"ViewVideo.aspx?VideoId=" + photoid + "\">video</a>";
-                objNotify.AtId = photoid;
+                objNotify.MyNotification = "<a  href=\"ViewProfile.aspx?UserId=" + Userid + "\">" + objUser.FirstName + " " + objUser.LastName + "</a> tags on <a  href=\"ViewVideo.aspx?VideoId=" + Photoid + "\">video</a>";
+                objNotify.AtId = Photoid;
                 objNotify.Type = Global.VIDEO;
                 objNotify.UserId = item;
                 objNotify.FirstName = objUserNotify.FirstName;
                 objNotify.LastName = objUserNotify.LastName;
-                objNotify.FriendId = userid;
+                objNotify.FriendId = Userid;
                 objNotify.FriendFName = objUser.FirstName;
                 objNotify.FriendLName = objUser.LastName;
                 msgtext = "Dear Pyramid Plus user," + objUser.FirstName + " " + objUser.LastName + " tags you photo ";
@@ -321,7 +326,7 @@ videotag +="</script> ";
     protected void LoadDataListTags()
     {
 
-        DListTags.DataSource = TagsBLL.getTagsTop5(Global.VIDEO, photoid);
+        DListTags.DataSource = TagsBLL.getTagsTop5(Global.VIDEO, Photoid);
         DListTags.DataBind();
 
     }

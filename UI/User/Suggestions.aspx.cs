@@ -18,57 +18,49 @@ using System.Collections.Generic;
 
 public partial class UI_User_Suggestions : System.Web.UI.Page
 {
-    string userid;
-    bool requestsent = false;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    private bool requestsent = false;
+
+    public bool Requestsent
+    {
+        get { return requestsent; }
+        set { requestsent = value; }
+    }
     public static ArrayList mutualFriends = new ArrayList();
-    bool mutualFriendsFetched = false;
+    private bool mutualFriendsFetched = false;
 
-    //
-    //protected int currentPageNumber = 1;
-    //private const int PAGE_SIZE = 5;
+    public bool MutualFriendsFetched
+    {
+        get { return mutualFriendsFetched; }
+        set { mutualFriendsFetched = value; }
+    }
 
-    //private List<UserFriendsBO> list = new List<UserFriendsBO>();
     protected void Page_Load(object sender, EventArgs e)
     {
-       
-        try
-        {
-            if (Request.QueryString.Count == 0)
-            {
-                userid = Session["UserId"].ToString();
-                Session["TempUserId"] = null;
-            }
-            else
-            {
-                userid = Request.QueryString.Get(0);
-                Session["TempUserId"] = userid;
-            }
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
+        Userid = LoginClass.getUserIdOrTempUserId();
         ((Label)Master.FindControl("lblTitle")).Text = "Suggestions";
         if (!IsPostBack)
         {
 
             LoadSuggestions();
-            LoadUserEmployersFilterItems(userid);
-            LoadUserUnisFilterItems(userid);
-            LoadUserSchoolsFilterItems(userid);
+            LoadUserEmployersFilterItems(Userid);
+            LoadUserUnisFilterItems(Userid);
+            LoadUserSchoolsFilterItems(Userid);
             LoadMutualFriends();
         }
 
     }
    
-    //protected void GridViewFriendsList_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-        //FriendsBLL.deleteFriends(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value.ToString());
-      //  LoadSuggestions();
-        // Response.Write(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value);
-    //}
+   
     protected void LoadUserEmployersFilterItems(string userid)
     {
         ArrayList sEmployers;
-        //List<UserFriendsBO> list = FriendsBLL.getAllSuggestions(userid).Take(4).ToList();
         sEmployers = EmployerBLL.getEmployersByUserId(userid);
         GridViewEmps.DataSource = sEmployers;
             
@@ -78,7 +70,6 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
     protected void LoadUserUnisFilterItems(string userid)
     {
         ArrayList sUnis;
-        //List<UserFriendsBO> list = FriendsBLL.getAllSuggestions(userid).Take(4).ToList();
         sUnis = UniversityBLL.getUnisByUserId(userid);
         GridViewUnis.DataSource = sUnis;
 
@@ -89,48 +80,22 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
     protected void LoadUserSchoolsFilterItems(string userid)
     {
         ArrayList sSchools;
-        //List<UserFriendsBO> list = FriendsBLL.getAllSuggestions(userid).Take(4).ToList();
         sSchools = SchoolBLL.getSchoolsByUserId(userid);
         GridViewSchool.DataSource = sSchools;
-
         GridViewSchool.DataBind();
 
     }
     protected void LoadMutualFriends()
     {
         ArrayList mFriends;
-        //List<UserFriendsBO> list = FriendsBLL.getAllSuggestions(userid).Take(4).ToList();
         mFriends = mutualFriends;
         GridViewMutualFriends.DataSource = mFriends;
-
         GridViewMutualFriends.DataBind();
 
     }
     protected void LoadSuggestions()
     {
         GetSuggestionsByCriteria();
-/*
-        List<UserFriendsBO> list = new List<UserFriendsBO>();
-        list = FriendsBLL.getAllSuggestions(userid);
-        List<UserFriendsBO> scoredlist = FriendsBLL.RecommendationScoring(list,userid);
-        if (scoredlist.Count == 0)
-        {
-            GridViewFriendsList.DataSource = list;
-
-        }
-        else
-        {
-            GridViewFriendsList.DataSource = scoredlist;// FriendsBLL.getAllSuggestions(userid);
-        }
-        GridViewFriendsList.DataBind();
- * */
-       // gridStuff(list);
-
-
-       //if friends are being shown for a user other than logged in user then dont show the column in grid for add/remove friends
-        //if (userid != Session["UserId"].ToString())
-        //    GridViewFriendsList.Columns[2].Visible = false;
-
     }
    
    
@@ -148,16 +113,16 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
             if (s.Equals("Add Friend"))
             {
 
-                FriendsBLL.sendFriendRequest(userid, friendid);
-                requestsent = true;
+                FriendsBLL.sendFriendRequest(Userid, friendid);
+                Requestsent = true;
 
                 ((LinkButton)(row.Cells[3].Controls[0])).Text = "Cancel Request";
 
             }
             else if (s.Equals("Cancel Request"))
             {
-                FriendsBLL.cancelFriendRequest(userid, friendid);
-                requestsent = false;
+                FriendsBLL.cancelFriendRequest(Userid, friendid);
+                Requestsent = false;
                 ((LinkButton)(row.Cells[3].Controls[0])).Text = "Add Friend";
 
 
@@ -191,13 +156,12 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
         bool mutualfriendmatches = false;
         
 
-        //uEmployers = EmployerBLL.getEmployersByUserId(userid);
-        //uUniversity = UniversityBLL.getUnisByUserId(userid);
+        
 
         List<UserFriendsBO> filteredlist = new List<UserFriendsBO>();
         List<UserFriendsBO> list = new List<UserFriendsBO>();
-        list = FriendsBLL.getAllSuggestions(userid);
-        List<UserFriendsBO> scoredlist = FriendsBLL.RecommendationScoring(list, userid);
+        list = FriendsBLL.getAllSuggestions(Userid);
+        List<UserFriendsBO> scoredlist = FriendsBLL.RecommendationScoring(list, Userid);
         foreach (UserFriendsBO Useritem in scoredlist)
         {
             ArrayList uEmployers = new ArrayList();
@@ -271,21 +235,12 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
                 
                
             }
-            //else
-            //{
-                /*
-                if (Useritem.Employer != null)
-                {
-                    employermatches = Useritem.Employer.Equals(EmployerValue);
-
-                }*/
-                //string Dl = "Items Checked:";
+           
             bool empchecked=false;
 
                 for (int i = 0; i < GridViewEmps.Rows.Count; i++)
                 {
                     GridViewRow row = GridViewEmps.Rows[i];
-                    // 0 means the first column if your Select column is not first write it 's correct index
                     CheckBox chk = row.Cells[0].FindControl("CheckBox1") as CheckBox;
                     if (chk != null && chk.Checked)
                     {
@@ -294,7 +249,6 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
                         string value = lbl.Text;
                         uEmployers.Add(value);
 
-                        //ListViewBLL.UpdateFriendListSearch(value, list);
                         
                     }
                 }
@@ -487,7 +441,7 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
         }
         GridViewFriendsList.DataSource = null;
         GridViewFriendsList.DataBind();
-        if (!mutualFriendsFetched)
+        if (!MutualFriendsFetched)
         {
             //get the top 2 mutual friends for filter options//only for the first time
             foreach (UserFriendsBO uitem in filteredlist)
@@ -500,7 +454,7 @@ public partial class UI_User_Suggestions : System.Web.UI.Page
                 }
 
             }
-            mutualFriendsFetched = true;
+            MutualFriendsFetched = true;
         }
         GridViewFriendsList.DataSource = filteredlist;
         GridViewFriendsList.DataBind();

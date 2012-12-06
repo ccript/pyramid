@@ -15,7 +15,13 @@ using DataLayer;
 using System.Globalization;
 public partial class ViewProfile : System.Web.UI.Page
 {
-    string userid;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -27,16 +33,16 @@ public partial class ViewProfile : System.Web.UI.Page
 
                     btnAddAsFriend.Visible = false;
                     btnCancelRequest.Visible = false;
-                    userid = Session["UserId"].ToString();
+                    Userid = Session["UserId"].ToString();
                     Session["TempUserId"] = null;
                    
             }
             else
             {
-                userid = Request.QueryString.Get(0);
-                Session["TempUserId"] = userid;
+                Userid = Request.QueryString.Get(0);
+                Session["TempUserId"] = Userid;
             
-                if (FriendsBLL.isExistingFriend(Session["UserId"].ToString(), userid))
+                if (FriendsBLL.isExistingFriend(Session["UserId"].ToString(), Userid))
                 {
                     btnAddAsFriend.Visible = false;
                     btnSuggestFriends.Visible = true;
@@ -47,7 +53,7 @@ public partial class ViewProfile : System.Web.UI.Page
                     btnSuggestFriends.Visible = false;
                 }
 
-                if (Session["UserId"].ToString() == userid)
+                if (Session["UserId"].ToString() == Userid)
                 {
                     btnAddAsFriend.Visible = false;
                     lblsub.Visible = false;
@@ -55,7 +61,7 @@ public partial class ViewProfile : System.Web.UI.Page
                
           
             }
-            ((Image)Master.FindControl("imgProfile")).ImageUrl = "../UserProfile/profileimages/" + userid + ".jpg";
+            ((Image)Master.FindControl("imgProfile")).ImageUrl = "../UserProfile/profileimages/" + Userid + ".jpg";
 
 
         }
@@ -100,7 +106,7 @@ public partial class ViewProfile : System.Web.UI.Page
         LoadDataListTeam();
         LoadDataListAthelete();
         LoadSubscription();
-        imgProfile.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
+        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
     }
 
     protected void LoadSubscription()
@@ -123,7 +129,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadUserData()
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
         lblName.Text = objUser.FirstName+" "+objUser.LastName;
         lblBirthDay.Text= objUser.DateOfBirth.ToLongDateString();
         lblGender.Text = objUser.Gender;
@@ -132,7 +138,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListEmployer()
     {
 
-        DListEmployer.DataSource = TemplateInfoBLL.SelectEmployerTop5(new EmployerDAL(), userid);     //EmployerBLL.getEmployerTop5(userid);
+        DListEmployer.DataSource = TemplateInfoBLL.SelectEmployerTop5(new EmployerDAL(), Userid);     //EmployerBLL.getEmployerTop5(userid);
         DListEmployer.DataBind();
         if (DListEmployer.Items.Count <= 0)
         {
@@ -144,7 +150,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListProject()
     {
 
-        DListProject.DataSource = ProjectBLL.getProjectTop5(userid);
+        DListProject.DataSource = ProjectBLL.getProjectTop5(Userid);
         DListProject.DataBind();
         if (DListProject.Items.Count <= 0)
         {
@@ -156,7 +162,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListUniversity()
     {
 
-        DListUniversity.DataSource = UniversityBLL.getUniversityTop5(userid);
+        DListUniversity.DataSource = UniversityBLL.getUniversityTop5(Userid);
         DListUniversity.DataBind();
         if (DListUniversity.Items.Count <= 0)
         {
@@ -168,7 +174,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListSchool()
     {
 
-        DListSchool.DataSource = SchoolBLL.getSchoolTop5(userid);
+        DListSchool.DataSource = SchoolBLL.getSchoolTop5(Userid);
         DListSchool.DataBind();
         if (DListSchool.Items.Count <= 0)
         {
@@ -180,7 +186,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListBooks()
     {
 
-        DListBooks.DataSource = EntertainmentBLL.getEntertainmentTop(Global.BOOKS, userid);
+        DListBooks.DataSource = EntertainmentBLL.getEntertainmentTop(Global.BOOKS, Userid);
         DListBooks.DataBind();
         if (DListBooks.Items.Count <= 0)
         {
@@ -192,7 +198,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListMusic()
     {
 
-        DListMusic.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MUSIC, userid);
+        DListMusic.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MUSIC, Userid);
         DListMusic.DataBind();
         if (DListMusic.Items.Count <= 0)
         {
@@ -204,7 +210,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListMovie()
     {
 
-        DListMovie.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MOVIE, userid);
+        DListMovie.DataSource = EntertainmentBLL.getEntertainmentTop(Global.MOVIE, Userid);
         DListMovie.DataBind();
         if (DListMovie.Items.Count <= 0)
         {
@@ -216,7 +222,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListTelevision()
     {
 
-        DListTelevision.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TELEVISION, userid);
+        DListTelevision.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TELEVISION, Userid);
         DListTelevision.DataBind();
         if (DListTelevision.Items.Count <= 0)
         {
@@ -228,7 +234,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListGame()
     {
 
-        DListGame.DataSource = EntertainmentBLL.getEntertainmentTop(Global.GAME, userid);
+        DListGame.DataSource = EntertainmentBLL.getEntertainmentTop(Global.GAME, Userid);
         DListGame.DataBind();
         if (DListGame.Items.Count <= 0)
         {
@@ -241,7 +247,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListActivities()
     {
 
-        DListActivities.DataSource = ActivityBLL.getActivityTop5(Global.ACTIVITIES, userid);
+        DListActivities.DataSource = ActivityBLL.getActivityTop5(Global.ACTIVITIES, Userid);
         DListActivities.DataBind();
         if (DListActivities.Items.Count <= 0)
         {
@@ -254,7 +260,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListInterests()
     {
 
-        DListInterests.DataSource = ActivityBLL.getActivityTop5(Global.INTERESTS, userid);
+        DListInterests.DataSource = ActivityBLL.getActivityTop5(Global.INTERESTS, Userid);
         DListInterests.DataBind();
         if (DListInterests.Items.Count <= 0)
         {
@@ -268,7 +274,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadOthersEmail()
     {
 
-        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", userid);
+        GridViewEmail.DataSource = ContactInfoBLL.getContactInfo("Email", Userid);
         GridViewEmail.DataBind();
         if (GridViewEmail.Rows.Count <= 0)
         {
@@ -281,7 +287,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadWebsites()
     {
 
-        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", userid);
+        GridViewWebsites.DataSource = ContactInfoBLL.getContactInfo("Website", Userid);
         GridViewWebsites.DataBind();
         if (GridViewWebsites.Rows.Count <= 0)
         {
@@ -294,7 +300,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadPhoneNumber()
     {
 
-        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", userid);
+        GridViewPhone.DataSource = ContactInfoBLL.getContactInfo("PhoneNumber", Userid);
         GridViewPhone.DataBind();
         if (GridViewPhone.Rows.Count <= 0)
         {
@@ -307,7 +313,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListSports()
     {
 
-        DListSports.DataSource = EntertainmentBLL.getEntertainmentTop(Global.SPORTS, userid);
+        DListSports.DataSource = EntertainmentBLL.getEntertainmentTop(Global.SPORTS, Userid);
         DListSports.DataBind();
         if (DListSports.Items.Count <= 0)
         {
@@ -318,7 +324,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListTeam()
     {
 
-        DListTeam.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TEAM, userid);
+        DListTeam.DataSource = EntertainmentBLL.getEntertainmentTop(Global.TEAM, Userid);
         DListTeam.DataBind();
         if (DListTeam.Items.Count <= 0)
         {
@@ -330,7 +336,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadDataListAthelete()
     {
 
-        DListAthelete.DataSource = EntertainmentBLL.getEntertainmentTop(Global.ATHELETE, userid);
+        DListAthelete.DataSource = EntertainmentBLL.getEntertainmentTop(Global.ATHELETE, Userid);
         DListAthelete.DataBind();
         if (DListAthelete.Items.Count <= 0)
         {
@@ -342,7 +348,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadContactInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
 
 
         lblTownCity.Text = objBasicInfo.CityTown;
@@ -379,7 +385,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadBasicInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
         lblHomeTown.Text = objBasicInfo.HomeTown;
   
         lblCurrentCity.Text = objBasicInfo.CurrentCity;
@@ -388,13 +394,13 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void LoadUser()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
         lblHomeTown.Text = objBasicInfo.HomeTown;
         lblCurrentCity.Text = objBasicInfo.CurrentCity;
     }
     protected void LoadLanguages()
     {
-        DListLanguage.DataSource = TemplateInfoBLL.SelectLanguageByid(new LanguageDAL(), userid);    //LanguageBLL.getLanguages(userid);
+        DListLanguage.DataSource = TemplateInfoBLL.SelectLanguageByid(new LanguageDAL(), Userid);    //LanguageBLL.getLanguages(userid);
         DListLanguage.DataBind();
         if (DListLanguage.Items.Count <= 0)
         {
@@ -409,7 +415,7 @@ public partial class ViewProfile : System.Web.UI.Page
         btnAddAsFriend.Visible = false;
         btnAddAsFriend.Enabled = false;
         lblFriendRequestSent.Visible = true;
-        string friendId = userid;
+        string friendId = Userid;
         string userId = Session["UserId"].ToString();
         FriendsBLL.sendFriendRequest(userId, friendId);
         UserBLL userbll = new UserBLL();
@@ -427,7 +433,7 @@ public partial class ViewProfile : System.Web.UI.Page
         btnAddAsFriend.Visible = true;
         btnAddAsFriend.Enabled = true;
         lblFriendRequestSent.Visible = false;
-        string friendId = userid;
+        string friendId = Userid;
         string userId = Session["UserId"].ToString();
         FriendsBLL.cancelFriendRequest(userId, friendId);
 
@@ -436,7 +442,7 @@ public partial class ViewProfile : System.Web.UI.Page
     protected void btnSuggestFriends_Click(object sender, EventArgs e)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
         lblName.Text = objUser.FirstName + " " + objUser.LastName;
         Response.Redirect("SuggestFriends.aspx?FriendFName=" + objUser.FirstName + "&FriendLName=" + objUser.LastName);
     }

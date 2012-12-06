@@ -20,9 +20,27 @@ using System.Net;
 
 public partial class UI_User_SeeFriend : System.Web.UI.Page
 {
-    string userid;
-    string location;
-    string friendswith;
+    private string userid;
+
+    public string Userid
+    {
+        get { return userid; }
+        set { userid = value; }
+    }
+    private string location;
+
+    public string Location
+    {
+        get { return location; }
+        set { location = value; }
+    }
+    private string friendswith;
+
+    public string Friendswith
+    {
+        get { return friendswith; }
+        set { friendswith = value; }
+    }
     int totaltop;
     string friendID;
 
@@ -37,59 +55,8 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
                 friendID = Session["FriendID"].ToString();
             }
         }
-
-        userid = Session["UserId"].ToString();
-
-        //if (Session["TempUserId"] != null && Session["UserId"] != Session["TempUserId"])
-        //{
-        //    if (Session["TempUserId"].ToString() != "")
-        //    {
-        //        Session["UserId"] = Session["TempUserId"];
-        //        userid = Session["UserId"].ToString();
-        //    }
-        //}
-
-        try
-        {
-
-            //if (Request.QueryString.Count == 0)
-            //{
-
-            //    btnAddAsFriend.Visible = false;
-            //    btnCancelRequest.Visible = false;
-            //    userid = Session["UserId"].ToString();
-            //    Session["TempUserId"] = null;
-
-            //}
-            //else
-            //{
-
-            //    userid = Request.QueryString.Get(0);
-            //    Session["TempUserId"] = userid;
-            //    if (FriendsBLL.isExistingFriend(Session["UserId"].ToString(), userid))
-            //    {
-            //        btnAddAsFriend.Visible = false;
-            //        btnSuggestFriends.Visible = true;
-            //    }
-            //    else
-            //    {
-            //        btnAddAsFriend.Visible = true;
-            //        btnSuggestFriends.Visible = false;
-            //    }
-
-            //    if (Session["UserId"].ToString() == userid)
-            //        btnAddAsFriend.Visible = false;
-
-            //}
-            //((Image)Master.FindControl("imgProfile")).ImageUrl = "../UserProfile/profileimages/" + userid + ".jpg";
-
-
-        }
-        catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
-
+        Userid = LoginClass.getUserId(); ;
         ((Label)Master.FindControl("lblTitle")).Text = "See Friendship";
-
-
         if (!IsPostBack)
         {
             LoadFriendsList();
@@ -108,19 +75,14 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
     protected void LoadFriendsList()
     {
 
-
-        GridViewFriendsList.DataSource = FriendsBLL.getMutualFriends(userid, friendID, Global.CONFIRMED).Take(10).ToList();
+        GridViewFriendsList.DataSource = FriendsBLL.getMutualFriends(Userid, friendID, Global.CONFIRMED).Take(10).ToList();
         GridViewFriendsList.DataBind();
-
-        //lbtnFriends.Text = "Mutual Friends(" + FriendsBLL.countFriends(userid, Global.CONFIRMED).ToString() + ")";
-        ////lbtnRequest.Text = "Requests(" + FriendsBLL.countFriendRequests(userid, Global.PENDING).ToString() + ")";
-
     }
 
     protected void LoadUserData()
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
         lblName.Text = objUser.FirstName + " " + objUser.LastName;
         UserBO objFriend = null;
 
@@ -143,14 +105,14 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
     protected void LoadDataListTagPhotos()
     {
 
-        DataListTagPhotos.DataSource = TagsBLL.getTagsListbyFriendsId(Global.PHOTO, userid).Take(5).ToList();
+        DataListTagPhotos.DataSource = TagsBLL.getTagsListbyFriendsId(Global.PHOTO, Userid).Take(5).ToList();
         DataListTagPhotos.DataBind();
 
     }
     protected void LoadBasicInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
 
         BasicInfoBO objFriendBasicInfo = null;
 
@@ -177,13 +139,13 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
     protected void LoadUser()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();
-        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(userid);
+        objBasicInfo = BasicInfoBLL.getBasicInfoByUserId(Userid);
         lblHomeTown.Text = objBasicInfo.HomeTown;
         lblCurrentCity.Text = objBasicInfo.CurrentCity;
     }
     protected void LoadLanguages()
     {
-        DListLanguage.DataSource = LanguageBLL.getLanguages(userid);
+        DListLanguage.DataSource = LanguageBLL.getLanguages(Userid);
         DListLanguage.DataBind();
     }
 
@@ -193,7 +155,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         btnAddAsFriend.Visible = false;
         btnAddAsFriend.Enabled = false;
         lblFriendRequestSent.Visible = true;
-        string friendId = userid;
+        string friendId = Userid;
         string userId = Session["UserId"].ToString();
         FriendsBLL.sendFriendRequest(userId, friendId);
         btnCancelRequest.Visible = true;
@@ -209,7 +171,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         btnAddAsFriend.Visible = true;
         btnAddAsFriend.Enabled = true;
         lblFriendRequestSent.Visible = false;
-        string friendId = userid;
+        string friendId = Userid;
         string userId = Session["UserId"].ToString();
         FriendsBLL.cancelFriendRequest(userId, friendId);
 
@@ -218,7 +180,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
     protected void btnSuggestFriends_Click(object sender, EventArgs e)
     {
         UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(userid);
+        objUser = UserBLL.getUserByUserId(Userid);
         lblName.Text = objUser.FirstName + " " + objUser.LastName;
         Response.Redirect("SuggestFriends.aspx?FriendFName=" + objUser.FirstName + "&FriendLName=" + objUser.LastName);
     }
@@ -237,16 +199,13 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
             status += " with " + lblFriendsWith.Text.Remove(lblFriendsWith.Text.LastIndexOf(","));
         if (lblLocation.Text != "")
             status += lblLocation.Text;
-        // if (lblFriendsTag.Text != "")
-
-        // status += " and Tag to " + lblFriendsTag.Text.Remove(lblFriendsTag.Text.LastIndexOf(","));
 
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
 
         WallBO objWall = new WallBO();
         objWall.PostedByUserId = Session["UserId"].ToString();
-        objWall.WallOwnerUserId = userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = status;
@@ -262,15 +221,13 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
     protected void LoadWall(int top)
     {
 
-        GridViewWall.DataSource = WallBLL.getWallByUserIdAndFriendID(userid, friendID, top);
+        GridViewWall.DataSource = WallBLL.getWallByUserIdAndFriendID(Userid, friendID, top);
         GridViewWall.DataBind();
         
         LoadComments();
         YouLikes();
         CountShare();
         Comment_YouLikes();
-
-
     
     }
 
@@ -356,13 +313,6 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
                     linkLikeCount.Text = likecount.ToString() + " Users";
                 else
                     linkLikeCount.Visible = false;
-
-                //long likecount = LikesBLL.countPost(hfId.Value, Global.WALL);
-                //if (likecount > 0)
-                //    linkLikeCount.Text = likecount.ToString() + " Users";
-                //else
-                //    linkLikeCount.Visible = false;
-
 
                 LinkButton linkcountComments = (LinkButton)gvr.FindControl("lbtnViewComments");
                 long totalcomments = CommentsBLL.countComments(hfId.Value, Global.WALL);
@@ -905,7 +855,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
 
         WallBO objWall = new WallBO();
         objWall.PostedByUserId = Session["UserId"].ToString();
-        objWall.WallOwnerUserId = userid;
+        objWall.WallOwnerUserId = Userid;
         objWall.FirstName = objUser.FirstName;
         objWall.LastName = objUser.LastName;
         objWall.Post = status;
@@ -964,7 +914,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         if (Session["PhotoAlbumId"] == null)
         {
             MediaAlbumBO objAClass = new MediaAlbumBO();
-            objAClass.UserId = userid;
+            objAClass.UserId = Userid;
             objAClass.Name = "My Pictures";
             objAClass.Type = Global.PHOTO;
             objAClass.isFollow = true;
@@ -977,7 +927,7 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
         }
         MediaBO objClass = new MediaBO();
 
-        objClass.UserId = userid;
+        objClass.UserId = Userid;
 
 
         objClass.AlbumId = albumId;
@@ -1011,13 +961,13 @@ public partial class UI_User_SeeFriend : System.Web.UI.Page
             }
             else
             {
-                objWall.WallOwnerUserId = userid;
+                objWall.WallOwnerUserId = Userid;
                 objWall.Type = Global.TEXT_POST;
             }
         }
         catch
         {
-            objWall.WallOwnerUserId = userid;
+            objWall.WallOwnerUserId = Userid;
             objWall.Type = Global.TEXT_POST;
         }
 
