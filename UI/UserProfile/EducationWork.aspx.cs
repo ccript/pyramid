@@ -284,9 +284,12 @@ public partial class EducationWork : System.Web.UI.Page
             objUniversity.Image = txtUniversity.Text + ".png";
         else
             objUniversity.Image = "DefaultUniversity.png";
-        string UniversityId= UniversityBLL.insertUniversity(objUniversity);
-       // if (UniversityId != -1)
-        //SaveUniversityWith(UniversityId);
+
+        if (!objUniversity.UniversityName.Equals(""))
+        {
+            string UniversityId = UniversityDAL.insertUniversity(objUniversity);
+        }
+         
         LoadDataListUniversity();
     }
 
@@ -342,7 +345,7 @@ public partial class EducationWork : System.Web.UI.Page
     protected void LoadDataListUniversity()
     {
 
-        DListUniversity.DataSource = UniversityBLL.getUniversityTop5(userid);
+        DListUniversity.DataSource = UniversityDAL.getUniversityTop5(userid);
        DListUniversity.DataBind();
 
     }
@@ -372,7 +375,7 @@ public partial class EducationWork : System.Web.UI.Page
     }
     protected void DListUniversity_SelectedIndexChanged(object sender, EventArgs e)
     {
-       UniversityBLL.deleteUniversity(DListUniversity.DataKeys[DListUniversity.SelectedIndex].ToString());
+        UniversityDAL.deleteUniversity(DListUniversity.DataKeys[DListUniversity.SelectedIndex].ToString());
        LoadDataListUniversity();
     }
     protected void DListSchool_SelectedIndexChanged(object sender, EventArgs e)

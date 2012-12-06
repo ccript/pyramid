@@ -43,10 +43,8 @@ public partial class FriendsList : System.Web.UI.Page
     protected void LoadFriendsList()
     {
 
-
         GridViewFriendsList.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.CONFIRMED);
         GridViewFriendsList.DataBind();
-
         GridViewFriendsListRequest.DataSource = FriendsBLL.getAllFriendsListName(Userid, Global.PENDING);
         GridViewFriendsListRequest.DataBind();
         if (Userid != Session["UserId"].ToString())

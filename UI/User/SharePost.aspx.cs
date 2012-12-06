@@ -315,7 +315,7 @@ public partial class Wall : System.Web.UI.Page
         
         if (lblLocation.Text != "")
             status += lblLocation.Text;
-                
+
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(SessionClass.getUserId());
 
@@ -324,19 +324,19 @@ public partial class Wall : System.Web.UI.Page
 
         if (SessionClass.getShareWithID() != null)
         {
+            objWall.PostedByUserId = Session["UserId"].ToString();        
             if (SessionClass.getShareWithID() != "")
             {
                 objWall.WallOwnerUserId = SessionClass.getShareWithID();
                 UserBO objFriendObj = new UserBO();
                 objFriendObj = UserBLL.getUserByUserId(SessionClass.getShareWithID());
-                
-                // Sending notification with which the post is beind shared         
+
                 if (!CheckBox1.Checked)
                 {
                     ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objFriendObj.Email);
                     notif(SessionClass.getShareWithID(), SessionClass.getPostID());
                 }
-                //Sending notification to all tagged friends
+
                 List<string> temp = (List<string>)SessionClass.getTaggedFriends();
 
                 if (temp != null)
