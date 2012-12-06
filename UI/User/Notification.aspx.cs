@@ -65,36 +65,36 @@ public partial class User_Notification : System.Web.UI.Page
         TimeSpan timeSince = DateTime.Now.Subtract(date);
 
         if (timeSince.TotalMilliseconds < 1)
-            return "not yet";
+            return Global.NOT_YET;
 
         if (timeSince.TotalMinutes < 1)
-            return "Just now";
+            return Global.JUST_NOW;
         if (timeSince.TotalMinutes < 2)
-            return "1 minute ago";
+            return Global.ONE_MINUTE_AGO;
         if (timeSince.TotalMinutes < 60)
-            return string.Format("{0} minutes ago", timeSince.Minutes);
+            return string.Format(Global.MINTUES_AGO, timeSince.Minutes);
         if (timeSince.TotalMinutes < 120)
-            return "1 hour ago";
+            return Global.ONE_HOUR_AGO;
         if (timeSince.TotalHours < 24)
-            return string.Format("{0} hours ago", timeSince.Hours);
+            return string.Format(Global.HOURS_AGO, timeSince.Hours);
         if (timeSince.TotalDays == 1)
-            return "yesterday";
+            return Global.YESTERDAY;
         if (timeSince.TotalDays < 7)
-            return string.Format("{0} days ago", timeSince.Days);
+            return string.Format(Global.DAYS_AGO, timeSince.Days);
         if (timeSince.TotalDays < 14)
-            return "last week";
+            return Global.LAST_WEEK;
         if (timeSince.TotalDays < 21)
-            return "2 weeks ago";
+            return Global.TWO_WEEKS_AGO;
         if (timeSince.TotalDays < 28)
-            return "3 weeks ago";
+            return Global.THREE_WEEKS_AGO;
         if (timeSince.TotalDays < 60)
-            return "last month";
+            return Global.LAST_MONTH;
         if (timeSince.TotalDays < 365)
-            return string.Format("{0} months ago", Math.Round(timeSince.TotalDays / 30));
+            return string.Format(Global.MONTHS_AGO, Math.Round(timeSince.TotalDays / 30));
         if (timeSince.TotalDays < 730)
-            return "last year";
+            return Global.LAST_YEAR;
 
-        return string.Format("{0} years ago", Math.Round(timeSince.TotalDays / 365));
+        return string.Format(Global.YEARS_AGO, Math.Round(timeSince.TotalDays / 365));
     }
  
 }
