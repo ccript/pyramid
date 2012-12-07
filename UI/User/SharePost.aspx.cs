@@ -440,7 +440,7 @@ public partial class Wall : System.Web.UI.Page
             }
         }
 
-        TickerBLL.InsertBulkTickerData(objWall, "Share a post " + status);
+        TickerBLL.InsertBulkTickerDataAndWallPost(objWall, "Share a post " + status);
 
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtUpdatePost.ClientID + "').value = '';", true);
         lblLocation.Text = "";

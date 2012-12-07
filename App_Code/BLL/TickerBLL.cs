@@ -84,7 +84,7 @@ namespace BuinessLayer
             return TickerDAL.getTickerByUserIdAndFriendID(UserId, FriendID, top);
         }
 
-        public static void InsertBulkTickerData(WallBO objWall, string status)
+        public static void InsertBulkTickerDataAndWallPost(WallBO objWall, string status)
         {            
             UserBO objUser = new UserBO();
             objUser = UserBLL.getUserByUserId(SessionClass.getUserId());
