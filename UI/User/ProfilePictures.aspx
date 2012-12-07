@@ -55,7 +55,7 @@
         </tr>
         <tr>
             <td style="text-align: center">
-                <asp:LinkButton ID="lbtnremove" runat="server" onclick="lbtnremove_Click">Remove</asp:LinkButton>
+                <asp:LinkButton ID="lbtnremove" runat="server" onclick="lbtnRemovePicture_Click">Remove</asp:LinkButton>
             &nbsp;&nbsp;
                 </td>
             <td>

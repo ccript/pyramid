@@ -60,7 +60,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
      //  Response.Redirect("ImageConversions.aspx");
       
     }
-    protected void lbtnremove_Click(object sender, EventArgs e)
+    protected void lbtnRemovePicture_Click(object sender, EventArgs e)
     {
 
         UserBO objUser = new UserBO();

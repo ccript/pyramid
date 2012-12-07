@@ -167,28 +167,14 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
 
     protected void cmdPrev_Click(object sender, System.EventArgs e)
     {
-
-        // Set viewstate variable to the previous page
-
         CurrentPage -= 1;
-
-        // Reload control
-
         LoadSuggestions("");
-
     }
 
     protected void cmdNext_Click(object sender, System.EventArgs e)
     {
-
-        // Set viewstate variable to the next page
-
         CurrentPage += 1;
-
-        // Reload control
-
         LoadSuggestions("");
-
     }
     public int CurrentPage
     {
@@ -196,16 +182,11 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
         get
         {
 
-            // look for current page in ViewState
-
             object o = this.ViewState["_CurrentPage"];
 
             if (o == null)
-
                 return 0; // default to showing the first page
-
             else
-
                 return (int)o;
 
         }
@@ -259,19 +240,10 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
     
     protected void AllSuggestionsDataList_ItemCommand(object sender, DataListCommandEventArgs e)
     {
-        //((Label)Master.FindControl("lblTitle")).Text = "Suggest Friends to ";
-       // Response.Write("shamsa");
-        //FriendsBLL.deleteFriends(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value.ToString());
-        //LoadFriendsList();
-        // Response.Write(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value);
+
     }
     protected void RecSuggestionsDataList_ItemCommand(object sender, DataListCommandEventArgs e)
     {
-        //((Label)Master.FindControl("lblTitle")).Text = "Suggest Friends to ";
-        // Response.Write("shamsa");
-        //FriendsBLL.deleteFriends(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value.ToString());
-        //LoadFriendsList();
-        // Response.Write(GridViewFriendsList.DataKeys[GridViewFriendsList.SelectedIndex].Value);
     }
     protected void handle()
     { }
@@ -283,7 +255,6 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
     }
     protected void btnSendSuggestions_Click(object sender, EventArgs e)
     {
-       // LoadSuggestions();
         string Dl = "Items Checked:";
         foreach (DataListItem dli in RecSuggestionsDataList.Items)
         {
@@ -292,10 +263,8 @@ public partial class UI_User_SuggestFriends : System.Web.UI.Page
             {
                 if (chk.Checked)
                 {
-                    //get the userid of the checked person
                     string friendid = RecSuggestionsDataList.DataKeys[dli.ItemIndex].ToString();
                     FriendsBLL.sendFriendSuggestion(friendid,fid);//send request to person for whom suggestions shown
-                   // Dl += friendid ;
                 }
             }
         }

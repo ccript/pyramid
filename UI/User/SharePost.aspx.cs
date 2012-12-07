@@ -61,11 +61,9 @@ public partial class Wall : System.Web.UI.Page
             post = Request.QueryString.Get(0);
         }
 
-        // Getting the user information
         UserBO objUser = new UserBO();
         objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
 
-        // Creating Share object
         ShareBO objClass = new ShareBO();
         objClass.AtId = post;
         objClass.Type = Global.WALL;
@@ -73,7 +71,6 @@ public partial class Wall : System.Web.UI.Page
         objClass.FirstName = objUser.FirstName;
         objClass.LastName = objUser.LastName;
 
-        // Getting the post which is going to be shared
         WallBO wall = WallBLL.getWallByWallId(objClass.AtId);
         string p = txtUpdatePost.Text + " <br/>" + wall.Post;
 
@@ -110,11 +107,9 @@ public partial class Wall : System.Web.UI.Page
         if (post != null)
         {
 
-            // Getting the user information
             UserBO objUser = new UserBO();
             objUser = UserBLL.getUserByUserId(Session["UserId"].ToString());
 
-            // Creating Share object
             ShareBO objClass = new ShareBO();
             objClass.AtId = post;
             objClass.Type = Global.WALL;
@@ -122,11 +117,9 @@ public partial class Wall : System.Web.UI.Page
             objClass.FirstName = objUser.FirstName;
             objClass.LastName = objUser.LastName;
 
-            // Getting the post which is going to be shared
             WallBO wall = WallBLL.getWallByWallId(objClass.AtId);
             string p = txtUpdatePost.Text + " <br/>" + wall.Post;
 
-            // Sharing the post on the wall
             ShareStatus(p);                
         foreach (string item in lstTag)
         {
@@ -148,11 +141,10 @@ public partial class Wall : System.Web.UI.Page
            
             WallBLL.insertWall(objWall2);
         }           
-        // Registering the Share after successful completion of the above process
+
             ShareBLL.insertShare(objClass);
            
             RWallPost(" Share a Post");
-            // Sending Notifications to the one with which post has been shared and the one who were tagged
             Response.Redirect("UserData.aspx");                
         }
     }
@@ -563,13 +555,12 @@ public partial class Wall : System.Web.UI.Page
         gridviewComments.DataBind(); 
 
     }
-    // @@@@@@@@@@@@@@@@@@@@ by Nabeel
+
     protected void lbtnCommentLike_Click(object sender, EventArgs e)
     {
         GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
         LinkButton lbtnCommentLike = (LinkButton)row.FindControl("lbtnCommentLike");
-        //GridView gv = (GridView)GridViewWall.Rows[RowIndex].FindControl("GridViewComments");
 
         if (lbtnCommentLike.Text == "Like")
         {
@@ -602,12 +593,9 @@ public partial class Wall : System.Web.UI.Page
     }
 
     
-
-    // @@@@@@@@@@@@@@@@@@@@ by Nabeel
     protected void lbtnCommentLikeUser_Click(object sender, EventArgs e)
     {
         GridViewRow row = ((GridViewRow)((LinkButton)sender).NamingContainer);
-       // LinkButton linkLike = (LinkButton)row.FindControl("lbtnLike");
         HiddenField hfId = (HiddenField)row.FindControl("HiddenFieldId");
 
         GridView gridviewLikesUser = (GridView)row.FindControl("GridViewLikesCommentUser");
@@ -647,7 +635,6 @@ public partial class Wall : System.Web.UI.Page
         if (txtFriendTag.Text != "" && HiddenFieldTagId.Value.Length > 20)
         {
             lblFriendsTag.Text += "<a  href=\"ViewProfile.aspx?UserId=" + HiddenFieldTagId.Value + "\">" + txtFriendTag.Text + "</a>,";
-            //Getting name of a person with whom I will share this post
             Session["ShareWithID"] = HiddenFieldTagId.Value;
             SharingWithLiteral.Text = "Sharing with ";
             txtFriendTag.Text = "";

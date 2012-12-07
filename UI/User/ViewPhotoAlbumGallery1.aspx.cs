@@ -263,21 +263,14 @@ public partial class UI_User_ViewPhotoAlbumGallery1 : System.Web.UI.Page
         msg.IsBodyHtml = true;
 
         msg.Body = msgtext;
-        //Session["randomCode"] = randomCode;
-        //generate the randomCode and place it in the c_User
 
         try
         {
             client.Send(msg);
-            //Response.Redirect("CodesSent.aspx?UserEmail=" + lblEmail.Text);
-            //lblResult.Text = "Your message has been successfully sent.";
-            //txtSubject.Text = "";
-            //FCKeditor1.Value = "";
         }
         catch (Exception ex)
         {
-            // lblResult.ForeColor = Color.Red;
-            //lblResult.Text = "Error occured while sending your message." + ex.Message + "with code " + randomCode;
+
         }
 
     }
@@ -294,8 +287,6 @@ public partial class UI_User_ViewPhotoAlbumGallery1 : System.Web.UI.Page
             UserBO objUser = new UserBO();
             objUser = UserBLL.getUserByUserId(Userid);
 
-
-            //Response.Write(fid);
 
             TagsBO objTags = new TagsBO();
             objTags.AtId = Albumid;
@@ -333,8 +324,6 @@ public partial class UI_User_ViewPhotoAlbumGallery1 : System.Web.UI.Page
                 objNotify.FriendLName = objUser.LastName;
                 msgtext = "Dear Pyramid Plus user," + objUser.FirstName + " " + objUser.LastName + " tags you video ";
 
-               // ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserNotify.Email);
-                //sendEmail(objUserNotify.Email);
 
                 NotificationBLL.insertNotification(objNotify);
             }

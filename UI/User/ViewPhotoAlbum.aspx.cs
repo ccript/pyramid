@@ -82,13 +82,10 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
     }
     protected void LoadDataListMedia()
     {
-        // ***  Proxy driver to get image     **********/
+
         ProxyVirtualSubject proxyobj = new ProxyVirtualSubject();
         DataList1.DataSource = proxyobj.getImage(Albumid);
         DataList1.DataBind();
-
-        //DataList1.DataSource = MediaBLL.getMediaByAlbum(albumid);
-        //DataList1.DataBind();
 
     }
 
@@ -269,21 +266,14 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
         msg.IsBodyHtml = true;
 
         msg.Body = msgtext;
-        //Session["randomCode"] = randomCode;
-        //generate the randomCode and place it in the c_User
-
+        
         try
         {
             client.Send(msg);
-            //Response.Redirect("CodesSent.aspx?UserEmail=" + lblEmail.Text);
-            //lblResult.Text = "Your message has been successfully sent.";
-            //txtSubject.Text = "";
-            //FCKeditor1.Value = "";
+        
         }
         catch (Exception ex)
         {
-            // lblResult.ForeColor = Color.Red;
-            //lblResult.Text = "Error occured while sending your message." + ex.Message + "with code " + randomCode;
         }
 
     }
@@ -338,9 +328,6 @@ public partial class UI_User_ManagePhotos : System.Web.UI.Page
                 objNotify.FriendFName = objUser.FirstName;
                 objNotify.FriendLName = objUser.LastName;
                 msgtext = "Dear Pyramid Plus user," + objUser.FirstName + " " + objUser.LastName + " tags you video ";
-
-               // ThreadPool.QueueUserWorkItem(new WaitCallback(sendEmail), (object)objUserNotify.Email);
-                //sendEmail(objUserNotify.Email);
 
                 NotificationBLL.insertNotification(objNotify);
             }
