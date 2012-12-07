@@ -12,9 +12,9 @@ public partial class CodesSent : System.Web.UI.Page
     {
         if (!Request.QueryString.HasKeys())
             Response.Redirect("../../Default.aspx");
-        
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Password reset codes sent";
+
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.PASSWORD_RESET_CODES_SENT;
 
         lblEmail.Text = Request.QueryString.Get(0);        
         lblUserName.Text = ReenterBLL.getFullUserName(Request.QueryString.Get(0));

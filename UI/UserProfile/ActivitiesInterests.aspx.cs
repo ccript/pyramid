@@ -72,80 +72,53 @@ public partial class ActivitiesInterests : System.Web.UI.Page
 
     protected void SaveActivities()
     {
-        ActivityBO objClass = new ActivityBO();
+        ActivityBO objActivity = new ActivityBO();
 
-        objClass.UserId = Userid;
-        objClass.Name = txtActivities.Text;
+        objActivity.UserId = Userid;
+        objActivity.Name = txtActivities.Text;
 
-        objClass.Description = txtActivitiesDescription.Text;
-        objClass.Type = Global.ACTIVITIES;
+        objActivity.Description = txtActivitiesDescription.Text;
+        objActivity.Type = Global.ACTIVITIES;
 
-        if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtActivities.Text + ".jpg")))
-            objClass.Image = txtActivities.Text + ".jpg";
+        if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtActivities.Text + Global.PICTURE_EXTENSION_JPG)))
+            objActivity.Image = txtActivities.Text + Global.PICTURE_EXTENSION_JPG;
         else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtActivities.Text + ".png")))
-            objClass.Image = txtActivities.Text + ".png";
+            objActivity.Image = txtActivities.Text + ".png";
         else
-  
-        objClass.Image = "DefaultActivities.png";
-        string ActivityId = ActivityBLL.insertActivity(objClass);
-        //if (ActivityId != null && lstActivitiesFriend.SelectedValue != null)
-       // SaveActivitiesWith(ActivityId);
+
+        objActivity.Image = "DefaultActivities.png";
+        string ActivityId = ActivityBLL.insertActivity(objActivity);
+       
         txtActivities.Text = "";
         txtActivitiesDescription.Text = "";
         LoadDataListActivities();
     }
     protected void SaveActivitiesWith(int ActivityId)
     {
-       /* if (lstActivitiesFriend.SelectedValue != "-1")
-        {
-            ActivityWithBO objActivityWith = new ActivityWithBO();
-
-            objActivityWith.UserId = userid;
-            objActivityWith.ActivityId = ActivityId;
-
-            objActivityWith.FriendUserId = Convert.ToInt32(lstActivitiesFriend.SelectedValue);
-
-            ActivityWithBLL.insertActivityWith(objActivityWith);
-            LoadDataListActivities();
-        }*/
     }
     protected void SaveInterestsWith(int InterestsId)
     {
-
-       /* if (lstInterestsFriend.SelectedValue != "-1")
-        {
-            InterestsWithBO objInterestsWith = new InterestsWithBO();
-
-            objInterestsWith.UserId = userid;
-            objInterestsWith.InterestsId = InterestsId;
-
-            objInterestsWith.FriendUserId = Convert.ToInt32(lstInterestsFriend.SelectedValue);
-
-            InterestsWithBLL.insertInterestsWith(objInterestsWith);
-            LoadDataListActivities();
-        }*/
     }
     protected void SaveInterests()
     {
-        ActivityBO objClass = new ActivityBO();
+        ActivityBO objActivity = new ActivityBO();
 
-        objClass.UserId = Userid;
-        objClass.Name = txtInterests.Text;
+        objActivity.UserId = Userid;
+        objActivity.Name = txtInterests.Text;
 
-        objClass.Description = txtInterestsDescription.Text;
-        objClass.Type = Global.INTERESTS;
+        objActivity.Description = txtInterestsDescription.Text;
+        objActivity.Type = Global.INTERESTS;
         if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtInterests.Text + ".jpg")))
-            objClass.Image = txtInterests.Text + ".jpg";
+            objActivity.Image = txtInterests.Text + ".jpg";
         else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtInterests.Text + ".png")))
-            objClass.Image = txtInterests.Text + ".png";
+            objActivity.Image = txtInterests.Text + ".png";
         else
 
-        objClass.Image = "DefaultInterests.png";
-        string ActivityId = ActivityBLL.insertActivity(objClass);
-        //if (InterestsId != -1 )
-       // SaveInterestsWith(InterestsId);
-        txtInterests.Text = "";
-        txtInterestsDescription.Text = "";
+        objActivity.Image = "DefaultInterests.png";
+        string ActivityId = ActivityBLL.insertActivity(objActivity);
+       
+        txtInterests.Text = String.Empty;
+        txtInterestsDescription.Text = String.Empty;
         LoadDataListInterests();
     }
 

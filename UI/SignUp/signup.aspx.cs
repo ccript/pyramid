@@ -15,25 +15,19 @@ public partial class SignUp : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Sign Up";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = "Sign Up";
 
         Year_month_label.Visible = false;
         Already_Email_Error.Visible = false;
         Age_Error.Visible = false;
         ePassword.Attributes.Add("value", ePassword.Text);
-       // Response.Write(MonthList.SelectedValue);
-        /*****  Date Function **********/
-        /*****  For Month   ****/
-        //MonthList.Items.Clear();//clear the items
-        
-
+       
         if (MonthList.SelectedValue == "Month")
         {
             DateTime now = new DateTime(2010, 1, 18);
             for (int i = DateTime.Now.Month; i <= 13; i++)
-            {
-                //   Console.WriteLine(now.ToString("MMM"));
+            {                
                 MonthList.Items.Add(new ListItem(now.ToString("MMM"), now.ToString("MM")));
                 now = now.AddMonths(1);
             }
@@ -54,9 +48,7 @@ public partial class SignUp : System.Web.UI.Page
 
     protected void YearList_SelectedIndexChanged(object sender, EventArgs e)
     {
-        MonthList.Visible = true;
-        
-       
+        MonthList.Visible = true;       
     }
     protected void MonthList_SelectedIndexChanged(object sender, EventArgs e)
     {

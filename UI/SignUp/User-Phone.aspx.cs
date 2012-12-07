@@ -23,8 +23,8 @@ public partial class SignUp_User_Email : System.Web.UI.Page
         }
         catch (Exception ex) { Response.Redirect("../../Default.aspx"); }
 
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Enter Phone Number";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.ENTER_PHONE_NUMBER;
 
     }
     protected void SubmitPhoneNo_Click(object sender, EventArgs e)

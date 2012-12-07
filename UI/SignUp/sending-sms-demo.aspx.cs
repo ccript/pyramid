@@ -9,7 +9,7 @@ public partial class sending_sms_demo : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Terms And Conditions";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.TERMS_AND_CONDITIONS;
     }
 }

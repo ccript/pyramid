@@ -54,15 +54,15 @@ public partial class popup_calendar : System.Web.UI.Page
     public static ImageCodecInfo GetImageCodec(string extension)
     {
         extension = extension.ToUpperInvariant();
-        ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
-        foreach (ImageCodecInfo codec in codecs)
+        ImageCodecInfo[] imageCodecs = ImageCodecInfo.GetImageEncoders();
+        foreach (ImageCodecInfo codec in imageCodecs)
         {
             if (codec.FilenameExtension.Contains(extension))
             {
                 return codec;
             }
         }
-        return codecs[1];
+        return imageCodecs[1];
     }
 
 }

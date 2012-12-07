@@ -20,8 +20,8 @@ public partial class ResetPassword : System.Web.UI.Page
         if (!Request.QueryString.HasKeys())
             Response.Redirect("../../Default.aspx");
 
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Reset your Password";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.RESET_YOUR_PASSWORD;
 
         if (Request.QueryString.Get(0).Contains("@"))//if email provided
         {

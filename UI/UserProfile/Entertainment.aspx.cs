@@ -93,20 +93,20 @@ public partial class Entertainment : System.Web.UI.Page
 
         if (!txtBooks.Text.Equals("") )
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtBooks.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtBooks.Text;
+            objEntertainment.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + Global.PICTURE_EXTENSION_JPG)))
-                objClass.Image = txtBooks.Text + ".jpg";
+                objEntertainment.Image = txtBooks.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + ".png")))
-                objClass.Image = txtBooks.Text + ".png";
+                objEntertainment.Image = txtBooks.Text + ".png";
             else
 
-           
-            objClass.Image = "DefaultBooks.png";
-            objClass.Type = Global.BOOKS;
-            EntertainmentBLL.insertEntertainment(objClass);
+
+            objEntertainment.Image = "DefaultBooks.png";
+            objEntertainment.Type = Global.BOOKS;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtBooks.Text = "";
             LoadDataListBooks();
         }
@@ -118,19 +118,19 @@ public partial class Entertainment : System.Web.UI.Page
 
         if (!txtMusic.Text.Equals("") )
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtMusic.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtMusic.Text;
+            objEntertainment.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMusic.Text + ".jpg")))
-                objClass.Image = txtMusic.Text + ".jpg";
+                objEntertainment.Image = txtMusic.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMusic.Text + ".png")))
-                objClass.Image = txtMusic.Text + ".png";
+                objEntertainment.Image = txtMusic.Text + ".png";
             else
 
-            objClass.Image = "DefaultMusic.png";
-            objClass.Type = Global.MUSIC;
-            EntertainmentBLL.insertEntertainment(objClass);
+            objEntertainment.Image = "DefaultMusic.png";
+            objEntertainment.Type = Global.MUSIC;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtMusic.Text = "";
             LoadDataListMusic();
         }
@@ -142,19 +142,19 @@ public partial class Entertainment : System.Web.UI.Page
 
         if (!txtMovie.Text.Equals("") )
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtMovie.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtMovie.Text;
+            objEntertainment.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMovie.Text + ".jpg")))
-                objClass.Image = txtMovie.Text + ".jpg";
+                objEntertainment.Image = txtMovie.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtMovie.Text + ".png")))
-                objClass.Image = txtMovie.Text + ".png";
+                objEntertainment.Image = txtMovie.Text + ".png";
             else
 
-            objClass.Image = "DefaultMovie.png";
-            objClass.Type = Global.MOVIE;
-            EntertainmentBLL.insertEntertainment(objClass);
+            objEntertainment.Image = "DefaultMovie.png";
+            objEntertainment.Type = Global.MOVIE;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtMovie.Text = "";
             LoadDataListMovie();
         }
@@ -165,19 +165,19 @@ public partial class Entertainment : System.Web.UI.Page
 
         if (!txtTelevision.Text.Equals("") )
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtTelevision.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtTelevision.Text;
+            objEntertainment.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTelevision.Text + ".jpg")))
-                objClass.Image = txtTelevision.Text + ".jpg";
+                objEntertainment.Image = txtTelevision.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTelevision.Text + ".png")))
-                objClass.Image = txtTelevision.Text + ".png";
+                objEntertainment.Image = txtTelevision.Text + ".png";
             else
 
-            objClass.Image = "DefaultTelevision.png";
-            objClass.Type = Global.TELEVISION;
-            EntertainmentBLL.insertEntertainment(objClass);
+            objEntertainment.Image = "DefaultTelevision.png";
+            objEntertainment.Type = Global.TELEVISION;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtTelevision.Text = "";
             LoadDataListTelevision();
         }
@@ -189,19 +189,19 @@ public partial class Entertainment : System.Web.UI.Page
 
         if (!txtGame.Text.Equals("") )
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtGame.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtGame.Text;
+            objEntertainment.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtGame.Text + ".jpg")))
-                objClass.Image = txtGame.Text + ".jpg";
+                objEntertainment.Image = txtGame.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtGame.Text + ".png")))
-                objClass.Image = txtGame.Text + ".png";
+                objEntertainment.Image = txtGame.Text + ".png";
             else
 
-            objClass.Image = "DefaultGame.png";
-            objClass.Type = Global.GAME;
-            EntertainmentBLL.insertEntertainment(objClass);
+            objEntertainment.Image = "DefaultGame.png";
+            objEntertainment.Type = Global.GAME;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtGame.Text = "";
             LoadDataListGame();
         }

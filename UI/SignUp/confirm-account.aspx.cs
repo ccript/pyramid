@@ -13,32 +13,25 @@ public partial class confirm_account : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Account Activation";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.ACCOUNT_ACTIVATION;
 
         string comfirm_code = Request.QueryString["confirm"];
-        string id = Request.QueryString["uid"];
+        string userId = Request.QueryString["uid"];
 
         UserBO objUser = new UserBO();
         objUser.PasswordResetCode = comfirm_code;
-        objUser.Id = id;
+        objUser.Id = userId;
 
-        
-        string check = BuinessLayer.UserBLL.BLL_ConfirmUser(objUser);
-
-
-        if (check == "No")
+        if (BuinessLayer.UserBLL.BLL_ConfirmUser(objUser) == "No")
         {
             Activation_Message.Text = "Not able to Activate Account";    
         }
-
-        else if (check == "Yes")
-        {
-         
+        else if (BuinessLayer.UserBLL.BLL_ConfirmUser(objUser) == "Yes")
+        {         
             Login_Click.NavigateUrl = "../../Default.aspx";
             Login_Click.Visible = true;
-            Activation_Message.Text = "Your Account Activated Successfully";
-            
-        } 
+            Activation_Message.Text = "Your Account Activated Successfully";            
+        }
     }
 }

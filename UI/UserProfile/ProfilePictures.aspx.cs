@@ -28,9 +28,9 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
         {
             if (FileUpload1.HasFile)
             {
-                HttpPostedFile myFile = FileUpload1.PostedFile;
-                int size =myFile.ContentLength/1024;
-                if (size < 4000)
+                HttpPostedFile _postedFile = FileUpload1.PostedFile;
+                int _postedFileSize = _postedFile.ContentLength / 1024;
+                if (_postedFileSize < 4000)
                 {
                     try
                     {

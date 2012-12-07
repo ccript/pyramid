@@ -10,20 +10,14 @@ public partial class Recover : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-        
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Identify your account";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.IDENTIFY_YPUR_ACCOUNT;
 
         string accountNotFound = Request.QueryString.Get(0);
         if (accountNotFound == "true1")
         {
             lblAccountNotFound.Visible = true;
-
- 
         }
-
-        
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {

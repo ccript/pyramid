@@ -13,8 +13,8 @@ public partial class MisspellingCorrection : System.Web.UI.Page
 
         if (!Request.QueryString.HasKeys())
             Response.Redirect("../../Default.aspx");
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Misspelling Fixed";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.MISSPELLING_FIXED;
         
         lblUserName.Text = Request.QueryString.Get(0);        
         lblFullName.Text = ReenterBLL.getFullUserName(Request.QueryString.Get(0)); ;

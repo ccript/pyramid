@@ -131,4 +131,42 @@ public static class Global
 
     public const string FRIEND_AND_FAMILY = "Friends and Family";
     public const string SESSION_USER_EMIAL = "UserEmail";
+
+    public const string SET_NEW_PASSWORD = "Set New Password";
+    public const string ACCOUNT_ACTIVATION = "Account Activation";
+    public const string TERMS_AND_CONDITIONS = "Terms And Conditions";
+    public const string ENTER_PHONE_NUMBER = "Enter Phone Number";
+    public const string CANNOT_IDENTIFY_ACCOUNT = "Can't Idfentify Account";
+
+    public const string PASSWORD_RESET_CODES_SENT = "Password reset codes sent";
+
+    public const string INCORRECT_PASSWORD = "Incorrect Password";
+    public const string MISSPELLING_FIXED = "Misspelling Fixed";
+
+    public const string IDENTIFY_YPUR_ACCOUNT = "Identify your account";
+
+    public const string PLEASE_REENTER_YOUR_PASSWORD = "Please Re-enter your Password";
+    public const string RESET_YOUR_PASSWORD = "Reset your Password";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

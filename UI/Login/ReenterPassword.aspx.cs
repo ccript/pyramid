@@ -9,9 +9,9 @@ using System.Data;
 public partial class RenterPassword : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
-    {        
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Please Re-enter your Password";
+    {
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.PLEASE_REENTER_YOUR_PASSWORD;
 
         lblUserName.Text = Request.QueryString.Get(0);
         lblFullName.Text = ReenterBLL.getFullUserName(Request.QueryString.Get(0)); ;

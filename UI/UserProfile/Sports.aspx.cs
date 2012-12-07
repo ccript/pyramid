@@ -73,20 +73,20 @@ public partial class Sports : System.Web.UI.Page
 
         if (!txtSports.Text.Equals(""))
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtSports.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtSports.Text;
+            objEntertainment.UserId = Userid;
 
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtSports.Text + ".jpg")))
-                objClass.Image = txtSports.Text + ".jpg";
+                objEntertainment.Image = txtSports.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtSports.Text + ".png")))
-                objClass.Image = txtSports.Text + ".png";
+                objEntertainment.Image = txtSports.Text + ".png";
             else
-                objClass.Image = "DefaultSports.png";
-          
-            objClass.Type = Global.SPORTS;
-            EntertainmentBLL.insertEntertainment(objClass);
+                objEntertainment.Image = "DefaultSports.png";
+
+            objEntertainment.Type = Global.SPORTS;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtSports.Text = "";
             LoadDataListSports();
         }
@@ -98,20 +98,20 @@ public partial class Sports : System.Web.UI.Page
 
         if (!txtTeam.Text.Equals("") )
         {
-            EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtTeam.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtTeam.Text;
+            objEntertainment.UserId = Userid;
 
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTeam.Text + ".jpg")))
-                objClass.Image = txtTeam.Text + ".jpg";
+                objEntertainment.Image = txtTeam.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtTeam.Text + ".png")))
-                objClass.Image = txtTeam.Text + ".png";
+                objEntertainment.Image = txtTeam.Text + ".png";
             else
-           
-            objClass.Image = "DefaultTeam.png";
-            objClass.Type = Global.TEAM;
-            EntertainmentBLL.insertEntertainment(objClass);
+
+            objEntertainment.Image = "DefaultTeam.png";
+            objEntertainment.Type = Global.TEAM;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtTeam.Text = "";
             LoadDataListTeam();
         }
@@ -123,20 +123,20 @@ public partial class Sports : System.Web.UI.Page
 
         if (!txtAthelete.Text.Equals("") )
         {
-          EntertainmentBO objClass = new EntertainmentBO();
+            EntertainmentBO objEntertainment = new EntertainmentBO();
 
-            objClass.Name = txtAthelete.Text;
-            objClass.UserId = Userid;
+            objEntertainment.Name = txtAthelete.Text;
+            objEntertainment.UserId = Userid;
             if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtAthelete.Text + ".jpg")))
-                objClass.Image = txtAthelete.Text + ".jpg";
+                objEntertainment.Image = txtAthelete.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtAthelete.Text + ".png")))
-                objClass.Image = txtAthelete.Text + ".png";
+                objEntertainment.Image = txtAthelete.Text + ".png";
             else
 
-               
-            objClass.Image = "DefaultAthelete.png";
-            objClass.Type = Global.ATHELETE;
-            EntertainmentBLL.insertEntertainment(objClass);
+
+            objEntertainment.Image = "DefaultAthelete.png";
+            objEntertainment.Type = Global.ATHELETE;
+            EntertainmentBLL.insertEntertainment(objEntertainment);
             txtAthelete.Text = "";
             LoadDataListAthelete();
         }

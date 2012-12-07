@@ -26,13 +26,13 @@ public partial class ImageConversions : System.Web.UI.Page
     {
         try
         {            
-            FileStream fs = new FileStream(Server.MapPath(Global.PROFILE_PICTURE + Userid + Global.PICTURE_EXTENSION_JPG), FileMode.OpenOrCreate, FileAccess.Write);
-            BinaryWriter br = new BinaryWriter(fs);
-            br.Write(Convert.FromBase64String(Request.Form["imageData"]));
-          
-            br.Flush();
-            br.Close();
-            fs.Close();            
+            FileStream _fileStream = new FileStream(Server.MapPath(Global.PROFILE_PICTURE + Userid + Global.PICTURE_EXTENSION_JPG), FileMode.OpenOrCreate, FileAccess.Write);
+            BinaryWriter _binaryWriter = new BinaryWriter(_fileStream);
+            _binaryWriter.Write(Convert.FromBase64String(Request.Form["imageData"]));
+
+            _binaryWriter.Flush();
+            _binaryWriter.Close();
+            _fileStream.Close();            
         }
         catch (Exception Ex)
         {

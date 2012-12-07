@@ -10,8 +10,8 @@ public partial class IncorrectPassword : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label l = (Label)Page.Master.FindControl("lblTitle");
-        l.Text = "Incorrect Password";
+        Label lblTitle = (Label)Page.Master.FindControl("lblTitle");
+        lblTitle.Text = Global.INCORRECT_PASSWORD;
         
         lblUserName.Text = Request.QueryString.Get(0);        
         lblFullName.Text = ReenterBLL.getFullUserName(Request.QueryString.Get(0)); ;
