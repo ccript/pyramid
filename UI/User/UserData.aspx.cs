@@ -400,7 +400,7 @@ public partial class Wall : System.Web.UI.Page
             objWall.Type = Global.VIDEO;
             string wallpost = objWall.Post;
             objWall.EmbedPost = Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + uploadedvideothumbname;
-            uploadedvideoembedliteral = wallpost + "<br/><br/><embed src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Players/flvplayer.swf' width='320' height='215' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + Global.PATH_COMPRESSED_USER_VIDEO + "SWF/" + uploadedvideoname + "&autostart=true&frontcolor=0xCCCCCC&backcolor=0x000000&lightcolor=0x996600&showdownload=false&showeq=false&repeat=false&volume=100&useaudio=false&usecaptions=false&usefullscreen=true&usekeys=true'></embed>";
+            uploadedvideoembedliteral = Video.getUploadedVideoEmbedLiteral(wallpost, uploadedvideoname);
             LiteralUploadVideo.Text = "";
             status = " added a new video";
         }

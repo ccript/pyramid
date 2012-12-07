@@ -77,4 +77,9 @@ public class Video
 
         return uploadedvideoliteral;
     }
+
+    public static string getUploadedVideoEmbedLiteral(string wallpost, string uploadedvideoname)
+    {
+        return wallpost + "<br/><br/><embed src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Players/flvplayer.swf' width='320' height='215' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + Global.PATH_COMPRESSED_USER_VIDEO + "SWF/" + uploadedvideoname + "&autostart=true&frontcolor=0xCCCCCC&backcolor=0x000000&lightcolor=0x996600&showdownload=false&showeq=false&repeat=false&volume=100&useaudio=false&usecaptions=false&usefullscreen=true&usekeys=true'></embed>";
+    }
 }
