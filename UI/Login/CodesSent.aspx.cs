@@ -16,30 +16,18 @@ public partial class CodesSent : System.Web.UI.Page
         Label l = (Label)Page.Master.FindControl("lblTitle");
         l.Text = "Password reset codes sent";
 
-        string email = Request.QueryString.Get(0);//ReenterBLL.getFullUserName(username);
-        lblEmail.Text = email;
-        string fullUserName = ReenterBLL.getFullUserName(email);
-        lblUserName.Text = fullUserName;
+        lblEmail.Text = Request.QueryString.Get(0);        
+        lblUserName.Text = ReenterBLL.getFullUserName(Request.QueryString.Get(0));
 
     }
 
     protected void Button1_Click(object sender, EventArgs e)
-    {
-        //on submit code check if code valid and then take user to home page
-        bool isCodeValid=false;
-        //string randomCode=LoginBLL.
-        isCodeValid = LoginBLL.validateCode(lblEmail.Text,txtResetCode.Text);
-        if (isCodeValid)
-        {
-            isCodeValid = true;
+    {        
+        if (LoginBLL.validateCode(lblEmail.Text, txtResetCode.Text))
+        {            
             Session["UserEmail"] = lblEmail.Text;
-        }
-        if (isCodeValid)
-        {
-            //
             Response.Redirect("SetNewPassword.aspx");
-        }
-
+        }        
     }
     protected void Button2_Click(object sender, EventArgs e)
     {

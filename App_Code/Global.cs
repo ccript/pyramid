@@ -126,6 +126,9 @@ public static class Global
     public const string POST_CHANGED_RELATIONSHIP_STATUS = "Changed Relationship Status";
     public const string POST_PROFILE_PICTIRE_CHANGE = "Profile Picture Change";
     public const string POST_USER_CHNAGED_SPORTS = "User Changed Sports";
-    
 
+    public const string PICTURE_EXTENSION_JPG = ".jpg";
+
+    public const string FRIEND_AND_FAMILY = "Friends and Family";
+    public const string SESSION_USER_EMIAL = "UserEmail";
 }

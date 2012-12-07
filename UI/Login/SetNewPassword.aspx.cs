@@ -13,12 +13,10 @@ public partial class SetNewPassword : System.Web.UI.Page
         Label l = (Label)Page.Master.FindControl("lblTitle");
         l.Text = "Set New Password";
     }
+
     protected void btnResetPassword_Click(object sender, EventArgs e)
     {
-        //code that saves the value of the new password for the user whose session is active
-        string username=Session["UserEmail"].ToString();
-        bool isReset = LoginBLL.resetPassword(username, txtPassword.Text);
-        if (isReset)
+        if (LoginBLL.resetPassword(SessionClass.getUserEmail(), txtPassword.Text))
         {
             Response.Redirect("../../Default.aspx");
         }

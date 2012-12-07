@@ -25,24 +25,18 @@ public partial class ImageConversions : System.Web.UI.Page
     void CreatePhoto()
     {
         try
-        {
-            string strPhoto = Request.Form["imageData"]; //Get the image from flash file
-            byte[] photo = Convert.FromBase64String(strPhoto);
-            string imgpath = Server.MapPath(Global.PROFILE_PICTURE + Userid + ".jpg");
-            FileStream fs = new FileStream(imgpath, FileMode.OpenOrCreate, FileAccess.Write);
+        {            
+            FileStream fs = new FileStream(Server.MapPath(Global.PROFILE_PICTURE + Userid + Global.PICTURE_EXTENSION_JPG), FileMode.OpenOrCreate, FileAccess.Write);
             BinaryWriter br = new BinaryWriter(fs);
-            br.Write(photo);
+            br.Write(Convert.FromBase64String(Request.Form["imageData"]));
           
             br.Flush();
             br.Close();
-            fs.Close();
-            
+            fs.Close();            
         }
         catch (Exception Ex)
         {
 
         }
     }
-
-
 }

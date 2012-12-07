@@ -12,11 +12,9 @@ public partial class IncorrectPassword : System.Web.UI.Page
     {
         Label l = (Label)Page.Master.FindControl("lblTitle");
         l.Text = "Incorrect Password";
-
-        string username = Request.QueryString.Get(0);
-        lblUserName.Text = username;
-        string fullUserName = ReenterBLL.getFullUserName(username);
-        lblFullName.Text = fullUserName;
+        
+        lblUserName.Text = Request.QueryString.Get(0);        
+        lblFullName.Text = ReenterBLL.getFullUserName(Request.QueryString.Get(0)); ;
     }
     protected void btnTryAgain_Click(object sender, EventArgs e)
     {

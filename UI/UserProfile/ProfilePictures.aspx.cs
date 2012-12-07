@@ -20,7 +20,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
     {
         ((Label)Master.FindControl("lblTitle")).Text = "Profile Pictures";
         Userid = SessionClass.getUserId();
-        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
+        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + Global.PICTURE_EXTENSION_JPG;
     }
     protected void btnSaveUpload_Click(object sender, EventArgs e)
     {
@@ -34,8 +34,8 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
                 {
                     try
                     {
-                        FileUpload1.SaveAs(Server.MapPath(Global.PROFILE_PICTURE) + Userid + ".jpg");
-                        WallPost("Profile Picture Change");
+                        FileUpload1.SaveAs(Server.MapPath(Global.PROFILE_PICTURE) + Userid + Global.PICTURE_EXTENSION_JPG);
+                        WallPost();
                     }
                     catch (Exception ex)
                     {
@@ -55,8 +55,8 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
     }
     protected void btnCamSave_Click(object sender, EventArgs e)
     {
-       imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
-       WallPost("Profile Picture Change");
+        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + Global.PICTURE_EXTENSION_JPG;
+       WallPost();
      //  Response.Redirect("ImageConversions.aspx");
       
     }
@@ -67,7 +67,7 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
         objUser = UserBLL.getUserByUserId(Userid);
         
         string oldfile = Server.MapPath("../../Resources/images/"+objUser.Gender+".png");
-        string newfile = Server.MapPath(Global.PROFILE_PICTURE) + Userid + ".jpg";
+        string newfile = Server.MapPath(Global.PROFILE_PICTURE) + Userid + Global.PICTURE_EXTENSION_JPG;
               string backup = Server.MapPath(Global.PROFILE_PICTURE) +"backup.jpg";
               if (System.IO.File.Exists(newfile))
               {
@@ -76,11 +76,11 @@ public partial class UserProfile_ProfilePictures : System.Web.UI.Page
                   System.IO.File.Copy(oldfile, newfile);
               }
 
-        imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + ".jpg";
-        WallPost("Profile Picture Change");
+              imgProfile.ImageUrl = Global.PROFILE_PICTURE + Userid + Global.PICTURE_EXTENSION_JPG;
+        WallPost();
     }
 
-    protected void WallPost(string post)
+    protected void WallPost()
     {
         PostProperties postProp = new PostProperties();
         postProp.PostText = Global.POST_PROFILE_PICTIRE_CHANGE;

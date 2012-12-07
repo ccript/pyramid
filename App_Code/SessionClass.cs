@@ -86,4 +86,9 @@ public class SessionClass
     {
         return HttpContext.Current.Session[Global.SESSION_TAGGED_FRIENDS];
     }
+
+    public static string getUserEmail()
+    {
+        return Convert.ToString(HttpContext.Current.Session[Global.SESSION_USER_EMIAL]);
+    }
 }

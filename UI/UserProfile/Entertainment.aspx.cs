@@ -97,7 +97,7 @@ public partial class Entertainment : System.Web.UI.Page
 
             objClass.Name = txtBooks.Text;
             objClass.UserId = Userid;
-            if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + ".jpg")))
+            if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + Global.PICTURE_EXTENSION_JPG)))
                 objClass.Image = txtBooks.Text + ".jpg";
             else if (System.IO.File.Exists(Server.MapPath("../../Resources/images/ProfileIcons/" + txtBooks.Text + ".png")))
                 objClass.Image = txtBooks.Text + ".png";

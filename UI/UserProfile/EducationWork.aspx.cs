@@ -51,9 +51,6 @@ public partial class EducationWork : System.Web.UI.Page
                 lstStartDay.DataSource = Enumerable.Range(1, DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt32(lstStartMonth.SelectedValue)));
                 lstStartDay.DataBind();
 
-
-
-
                 //Populate End DropDownLists
                 lstEndMonth.DataSource = Enumerable.Range(1, 12).Select(a => new
                 {
@@ -66,8 +63,6 @@ public partial class EducationWork : System.Web.UI.Page
                 lstEndYear.DataBind();
                 lstEndDay.DataSource = Enumerable.Range(1, DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt32(lstStartMonth.SelectedValue)));
                 lstEndDay.DataBind();
-
-
 
                 //Populate Start Project DropDownLists
                 lstPStartMonth.DataSource = Enumerable.Range(1, 12).Select(a => new
@@ -82,10 +77,6 @@ public partial class EducationWork : System.Web.UI.Page
                 lstPStartDay.DataSource = Enumerable.Range(1, DateTime.DaysInMonth(DateTime.Now.Year, Convert.ToInt32(lstPStartMonth.SelectedValue)));
                 lstPStartDay.DataBind();
 
-
-
-
-                //Populate End Project DropDownLists
                 lstPEndMonth.DataSource = Enumerable.Range(1, 12).Select(a => new
                 {
                     MonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(a),
@@ -115,16 +106,7 @@ public partial class EducationWork : System.Web.UI.Page
 
     }
     protected void btnSave_Click(object sender, EventArgs e)
-    {
-       // BasicInfoBO objBasicInfo = new BasicInfoBO();
-
-        //objBasicInfo.UserId = 1;
-        //objBasicInfo.CurrentCity = txtCurrentCity.Text;
-       // objBasicInfo.HomeTown = txtHometown.Text;
-
-       // BasicInfoBLL.updateBasicInfoPage(objBasicInfo);
-       // BasicInfoBLL.updateTownCity(txtCurrentCity.Text, txtHometown.Text, 1);
-       // LoadBasicInfo();
+    {            
         SaveEmployer();
         SaveProject();
         SaveUniversity();
@@ -168,8 +150,7 @@ public partial class EducationWork : System.Web.UI.Page
             objEmployer.Image = txtEmployer.Text + ".png";
         else
              objEmployer.Image = "DefaultEmployer.png";
-
-       // EmployerBLL.insertEmployer(objEmployer);
+      
         TemplateInfoBLL.insert(objEmployer, new EmployerDAL());
         LoadDataListEmployer();
     }
@@ -195,9 +176,7 @@ public partial class EducationWork : System.Web.UI.Page
             objProject.Image = "DefaultProject.png";
       
       
-        string ProjectId =ProjectBLL.insertProject(objProject);
-       // if (ProjectId!=-1)
-       // SaveProjectWith(ProjectId);
+        string ProjectId =ProjectBLL.insertProject(objProject);       
         LoadDataListProject();
     }
 

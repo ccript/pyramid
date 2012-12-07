@@ -27,9 +27,6 @@ public partial class Recover : System.Web.UI.Page
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-
         Response.Redirect("ResetPassword.aspx?AccountPhone=" + txtEmailPhone.Text + "&AccountEmail=" + txtEmailPhone.Text);
-
- 
     }
 }
