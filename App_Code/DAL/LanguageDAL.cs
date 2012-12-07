@@ -11,10 +11,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for LanguageDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -23,14 +19,7 @@ namespace DataLayer
 
         public LanguageDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
-
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
     
         public void insert(TemplateBO objClass)
         {
@@ -57,9 +46,7 @@ namespace DataLayer
             }
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE
-        //////////////////////////////////////////////////////////////
+
         public void update(TemplateBO objClass)
         {
 
@@ -101,9 +88,7 @@ namespace DataLayer
             return lst;
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public List<Language> SelectLanguageByid(string UserId)
         {
             List<Language> lst = new List<Language>();
@@ -132,11 +117,7 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static void insertLanguage(LanguageBO objClass)
         {
 
@@ -161,9 +142,7 @@ namespace DataLayer
 
             }
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateLanguage(LanguageBO objClass)
         {
 
@@ -179,18 +158,14 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteLanguage(string Id)
           {
               MongoCollection<Language> objCollection = db.GetCollection<Language>("c_Language");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Language> getAllLanguageList()
         {
             List<Language> lst = new List<Language>();
@@ -204,9 +179,7 @@ namespace DataLayer
             }
             return lst;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static LanguageBO getLanguageByLanguageId(string Id)
         {
             MongoCollection<Language> objCollection = db.GetCollection<Language>("c_Language");
@@ -223,9 +196,6 @@ namespace DataLayer
            
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Language> getLanguage(string UserId)
         {
             List<Language> lst = new List<Language>();

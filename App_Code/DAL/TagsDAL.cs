@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for TagsDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,19 +18,12 @@ namespace DataLayer
         
         public TagsDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertTags(TagsBO objClass)
         {
           
-
-
                  MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Tags");
 
                      var query = Query.And(
@@ -68,9 +57,7 @@ namespace DataLayer
            
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateTags(TagsBO objClass)
         {
 
@@ -92,18 +79,14 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteTags(string Id)
           {
               MongoCollection<Tags> objCollection = db.GetCollection<Tags>("c_Tags");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Tags> getAllTagsList()
         {
             List<Tags> lst = new List<Tags>();
@@ -118,9 +101,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static TagsBO getTagsByTagsId(string Id)
         {
             MongoCollection<Tags> objCollection = db.GetCollection<Tags>("c_Tags");
@@ -143,9 +124,7 @@ namespace DataLayer
             return objClass;
            
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Tags> getTagsTop5(int Type, string AtId)
         {
             List<Tags> lst = new List<Tags>();
@@ -157,9 +136,7 @@ namespace DataLayer
                         Query.EQ("Type", Type),
                          Query.EQ("AtId", ObjectId.Parse(AtId)));
             var cursor = objCollection.Find(query);
-           // cursor.Limit = 5;
-           // var sortBy = SortBy.Descending("_id");
-           // cursor.SetSortOrder(sortBy);
+
             foreach (var item in cursor)
             {
                 lst.Add(item);
@@ -234,9 +211,7 @@ namespace DataLayer
 
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Tags> getTagsByUserId(string UserId)
         {
             List<Tags> lst = new List<Tags>();

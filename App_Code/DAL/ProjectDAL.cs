@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for ProjectDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,14 +18,8 @@ namespace DataLayer
         
         public ProjectDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static string insertProject(ProjectBO objClass)
         {
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Project");
@@ -54,9 +44,7 @@ namespace DataLayer
 
             return doc["_id"].ToString();
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+ 
         public static void updateProject(ProjectBO objClass)
         {
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Project");
@@ -79,18 +67,14 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+ 
         public static void deleteProject(string Id)
           {
               MongoCollection<Employer> objCollection = db.GetCollection<Employer>("c_Project");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id")); 
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+ 
         public static List<Project> getAllProjectList()
         {
             List<Project> lst = new List<Project>();
@@ -104,9 +88,7 @@ namespace DataLayer
             }
             return lst;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+ 
         public static ProjectBO getProjectByProjectId(string Id)
         {
 
@@ -133,9 +115,7 @@ namespace DataLayer
            
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+ 
         public static List<Project> getProjectTop5(string Id)
         {
             List<Project> lst = new List<Project>();

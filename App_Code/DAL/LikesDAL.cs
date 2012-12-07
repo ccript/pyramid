@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for LikesDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,19 +18,11 @@ namespace DataLayer
         
         public LikesDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static void insertLikes(LikesBO objClass)
         {
           
-
-
                  MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Likes");
 
                  var query = Query.And(
@@ -58,19 +46,12 @@ namespace DataLayer
                 
             }
               
-        
-
-           
     
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static bool youLikes(LikesBO objClass)
         {
-
-
 
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Likes");
 
@@ -84,9 +65,7 @@ namespace DataLayer
             else
                 return false;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateLikes(LikesBO objClass)
         {
 
@@ -105,9 +84,7 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void unLikes(LikesBO objClass)
         {
             MongoCollection<Likes> objCollection = db.GetCollection<Likes>("c_Likes");
@@ -118,18 +95,14 @@ namespace DataLayer
             var result = objCollection.FindAndRemove(query,
                 SortBy.Ascending("_id"));
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteLikes(string Id)
           {
               MongoCollection<Likes> objCollection = db.GetCollection<Likes>("c_Likes");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Likes> getAllLikesList()
         {
             List<Likes> lst = new List<Likes>();
@@ -144,9 +117,8 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
+
         public static LikesBO getLikesByLikesId(string Id)
         {
             MongoCollection<Likes> objCollection = db.GetCollection<Likes>("c_Likes");
@@ -165,7 +137,7 @@ namespace DataLayer
             return objClass;
            
         }
-        // @@@@@@@@@@@@@@@@@@@@ by Nabeel
+
         public static long countPost(string AtId, int Type)
         {
             List<LikesBO> lst = new List<LikesBO>();
@@ -182,10 +154,7 @@ namespace DataLayer
 
         }
 
-        // @@@@@@@@@@@@@@@@@@@@ by Nabeel
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Likes> getLikesTop(int Type, string AtId)
         {
             List<Likes> lst = new List<Likes>();
@@ -197,9 +166,7 @@ namespace DataLayer
                         Query.EQ("Type", Type),
                          Query.EQ("AtId", ObjectId.Parse(AtId)));
             var cursor = objCollection.Find(query);
-            //cursor.Limit = 3;
-            // var sortBy = SortBy.Descending("_id");
-            // cursor.SetSortOrder(sortBy);
+
             foreach (var item in cursor)
             {
                 lst.Add(item);

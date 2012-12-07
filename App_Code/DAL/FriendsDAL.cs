@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for FriendsDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,19 +18,11 @@ namespace DataLayer
         
         public FriendsDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertFriends(FriendsBO objClass)
         {
-          
-
-
                  MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Friends");
 
                  var query = Query.And(
@@ -63,9 +51,7 @@ namespace DataLayer
            
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateFriends(FriendsBO objClass)
         {
 
@@ -82,9 +68,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void confirmRequest(FriendsBO objClass)
         {
 
@@ -115,9 +98,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       send Request  FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void sendFriendRequest(string UserId, string FriendId)
         {
 
@@ -154,9 +134,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       send Suggestion  FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void sendFriendSuggestion(string UserId, string FriendId)
         {
 
@@ -192,9 +169,7 @@ namespace DataLayer
             }
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       is Existing Friend
-        //////////////////////////////////////////////////////////////
+        
         public static bool isExistingFriend(string UserId, string FriendId)
         {
 
@@ -217,9 +192,7 @@ namespace DataLayer
             
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       is Existing Friend with any status
-        //////////////////////////////////////////////////////////////
+
         public static bool isExistingFriendAnyStatus(string UserId, string FriendId)
         {
 
@@ -244,9 +217,7 @@ namespace DataLayer
 
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       cancel Request  FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void cancelFriendRequest(string UserId, string FriendId)
         {
 
@@ -287,18 +258,14 @@ namespace DataLayer
             }
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteFriends(string Id)
           {
               MongoCollection<Friends> objCollection = db.GetCollection<Friends>("c_Friends");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+        
         public static List<Friends> getAllFriendsList()
         {
             List<Friends> lst = new List<Friends>();
@@ -418,7 +385,7 @@ namespace DataLayer
                     lst.Add(objClass);
 
                 }
-                ///////////////////////////////////////////
+
                 query = Query.And(
               Query.EQ("Status", status), //Query.Or(
               Query.EQ("FriendUserId", ObjectId.Parse(UserId))//, Query.EQ("UserId", UserId))
@@ -487,7 +454,7 @@ namespace DataLayer
                         objClass.FriendUserId = item.UserId.ToString();
                         objClass.UserId = item.FriendUserId.ToString();
                         objClass.Status = item.Status;
-                        //objClass.BelongsTo = Useritem.BelongsTo;
+
                         break;
                     }
                     lst.Add(objClass);
@@ -770,11 +737,8 @@ namespace DataLayer
                     var queryf2 = Query.And(
                         Query.EQ("Status", Global.CONFIRMED),
                          Query.NE("FriendUserId", ObjectId.Parse(item.FriendUserId.ToString())),
-                        //    Query.NE("UserId", ObjectId.Parse(item.UserId.ToString())),
-                        //Query.Or(
+
                         Query.EQ("UserId", ObjectId.Parse(item.UserId.ToString())) //Query.Or(
-                        //   Query.EQ("UserId", ObjectId.Parse(item.FriendUserId.ToString()))//, Query.EQ("UserId", UserId))
-                        //)
 
                           );
                     var resultf2 = objCollectionf2.Find(queryf2);
@@ -804,16 +768,13 @@ namespace DataLayer
                             lst.Add(objClass);
                         }
                     }
-                        //CASE 2
+
                         MongoCollection<Friends> objCollectionf3 = db.GetCollection<Friends>("c_Friends");
                         var queryf3 = Query.And(
                             Query.EQ("Status", Global.CONFIRMED),
                              Query.NE("UserId", ObjectId.Parse(item.FriendUserId.ToString())),
-                            //    Query.NE("UserId", ObjectId.Parse(item.UserId.ToString())),
-                            //Query.Or(
+
                             Query.EQ("FriendUserId", ObjectId.Parse(item.UserId.ToString())) //Query.Or(
-                            //   Query.EQ("UserId", ObjectId.Parse(item.FriendUserId.ToString()))//, Query.EQ("UserId", UserId))
-                            //)
 
                               );
                         var resultf3 = objCollectionf3.Find(queryf3);
@@ -848,7 +809,7 @@ namespace DataLayer
 
 
                     }
-                //Also do the other way around-- repeating
+
                 MongoCollection<Friends> objCollectionf = db.GetCollection<Friends>("c_Friends");
                 var queryf = Query.And(
                     Query.EQ("Status", Global.CONFIRMED),
@@ -909,9 +870,7 @@ namespace DataLayer
                             //    Query.NE("UserId", ObjectId.Parse(item.UserId.ToString())),
                             //Query.Or(
                             Query.EQ("FriendUserId", ObjectId.Parse(itemf.FriendUserId.ToString())) //Query.Or(
-                            //   Query.EQ("UserId", ObjectId.Parse(item.FriendUserId.ToString()))//, Query.EQ("UserId", UserId))
-                            //)
-
+                
                               );
                         var resultf3 = objCollectionf3.Find(queryf3);
 
@@ -949,20 +908,19 @@ namespace DataLayer
 
             List<UserFriendsBO> lst1 = new List<UserFriendsBO>();
             
-            //get all friends of UserID
+
             lst1 = getAllFriendsListName(UserId, Global.CONFIRMED);
-            //take difference of the two lists: items in lst that are not in lst1
+
             IEqualityComparer<UserFriendsBO> comparer = new UserFriendsComparer();
 
             List<UserFriendsBO> l3 = lst.Except(lst1, comparer).ToList();
             List<UserFriendsBO> l3new=new List<UserFriendsBO>();
-            //To Get Mutual friends name and count
+
             foreach (UserFriendsBO Useritem in l3)
             {
-                //check if a suggested user is a friend of the user with any status
+
                 if(isExistingFriendAnyStatus(UserId,Useritem.FriendUserId))
                 {
-                //Useritem.Status="AF";//already friends
                     
                 }
                 else
@@ -1021,17 +979,13 @@ namespace DataLayer
             IEqualityComparer<UserFriendsBO> comparer = new UserFriendsBOComparer();
 
             List<UserFriendsBO> l3 = lst2.Intersect(lst1, comparer).ToList();
-          //  l3.OrderBy(p => p.FirstName);
+
             l3.Sort((x, y) => string.Compare(x.FirstName, y.FirstName));
-            //l3.Sort(scomparer);
 
             return l3;
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
-        public static List<UserFriendsBO> getAllFriendRequests(string UserId, string status)
+         public static List<UserFriendsBO> getAllFriendRequests(string UserId, string status)
         {
             List<UserFriendsBO> lst = new List<UserFriendsBO>();
 
@@ -1062,17 +1016,13 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<UserFriendsBO> getFriendsListByName(string UserId, string value)
         {
             List<UserFriendsBO> lst = new List<UserFriendsBO>();
 
             MongoCollection<Friends> objCollection = db.GetCollection<Friends>("c_Friends");
-          //  var query = Query.And(
-           //        Query.EQ("Status", status),
-          //         Query.EQ("UserId", ObjectId.Parse(UserId)));
+        
             var query = Query.EQ("UserId", ObjectId.Parse(UserId));
             foreach (Friends item in objCollection.Find(query))
             {
@@ -1106,9 +1056,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static FriendsBO getFriendsByFriendsId(string Id)
         {
             MongoCollection<Friends> objCollection = db.GetCollection<Friends>("c_Friends");
@@ -1146,7 +1093,7 @@ namespace DataLayer
             if (!result.Any())
             {
 
-                ////////////////////////////////////////////////////
+
                 query = Query.And(
                    Query.EQ("Status", status), //Query.Or(
                    Query.EQ("FriendUserId", ObjectId.Parse(UserId))//, Query.EQ("UserId", UserId))
@@ -1170,7 +1117,7 @@ namespace DataLayer
                         objClass.UserId = item.FriendUserId.ToString();
                         objClass.Status = item.Status;
                         objClass.DateOfBirth = Useritem.DateOfBirth.ToString();
-                        //objClass.BelongsTo = Useritem.BelongsTo;
+
                         break;
                     }
                     string fdate = objClass.DateOfBirth;
@@ -1217,10 +1164,9 @@ namespace DataLayer
                     {
                         lst.Add(objClass);
                     }
-                    // lst.Add(objClass);
 
                 }
-                ///////////////////////////////////////////
+
                 query = Query.And(
               Query.EQ("Status", status), //Query.Or(
               Query.EQ("FriendUserId", ObjectId.Parse(UserId))//, Query.EQ("UserId", UserId))
@@ -1256,16 +1202,13 @@ namespace DataLayer
                     {
                         lst.Add(objClass2);
                     }
-                    //lst.Add(objClass2);
+
                 }
             }
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
-        /************    Find Freind With User    ********************/
+
         public static List<UserFriendsBO> FindUserListName(string UserId, string Name, string status)
         {
             List<UserFriendsBO> lst = new List<UserFriendsBO>();
@@ -1302,7 +1245,7 @@ namespace DataLayer
             return lst.ToList();
         }
 
-        /************    Find Friend With Current City    ********************/
+
         public static List<UserFriendsBO> FindUserListCurrentCity(string UserId, string Name, string status)
         {
             List<UserFriendsBO> lst = new List<UserFriendsBO>();
@@ -1426,8 +1369,6 @@ namespace DataLayer
                     ))))
                 {
                     objClass.Id = item._id.ToString();
-                    //objClass.FirstName = Useritem.Name;
-                    //objClass.LastName = Useritem.HomeTown;
                     objClass.FriendUserId = item.FriendUserId.ToString();
                     objClass.UserId = item.UserId.ToString();
                     objClass.Status = item.Status;
@@ -1450,7 +1391,7 @@ namespace DataLayer
             return lst.ToList();
         }
 
-        /************    Find Friend With WorkPlace   ********************/
+
         public static List<UserFriendsBO> FindUserListWorkPlace(string UserId, string Name, string status)
         {
             List<UserFriendsBO> lst = new List<UserFriendsBO>();
@@ -1476,8 +1417,6 @@ namespace DataLayer
                     ))))
                 {
                     objClass.Id = item._id.ToString();
-                    //objClass.FirstName = Useritem.Organization;
-                    //objClass.LastName = Useritem.HomeTown;
                     objClass.FriendUserId = item.FriendUserId.ToString();
                     objClass.UserId = item.UserId.ToString();
                     objClass.Status = item.Status;

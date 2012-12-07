@@ -11,16 +11,11 @@ using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
-/// <summary>
-/// Summary description for ReenterDAL
-/// </summary>
+
 public class ReenterDAL:BaseClass
 {
 	public ReenterDAL()
 	{
-		//
-		// TODO: Add constructor logic here
-		//
 	}
     public static string getFullUserName(string UserName)
     {
@@ -35,21 +30,6 @@ public class ReenterDAL:BaseClass
             break;
         }
         return FullName;
-        /*
-        using (DataClassesDataContext context2 = new DataClassesDataContext())
-        {
-            var uResults = from c in context2.c_User
-                              where (c.Email.Equals(UserName)
-                              )
-                              select c;
-            string firstName= uResults.FirstOrDefault().FirstName;
-            string lastName = uResults.FirstOrDefault().LastName;
-            //myDB.Users.Single(u, u.UserName=>userName);
-
-            string fullname = firstName + " " + lastName;
-            return fullname;
-
-        }
-        */
+        
     }
 }

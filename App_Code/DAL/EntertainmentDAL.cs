@@ -9,10 +9,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for EntertainmentDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -21,18 +17,11 @@ namespace DataLayer
         
         public EntertainmentDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static void insertEntertainment(EntertainmentBO objClass)
         {
-          
-
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Entertainment");
 
             var query = Query.And(
@@ -55,9 +44,7 @@ namespace DataLayer
             }
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateEntertainment(EntertainmentBO objClass)
         {
 
@@ -73,9 +60,7 @@ namespace DataLayer
                                 ;
             var result = objCollection.FindAndModify(query, sortBy, update, true);
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteEntertainment(string Id)
           {
 
@@ -83,9 +68,7 @@ namespace DataLayer
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+     
         public static List<Entertainment> getAllEntertainmentList()
         {
             List<Entertainment> lst = new List<Entertainment>();
@@ -100,9 +83,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+     
         public static EntertainmentBO getEntertainmentByEntertainmentId(string Id)
         {
           
@@ -121,9 +102,6 @@ namespace DataLayer
             return objClass;
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Entertainment> getEntertainmentTop5(string Type, string UserId)
         {
             

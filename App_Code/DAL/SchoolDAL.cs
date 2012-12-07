@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for SchoolDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,14 +18,8 @@ namespace DataLayer
         
         public SchoolDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static string insertSchool(SchoolBO objClass)
         {
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_School");
@@ -59,9 +49,7 @@ namespace DataLayer
                 return null;
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+ 
         public static void updateSchool(SchoolBO objClass)
         {
             MongoCollection<School> objCollection = db.GetCollection<School>("c_School");
@@ -94,18 +82,14 @@ namespace DataLayer
             return Schools;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+ 
         public static void deleteSchool(string Id)
           {
               MongoCollection<School> objCollection = db.GetCollection<School>("c_School");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+ 
         public static List<School> getAllSchoolList()
         {
             List<School> lst = new List<School>();
@@ -120,9 +104,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+ 
         public static SchoolBO getSchoolBySchoolId(string Id)
         {
             MongoCollection<School> objCollection = db.GetCollection<School>("c_School");
@@ -139,9 +121,7 @@ namespace DataLayer
             return objClass;
            
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<School> getSchoolTop5(string Id)
         {
             List<School> lst = new List<School>();

@@ -15,19 +15,10 @@ public class ListViewDAL : BaseClass
 {
 	public ListViewDAL()
 	{
-		//
-		// TODO: Add constructor logic here
-		//
 	}
 
-    ///////////////////////////////////////////////////////////////
-    //                       INSERT FUNCTION
-    //////////////////////////////////////////////////////////////
     public static void insertListName(ListViewBO objClass)
     {
-
-
-
         MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_ListName");
 
         var query = 
@@ -44,10 +35,6 @@ public class ListViewDAL : BaseClass
            
 
         }
-
-
-
-
 
 
     }
@@ -70,9 +57,7 @@ public class ListViewDAL : BaseClass
         }
         return belongsto;
     }
-    ///////////////////////////////////////////////////////////////
-    //                       SELECT All Freind List 
-    //////////////////////////////////////////////////////////////
+
     public static List<ListViewBO> getAllListView(string userid, string status)
     {
         List<ListViewBO> lst = new List<ListViewBO>();
@@ -103,9 +88,7 @@ public class ListViewDAL : BaseClass
 
     }
 
-    ///////////////////////////////////////////////////////////////
-    //                       SELECT All Freind List 
-    //////////////////////////////////////////////////////////////
+
     public static List<ListViewBO> getDefaultListNames()
     {
         List<ListViewBO> lst = new List<ListViewBO>();
@@ -114,14 +97,9 @@ public class ListViewDAL : BaseClass
 
         foreach (Listview item in objCollection.FindAll())
         {
-            //MongoCollection<Friends> objUserCollection = db.GetCollection<Friends>("c_Friends");
-
             ListViewBO objClass = new ListViewBO();
 
-           
-
             objClass.ListName = item.ListName;
-            //objClass.Counting = c + cf;
 
             lst.Add(objClass);
         }
@@ -160,11 +138,9 @@ public class ListViewDAL : BaseClass
         var sortBy = SortBy.Descending("FriendUserId");
         var update = Update.Set("BelongsTo", newListName);
 
-        //rename the list itself
         var result = objCollection.FindAndModify(query, sortBy, update, true);
     }
 
-    /***********        *********/
     public static void UpdateFriendListBySelect(string id, string newListName)
     {
         MongoCollection<Friends> objCollection = db.GetCollection<Friends>("c_Friends");
@@ -172,14 +148,10 @@ public class ListViewDAL : BaseClass
         var query = Query.EQ("_id", ObjectId.Parse(id));
         var sortBy = SortBy.Descending("_id");
         var update = Update.Set("BelongsTo", newListName);
-
-        //rename the list itself
         var result = objCollection.FindAndModify(query, sortBy, update, true);
     }
 
-    ///////////////////////////////////////////////////////////////
-    //                       SELECT BY PARAMETER
-    //////////////////////////////////////////////////////////////
+
     public static List<UserFriendsBO> getFriendsByList(string Userid, string status, string listname)
     {
         MongoCollection<Friends> objCollection = db.GetCollection<Friends>("c_Friends");

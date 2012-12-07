@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for NotificationDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,19 +18,11 @@ namespace DataLayer
         
         public NotificationDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static string insertNotification(NotificationBO objClass)
         {
           
-
-
                  MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Notification");
 
                  
@@ -56,15 +44,9 @@ namespace DataLayer
 
                      return doc["_id"].ToString();
 
-              
-        
-
-           
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateNotification(NotificationBO objClass)
         {
 
@@ -113,18 +95,14 @@ namespace DataLayer
 
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteNotification(string Id)
           {
               MongoCollection<Notification> objCollection = db.GetCollection<Notification>("c_Notification");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Notification> getAllNotificationList()
         {
             List<Notification> lst = new List<Notification>();
@@ -139,9 +117,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static NotificationBO getNotificationByNotificationId(string Id)
         {
             MongoCollection<Notification> objCollection = db.GetCollection<Notification>("c_Notification");
@@ -166,9 +142,7 @@ namespace DataLayer
             return objClass;
            
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Notification> getNotificationTop5(int Type, string AtId)
         {
             List<Notification> lst = new List<Notification>();
@@ -180,9 +154,6 @@ namespace DataLayer
                         Query.EQ("Type", Type),
                          Query.EQ("AtId", ObjectId.Parse(AtId)));
             var cursor = objCollection.Find(query);
-           // cursor.Limit = 5;
-           // var sortBy = SortBy.Descending("_id");
-           // cursor.SetSortOrder(sortBy);
             foreach (var item in cursor)
             {
                 lst.Add(item);
@@ -193,9 +164,7 @@ namespace DataLayer
             return lst;
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Notification> getNotificationByUserId(string UserId)
         {
             List<Notification> lst = new List<Notification>();
@@ -206,7 +175,6 @@ namespace DataLayer
             var query =
                          Query.EQ("UserId", ObjectId.Parse(UserId));
             var cursor = objCollection.Find(query);
-            // cursor.Limit = 5;
              var sortBy = SortBy.Descending("_id");
              cursor.SetSortOrder(sortBy);
             foreach (var item in cursor)

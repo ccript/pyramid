@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for MediaDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,14 +18,8 @@ namespace DataLayer
         
         public MediaDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static string insertMedia(MediaBO objClass)
         {
           
@@ -58,9 +48,7 @@ namespace DataLayer
            
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+ 
         public static void updateMedia(MediaBO objClass)
         {
 
@@ -131,18 +119,14 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteMedia(string Id)
           {
               MongoCollection<Media> objCollection = db.GetCollection<Media>("c_Media");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Media> getAllMediaList()
         {
             List<Media> lst = new List<Media>();
@@ -157,9 +141,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static MediaBO getMediaByMediaId(string Id)
         {
             MongoCollection<Media> objCollection = db.GetCollection<Media>("c_Media");
@@ -183,11 +165,7 @@ namespace DataLayer
            
         }
 
-      
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Media> getMediaByAlbum(string AlbumId)
         {
             List<Media> lst = new List<Media>();
@@ -209,9 +187,7 @@ namespace DataLayer
 
             return lst;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Media> getMediaTop5( string UserId,int Type,string AlbumId)
         {
             List<Media> lst = new List<Media>();
@@ -232,9 +208,7 @@ namespace DataLayer
 
             return lst;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Media> getMediaTop5(string UserId, int Type)
         {
             List<Media> lst = new List<Media>();
