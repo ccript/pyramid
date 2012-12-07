@@ -83,7 +83,7 @@
                     </SelectParameters>
                 </asp:ObjectDataSource>
 <br />
- <asp:LinkButton ID="lbtnMore" runat="server" onclick="lbtnMore_Click">More albums ...</asp:LinkButton>
+ <asp:LinkButton ID="lbtnMore" runat="server" onclick="MoreAlbum_Click">More albums ...</asp:LinkButton>
 
                        </ContentTemplate>
                     <Triggers>

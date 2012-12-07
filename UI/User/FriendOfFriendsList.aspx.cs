@@ -68,16 +68,10 @@ public partial class User_FriendOfFriendsList : System.Web.UI.Page
     }
     protected void GridViewFriendsOfFriend_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //friendid = GridViewFriendsOfFriend.DataKeys[GridViewFriendsOfFriend.SelectedIndex].Value.ToString();
-        //FriendsBLL.sendFriendRequest(userid, friendid);
-
-        //Response.Redirect("../../Default.aspx?ID=" + id);
     }
 
     protected void GridViewFriendsOfFriend_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-
-
 
         GridViewRow row = GridViewFriendsOfFriend.Rows[Convert.ToInt32(e.CommandArgument)];
 

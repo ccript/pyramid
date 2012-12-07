@@ -68,7 +68,7 @@ public partial class MultiSelect : System.Web.UI.Page
         return (int[])indicesList.ToArray(typeof(int));
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void SelectButton_Click(object sender, EventArgs e)
     {
         for (int i = 0; i < MultiSelectGrid.Rows.Count; i++)
         {
@@ -79,7 +79,7 @@ public partial class MultiSelect : System.Web.UI.Page
         }
     }
 
-    protected void Button2_Click(object sender, EventArgs e)
+    protected void UnSelectButton_Click(object sender, EventArgs e)
     {
         for (int i = 0; i < MultiSelectGrid.Rows.Count; i++)
         {

@@ -13,7 +13,7 @@ public partial class UI_User_UploadWallPhoto : System.Web.UI.Page
 
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void UploadPhoto_Click(object sender, EventArgs e)
     {
         if (Page.IsValid)
         {

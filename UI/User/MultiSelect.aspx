@@ -60,9 +60,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div>
 
-        <asp:Button ID="Button1" runat="server" Text="Select All" onclick="Button1_Click" />
+        <asp:Button ID="Button1" runat="server" Text="Select All" onclick="SelectButton_Click" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button2" runat="server" Text="Un-Select All" onclick="Button2_Click" />
+        <asp:Button ID="Button2" runat="server" Text="Un-Select All" onclick="UnSelectButton_Click" />
         <asp:GridView ID="MultiSelectGrid" runat="server" AutoGenerateColumns="false">
             <RowStyle Height="20px" />
             <Columns>

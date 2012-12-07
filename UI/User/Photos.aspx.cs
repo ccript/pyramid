@@ -54,12 +54,10 @@ public partial class User_Photos : System.Web.UI.Page
 
     }
 
-    protected void lbtnMore_Click(object sender, EventArgs e)
+    protected void MoreAlbum_Click(object sender, EventArgs e)
     {
-
         DataList1.DataSource = MediaAlbumBLL.getAllMediaAlbum(Userid, Global.PHOTO);
         DataList1.DataBind();
-
     }
 
     protected void LoadDataListTagPhotos()
