@@ -53,6 +53,11 @@ public partial class User_ClassicUpload : System.Web.UI.Page
             upload_file(FileUpload2.PostedFile);
 
         }
+        if (FileUpload3.HasFile)
+        {
+            upload_file(FileUpload3.PostedFile);
+
+        }
         if (FileUpload4.HasFile)
         {
             upload_file(FileUpload4.PostedFile);
