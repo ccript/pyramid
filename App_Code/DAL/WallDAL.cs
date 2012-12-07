@@ -36,26 +36,26 @@ namespace DataLayer
 {
     public class WallDAL : BaseClass
     {
-        
+
         public WallDAL()
         {
             //
             // TODO: Add constructor logic here
             //
         }
- 
+
         ///////////////////////////////////////////////////////////////
         //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////
         public static string insertWall(WallBO objClass)
         {
-          
 
 
-                 MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Wall");
 
-                 
-                     BsonDocument doc = new BsonDocument {
+            MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Wall");
+
+
+            BsonDocument doc = new BsonDocument {
                       { "PostedByUserId" , ObjectId.Parse(objClass.PostedByUserId) },
                       { "WallOwnerUserId", ObjectId.Parse(objClass.WallOwnerUserId) },
                           { "FirstName", objClass.FirstName },
@@ -66,15 +66,15 @@ namespace DataLayer
                          {"EmbedPost",objClass.EmbedPost}
                         };
 
-                     var rt=objCollection.Insert(doc);
+            var rt = objCollection.Insert(doc);
 
-                     return doc["_id"].ToString();
+            return doc["_id"].ToString();
 
-              
-        
 
-           
-    
+
+
+
+
         }
         ///////////////////////////////////////////////////////////////
         //                       UPDATE FUNCTION
@@ -97,7 +97,7 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-           ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
         //                       UPDATE FUNCTION
         //////////////////////////////////////////////////////////////
 
@@ -113,16 +113,16 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-     
+
         ///////////////////////////////////////////////////////////////
         //                       DELETE FUNCTION
         //////////////////////////////////////////////////////////////
         public static void deleteWall(string Id)
-          {
-              MongoCollection<Wall> objCollection = db.GetCollection<Wall>("c_Wall");
-              var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
-                  SortBy.Ascending("_id"));  
-          }
+        {
+            MongoCollection<Wall> objCollection = db.GetCollection<Wall>("c_Wall");
+            var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
+                SortBy.Ascending("_id"));
+        }
         ///////////////////////////////////////////////////////////////
         //                       SELECT All DATA 
         //////////////////////////////////////////////////////////////
@@ -158,18 +158,18 @@ namespace DataLayer
                 objClass.Type = item.Type;
                 objClass.Post = item.Post;
                 objClass.EmbedPost = item.EmbedPost;
-                objClass.AddedDate= item.AddedDate;
+                objClass.AddedDate = item.AddedDate;
                 break;
             }
             return objClass;
-           
+
         }
-     
+
 
         ///////////////////////////////////////////////////////////////
         //                       SELECT BY PARAMETER
         //////////////////////////////////////////////////////////////
-        public static List<Wall> getWallByUserId(string UserId,int top)
+        public static List<Wall> getWallByUserId(string UserId, int top)
         {
             List<Wall> lst = new List<Wall>();
 
@@ -179,8 +179,8 @@ namespace DataLayer
             var query = Query.EQ("WallOwnerUserId", ObjectId.Parse(UserId));
             var cursor = objCollection.Find(query);
             cursor.Limit = top;
-             var sortBy = SortBy.Descending("AddedDate");
-             cursor.SetSortOrder(sortBy);
+            var sortBy = SortBy.Descending("AddedDate");
+            cursor.SetSortOrder(sortBy);
             foreach (var item in cursor)
             {
                 lst.Add(item);
@@ -190,13 +190,13 @@ namespace DataLayer
 
             return lst;
         }
-    
 
-    
+
+
         ///////////////////////////////////////////////////////////////
         //                       SELECT BY PARAMETER
         //////////////////////////////////////////////////////////////
-        public static List<Wall> getSeeFriendShipWall(string FUserId,string UserId,int top)
+        public static List<Wall> getSeeFriendShipWall(string FUserId, string UserId, int top)
         {
             List<Wall> lst = new List<Wall>();
 
@@ -204,29 +204,17 @@ namespace DataLayer
             objCollection.EnsureIndex("Type");
 
             var query = Query.And(Query.EQ("PostedByUserId", ObjectId.Parse(UserId)), Query.EQ("WallOwnerUserId", ObjectId.Parse(FUserId)));
-            var query2= Query.And(Query.EQ("PostedByUserId", ObjectId.Parse(FUserId)), Query.EQ("WallOwnerUserId", ObjectId.Parse(UserId)));
+            var query2 = Query.And(Query.EQ("PostedByUserId", ObjectId.Parse(FUserId)), Query.EQ("WallOwnerUserId", ObjectId.Parse(UserId)));
             var query3 = Query.Or(query, query2);
             var cursor = objCollection.Find(query3);
             cursor.Limit = top;
-             var sortBy = SortBy.Descending("AddedDate");
-             cursor.SetSortOrder(sortBy);
+            var sortBy = SortBy.Descending("AddedDate");
+            cursor.SetSortOrder(sortBy);
             foreach (var item in cursor)
             {
                 lst.Add(item);
 
             }
-
-
-            /*var query2 = Query.And(Query.EQ("PostedByUserId", ObjectId.Parse(FUserId)), Query.EQ("WallOwnerUserId", ObjectId.Parse(UserId)));
-            var cursor2 = objCollection.Find(query2);
-            cursor.Limit = top;
-            var sortBy2 = SortBy.Descending("AddedDate");
-            cursor.SetSortOrder(sortBy2);
-            foreach (var item2 in cursor2)
-            {
-                lst.Add(item2);
-
-            }*/
 
             return lst;
         }
@@ -337,6 +325,7 @@ namespace DataLayer
                     int VideolinkSub = 0;
                     int StatusSub = 0;
                     int updatestype = 0;
+                    PostOptions postoption = null;
                     foreach (PostOptions po in types)
                     {
                         updatestype = po.UpdatesType;
@@ -346,6 +335,7 @@ namespace DataLayer
                         VideoSub = po.SubscriptionVideos;
                         VideolinkSub = po.SubscriptionVideoLinks;
                         StatusSub = po.SubscriptionStatus;
+                        postoption = po;
                         break;
                     }
                     if (PhotoSub == 1 && LinksSub == 1 && VideoSub == 1 && VideolinkSub == 1 && StatusSub == 1)
@@ -353,17 +343,14 @@ namespace DataLayer
                         foreach (Newsfeed storyitem in lstNewsfeed.ToList())
                         {
                             //if hidden post id is equal to friends post id then remove it from list
-
                             if (friend.FriendUserId.Equals(storyitem.PostedByUserId.ToString()))
+                            {
                                 lstNewsfeed.Remove(storyitem);
-
+                            }
                         }
-
                     }
                     else
-                    {
-                        //PhotoSub = item.SubscriptionPhotos;
-
+                    {                        
                         //against every story of friend
                         foreach (Newsfeed storyitem in lstNewsfeed.ToList())
                         {
@@ -398,76 +385,44 @@ namespace DataLayer
 
                                 default:
                                     break;
-
-
-
                             }
                             //below is logic for removing items that are unsubscribed
-
-                            if (PhotoSub == 1 && storyitem.Type == Global.PHOTO)
+                            if (checkIfStorySubscribe(postoption, storyitem))
                             {
                                 lstNewsfeed.Remove(storyitem);
                             }
-                            if (PhotoSub == 1 && storyitem.Type == Global.PHOTO_ALBUM)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (PhotoSub == 1 && storyitem.Type == Global.TAG_PHOTO)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (PhotoSub == 1 && storyitem.Type == Global.TAG_PHOTO_ALBUM)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (StatusSub == 1 && storyitem.Type == Global.TEXT_POST)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (VideoSub == 1 && storyitem.Type == Global.VIDEO)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (VideoSub == 1 && storyitem.Type == Global.TAG_VIDEO)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (VideolinkSub == 1 && storyitem.Type == Global.POST_VIDEOLINK)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (VideolinkSub == 1 && storyitem.Type == Global.TAG_VIDEOLINK)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            if (LinksSub == 1 && storyitem.Type == Global.LINK)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-
-                            }
-                            /*add for link subscription
-                            if (LinksSub == 0 && storyitem.Type == Global.po)
-                            {
-                                lstNewsfeed.Remove(storyitem);
-                            }
-                            */
-
-
                         }
                     }
-
-
                 }
-
-
-            }//for each friend
-
-
-
-
-
+            }
 
             return lstNewsfeed;
+        }
+
+        private static bool checkIfStorySubscribe(PostOptions po, Newsfeed storyitem)
+        {
+            if ((po.SubscriptionPhotos == 1 && checkIfPhotoStoryItem(storyitem)) || 
+                (po.SubscriptionLinks == 1 && storyitem.Type == Global.LINK) || 
+                (po.SubscriptionStatus == 1 && storyitem.Type == Global.TEXT_POST) || 
+                (po.SubscriptionVideos == 1 && checkIfVideoStoryItem(storyitem)) 
+               )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static bool checkIfPhotoStoryItem(Newsfeed storyitem)
+        {
+            return (storyitem.Type == Global.PHOTO || storyitem.Type == Global.PHOTO_ALBUM || storyitem.Type == Global.POST_VIDEOLINK || storyitem.Type == Global.TAG_VIDEOLINK);            
+        }
+
+        private static bool checkIfVideoStoryItem(Newsfeed storyitem)
+        {
+            return (storyitem.Type == Global.VIDEO || storyitem.Type == Global.TAG_VIDEO || storyitem.Type == Global.TAG_PHOTO || storyitem.Type == Global.TAG_PHOTO_ALBUM);            
         }
 
         public static List<Newsfeed> getWallFeedByUserId(string UserId, int top)
