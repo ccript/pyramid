@@ -95,68 +95,18 @@ public partial class BasicInfoPage : System.Web.UI.Page
             LoadUserInfo();
             LoadBasicInfo();
             imgSave.Visible = true;
-            lblSave.Visible = true;
-            WallPost("Changed Basic Information");
+            lblSave.Visible = true;            
+            
+            PostProperties postProp = new PostProperties();
+            postProp.PostText = Global.POST_CHANGED_BASIC_INFO;
+            postProp.WallOwnerUserId = Userid;
+            postProp.PostedByUserId = Userid;
+            postProp.PostType = Global.PROFILE_CHANGE;
+            postProp.EmbedPost = null;
+            PostOnWall.post(postProp);
         }
-
-
-  
     }
-    protected void WallPost(string post)
-    {
-        UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(Userid);
 
-        WallBO objWall = new WallBO();
-        objWall.PostedByUserId = Userid;
-        objWall.WallOwnerUserId = Userid;
-        objWall.FirstName = objUser.FirstName;
-        objWall.LastName = objUser.LastName;
-        objWall.Post = post;
-        objWall.AddedDate = DateTime.Now;
-        objWall.Type = Global.PROFILE_CHANGE;
-        string wid=WallBLL.insertWall(objWall);
-        ////////////////////////////////////TICKER CODE //////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-        List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(), Global.CONFIRMED);
-        //get the education,hometown and employer of people in list
-        foreach (UserFriendsBO Useritem in listtag)
-        {
-            TickerBO objTicker = new TickerBO();
-
-
-            objTicker.PostedByUserId = objWall.PostedByUserId;
-            objTicker.TickerOwnerUserId = Useritem.FriendUserId;
-            objTicker.FirstName = objWall.FirstName;
-            objTicker.LastName = objWall.LastName;
-            objTicker.Post = objWall.Post;
-            objTicker.Title = objWall.Post;
-            objTicker.AddedDate = DateTime.UtcNow;
-            objTicker.Type = objWall.Type;
-            objTicker.EmbedPost = objWall.EmbedPost;
-            objTicker.WallId = wid;
-            TickerBLL.insertTicker(objTicker);
-
-        }
-        TickerBO objTickerUserTag = new TickerBO();
-
-
-        objTickerUserTag.PostedByUserId = Session["UserId"].ToString();
-        objTickerUserTag.TickerOwnerUserId = Session["UserId"].ToString();
-        objTickerUserTag.FirstName = objUser.FirstName;
-        objTickerUserTag.LastName = objUser.LastName;
-        objTickerUserTag.Post = objWall.Post;
-        objTickerUserTag.Title = objWall.Post;
-        objTickerUserTag.AddedDate = DateTime.UtcNow;
-        objTickerUserTag.Type = objWall.Type;
-        objTickerUserTag.EmbedPost = objWall.EmbedPost;
-        objTickerUserTag.WallId = wid;
-        TickerBLL.insertTicker(objTickerUserTag);
-
-        ////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-
-    }
     protected void LoadBasicInfo()
     {
         BasicInfoBO objBasicInfo = new BasicInfoBO();

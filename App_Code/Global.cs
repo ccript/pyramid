@@ -117,4 +117,15 @@ public static class Global
     public const string SESSION_SHARE_WITH_ID = "ShareWithID";
     public const string SESSION_POST_ID = "PostID";
     public const string SESSION_TAGGED_FRIENDS = "TaggedFriends";
+
+    public const string POST_ACTIVITY_TEXT = "Changed Activities & Interests";
+    public const string POST_CHANGED_BASIC_INFO = "Changed Basic Information";
+    public const string POST_CHANGED_CONTACT_INFO = "Changed Contact Information";
+    public const string POST_CHANGED_EDUCATION_WORK = "Changed Education Work";
+    public const string POST_CHANGED_ENTERTAINMENT = "Changed Entertainment";
+    public const string POST_CHANGED_RELATIONSHIP_STATUS = "Changed Relationship Status";
+    public const string POST_PROFILE_PICTIRE_CHANGE = "Profile Picture Change";
+    public const string POST_USER_CHNAGED_SPORTS = "User Changed Sports";
+    
+
 }

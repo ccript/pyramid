@@ -320,14 +320,15 @@ public partial class Wall : System.Web.UI.Page
         objUser = UserBLL.getUserByUserId(SessionClass.getUserId());
 
         WallBO objWall = new WallBO();
-        objWall.PostedByUserId = SessionClass.getUserId();
+        string PostedByUserId = SessionClass.getUserId();
+        string WallOwnerUserId = string.Empty;
 
         if (SessionClass.getShareWithID() != null)
         {
-            objWall.PostedByUserId = Session["UserId"].ToString();        
+            PostedByUserId = Session["UserId"].ToString();        
             if (SessionClass.getShareWithID() != "")
             {
-                objWall.WallOwnerUserId = SessionClass.getShareWithID();
+                WallOwnerUserId = SessionClass.getShareWithID();
                 UserBO objFriendObj = new UserBO();
                 objFriendObj = UserBLL.getUserByUserId(SessionClass.getShareWithID());
 
@@ -365,7 +366,7 @@ public partial class Wall : System.Web.UI.Page
             }
             else
             {
-                objWall.WallOwnerUserId = SessionClass.getUserId();
+                WallOwnerUserId = SessionClass.getUserId();
                 UserBO objUserEmail = new UserBO();
                 objUserEmail = UserBLL.getUserByUserId(SessionClass.getUserId());
 
@@ -405,7 +406,7 @@ public partial class Wall : System.Web.UI.Page
         }
         else
         {
-            objWall.WallOwnerUserId = SessionClass.getUserId();
+            WallOwnerUserId = SessionClass.getUserId();
             UserBO objUserEmail = new UserBO();
             objUserEmail = UserBLL.getUserByUserId(SessionClass.getUserId());
 
@@ -440,8 +441,15 @@ public partial class Wall : System.Web.UI.Page
             }
         }
 
-        TickerBLL.InsertBulkTickerDataAndWallPost(objWall, "Share a post " + status);
+        PostProperties postProp = new PostProperties();
+        postProp.PostText = "Share a post " + status;
+        postProp.WallOwnerUserId = WallOwnerUserId;
+        postProp.PostedByUserId = PostedByUserId;
+        postProp.PostType = SessionClass.getPostType();
+        postProp.EmbedPost = SessionClass.getEmbedPost();
 
+        PostOnWall.post(postProp);
+        
         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "myScript", "document.getElementById('" + txtUpdatePost.ClientID + "').value = '';", true);
         lblLocation.Text = "";
         lblFriendsWith.Text = "";

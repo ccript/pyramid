@@ -84,52 +84,6 @@ namespace BuinessLayer
             return TickerDAL.getTickerByUserIdAndFriendID(UserId, FriendID, top);
         }
 
-        public static void InsertBulkTickerDataAndWallPost(WallBO objWall, string status)
-        {            
-            UserBO objUser = new UserBO();
-            objUser = UserBLL.getUserByUserId(SessionClass.getUserId());
-
-            objWall.FirstName = objUser.FirstName;
-            objWall.LastName = objUser.LastName;
-            objWall.Post = status;
-            objWall.EmbedPost = SessionClass.getEmbedPost();
-            objWall.AddedDate = DateTime.Now;
-            objWall.Type = SessionClass.getPostType();
-            string wid = WallBLL.insertWall(objWall);
-
-            List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(SessionClass.getUserId(), Global.CONFIRMED);
-            //get the education,hometown and employer of people in list
-            foreach (UserFriendsBO Useritem in listtag)
-            {
-                TickerBO objTicker = new TickerBO();
-                objTicker.PostedByUserId = objWall.PostedByUserId;
-                objTicker.TickerOwnerUserId = Useritem.FriendUserId;
-                objTicker.FirstName = objWall.FirstName;
-                objTicker.LastName = objWall.LastName;
-                objTicker.Post = objWall.Post;
-                objTicker.Title = Global.SHARE_A_POST;
-                objTicker.AddedDate = DateTime.UtcNow;
-                objTicker.Type = objWall.Type;
-                objTicker.EmbedPost = objWall.EmbedPost;
-                objTicker.WallId = wid;
-                TickerBLL.insertTicker(objTicker);
-
-            }
-            TickerBO objTickerUserTag = new TickerBO();
-
-            objTickerUserTag.PostedByUserId = SessionClass.getUserId();
-            objTickerUserTag.TickerOwnerUserId = SessionClass.getUserId();
-            objTickerUserTag.FirstName = objUser.FirstName;
-            objTickerUserTag.LastName = objUser.LastName;
-            objTickerUserTag.Post = objWall.Post;
-            objTickerUserTag.Title = Global.SHARE_A_POST;
-            objTickerUserTag.AddedDate = DateTime.UtcNow;
-            objTickerUserTag.Type = objWall.Type;
-            objTickerUserTag.EmbedPost = objWall.EmbedPost;
-            objTickerUserTag.WallId = wid;
-            TickerBLL.insertTicker(objTickerUserTag);
-
-        }
     }
      
 }

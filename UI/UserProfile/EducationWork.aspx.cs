@@ -134,65 +134,17 @@ public partial class EducationWork : System.Web.UI.Page
         LoadDataListUniversity();
         LoadDataListSchool();
         imgSave.Visible = true;
-        lblSave.Visible = true;
-        WallPost("Changed Education Work");
+        lblSave.Visible = true;        
+
+        PostProperties postProp = new PostProperties();
+        postProp.PostText = Global.POST_CHANGED_EDUCATION_WORK;
+        postProp.WallOwnerUserId = Userid;
+        postProp.PostedByUserId = Userid;
+        postProp.PostType = Global.PROFILE_CHANGE;
+        postProp.EmbedPost = null;
+        PostOnWall.post(postProp);
     }
 
-    protected void WallPost(string post)
-    {
-        UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(Userid);
-
-        WallBO objWall = new WallBO();
-        objWall.PostedByUserId = Userid;
-        objWall.WallOwnerUserId = Userid;
-        objWall.FirstName = objUser.FirstName;
-        objWall.LastName = objUser.LastName;
-        objWall.Post = post;
-        objWall.AddedDate = DateTime.Now;
-        objWall.Type = Global.PROFILE_CHANGE;
-        string wid=WallBLL.insertWall(objWall);
-        ////////////////////////////////////TICKER CODE //////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-        List<UserFriendsBO> listtag = FriendsBLL.getAllFriendsListName(Session["UserId"].ToString(), Global.CONFIRMED);
-        //get the education,hometown and employer of people in list
-        foreach (UserFriendsBO Useritem in listtag)
-        {
-            TickerBO objTicker = new TickerBO();
-
-
-            objTicker.PostedByUserId = objWall.PostedByUserId;
-            objTicker.TickerOwnerUserId = Useritem.FriendUserId;
-            objTicker.FirstName = objWall.FirstName;
-            objTicker.LastName = objWall.LastName;
-            objTicker.Post = objWall.Post;
-            objTicker.Title = objWall.Post;
-            objTicker.AddedDate = DateTime.UtcNow;
-            objTicker.Type = objWall.Type;
-            objTicker.EmbedPost = objWall.EmbedPost;
-            objTicker.WallId = wid;
-            TickerBLL.insertTicker(objTicker);
-
-        }
-        TickerBO objTickerUserTag = new TickerBO();
-
-
-        objTickerUserTag.PostedByUserId = Session["UserId"].ToString();
-        objTickerUserTag.TickerOwnerUserId = Session["UserId"].ToString();
-        objTickerUserTag.FirstName = objUser.FirstName;
-        objTickerUserTag.LastName = objUser.LastName;
-        objTickerUserTag.Post = objWall.Post;
-        objTickerUserTag.Title = objWall.Post;
-        objTickerUserTag.AddedDate = DateTime.UtcNow;
-        objTickerUserTag.Type = objWall.Type;
-        objTickerUserTag.EmbedPost = objWall.EmbedPost;
-        objTickerUserTag.WallId = wid;
-        TickerBLL.insertTicker(objTickerUserTag);
-
-        ////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////
-
-    }
     protected void SaveEmployer()
     {
         TemplateBO objEmployer = new EmployerBO();
@@ -252,18 +204,6 @@ public partial class EducationWork : System.Web.UI.Page
     protected void SaveProjectWith(int ProjectId)
     {
 
-       /* if (lstProjectFriend.SelectedValue != "")
-        {
-            ProjectWithBO objProjectWith = new ProjectWithBO();
-
-            objProjectWith.UserId = userid;
-            objProjectWith.ProjectId = ProjectId;
-
-            objProjectWith.FriendUserId = Convert.ToInt32(lstProjectFriend.SelectedValue);
-
-            ProjectWithBLL.insertProjectWith(objProjectWith);
-            LoadDataListProject();
-        }*/
     }
     protected void SaveUniversity()
     {
@@ -296,18 +236,6 @@ public partial class EducationWork : System.Web.UI.Page
     protected void SaveUniversityWith(int UniversityId)
     {
 
-        /*if (lstUniversityFriend.SelectedValue != "")
-        {
-            UniversityClassWithBO objUniversityWith = new UniversityClassWithBO();
-
-            objUniversityWith.UserId = userid;
-            objUniversityWith.UniversityId = UniversityId;
-
-            objUniversityWith.FriendUserId = Convert.ToInt32(lstUniversityFriend.SelectedValue);
-
-            UniversityClassWithBLL.insertUniversityClassWith(objUniversityWith);
-            LoadDataListProject();
-        }*/
     }
     protected void SaveSchool()
     {
@@ -358,10 +286,8 @@ public partial class EducationWork : System.Web.UI.Page
     }
     protected void DListEmployer_SelectedIndexChanged(object sender, EventArgs e)
     {
-        TemplateInfoBLL.delete(new EmployerDAL(), DListEmployer.DataKeys[DListEmployer.SelectedIndex].ToString());
-
-       //EmployerBLL.deleteEmployer(DListEmployer.DataKeys[DListEmployer.SelectedIndex].ToString());
-       LoadDataListEmployer();
+        TemplateInfoBLL.delete(new EmployerDAL(), DListEmployer.DataKeys[DListEmployer.SelectedIndex].ToString());       
+        LoadDataListEmployer();
     }
     protected void DListProject_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -369,9 +295,7 @@ public partial class EducationWork : System.Web.UI.Page
        LoadDataListProject();
     }
     protected void DListEmployer_DeleteCommand(object source, DataListCommandEventArgs e)
-    { 
-        //EmployerBLL.deleteEmployer(Convert.ToInt32(DListEmployer.DataKeys[e.Item.ItemIndex].ToString()));
-        //LoadDataListEmployer();
+    {         
     }
     protected void DListUniversity_SelectedIndexChanged(object sender, EventArgs e)
     {

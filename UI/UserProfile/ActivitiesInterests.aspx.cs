@@ -54,26 +54,20 @@ public partial class ActivitiesInterests : System.Web.UI.Page
 
         SaveActivities();
         SaveInterests();
-        WallPost();
+        
+        PostProperties postProp = new PostProperties();
+        postProp.PostText = Global.POST_ACTIVITY_TEXT;
+        postProp.WallOwnerUserId = Userid;
+        postProp.PostedByUserId = Userid;
+        postProp.PostType = Global.PROFILE_CHANGE;
+        postProp.EmbedPost = null;
+        PostOnWall.post(postProp);
+
         LoadDataListActivities();
         LoadDataListInterests();
         imgSave.Visible = true;
         lblSave.Visible = true;
 
-    }
-
-    protected void WallPost()
-    {
-        UserBO objUser = new UserBO();
-        objUser = UserBLL.getUserByUserId(Userid);
-        
-        WallBO objWall = new WallBO();
-        objWall.PostedByUserId = Userid;
-        objWall.WallOwnerUserId = Userid;
-        Session[Global.SESSION_POST_TYPE] = Global.PROFILE_CHANGE;
-        Session[Global.SESSION_EMBED_POST] = null;
-
-        TickerBLL.InsertBulkTickerDataAndWallPost(objWall, "Changed Activities & Interests");
     }
 
     protected void SaveActivities()

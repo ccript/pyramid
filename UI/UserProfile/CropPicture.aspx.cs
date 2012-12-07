@@ -56,32 +56,11 @@ public partial class popup_calendar : System.Web.UI.Page
 
                     newFullPathName = string.Concat(path, croppedFileName, extension);
 
-                   /* if (File.Exists(originalFile))
-                    {
-                        File.Delete(originalFile);
-                    }
-                    
-                    File.Create(newFullPathName);
-                    */
-                    
-                    //string oldfile = newFullPathName;
-                    //string newfile = Server.MapPath(Global.PROFILE_PICTURE) + Session["UserId"] + ".jpg";
-                    //string backup = Server.MapPath(Global.PROFILE_PICTURE) +"backup.jpg";
-                    
-                  
-                    //    if (System.IO.File.Exists(newfile))
-                    //{
-                       
-                    //        //System.IO.File.Delete(newfile);
- 
-                        
-                    //}
                     using (EncoderParameters encoderParameters = new EncoderParameters(1))
                     {
                         encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
                         _bitmap.Save(newFullPathName, GetImageCodec(extension), encoderParameters);
-                    }
-                                       // lblCroppedImage.Text = string.Format("<img src='profileimages/{0}' alt='Cropped image'>", croppedFileName + extension);
+                    }                    
                 }
             }
         }
@@ -119,18 +98,4 @@ public partial class popup_calendar : System.Web.UI.Page
         return codecs[1];
     }
 
-    //public static void replaceOrifinalFile()
-    //{
-    //    string oldfile = Server.MapPath("../Resources/images/Male.png");
-    //    string newfile = Server.MapPath(Global.PROFILE_PICTURE) + userid + ".jpg";
-    //    string backup = Server.MapPath(Global.PROFILE_PICTURE) + "backup.jpg";
-    //    if (System.IO.File.Exists(newfile))
-    //    {
-    //        System.IO.File.Delete(newfile);
-
-    //        System.IO.File.Copy(oldfile, newfile);
-    //    }
-
-    //    imgProfile.ImageUrl = Global.PROFILE_PICTURE + userid + ".jpg";
-    //}
 }

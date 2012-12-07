@@ -52,22 +52,20 @@ public partial class FriendsFamily : System.Web.UI.Page
 
 
     protected void btnSave_Click(object sender, EventArgs e)
-    {
-       /* if (lstFriends.SelectedValue != "" && lstRelation.SelectedValue != "")
-        {
-
-            FamilyBO familyObj = new FamilyBO();
-            familyObj.UserId = userid;
-            familyObj.FriendUserId = Convert.ToInt32(lstFriends.SelectedValue);
-            familyObj.Relation = lstRelation.SelectedValue;
-            familyObj.AcceptStatus = false;
-
-            FamilyBLL.insertFamily(familyObj);
-        }*/
+    {       
         saveRelationshipStatus();
         imgSave.Visible = true;
         lblSave.Visible = true;
         WallPost("Changed Relationship Status");
+
+        PostProperties postProp = new PostProperties();
+        postProp.PostText = Global.POST_CHANGED_ENTERTAINMENT;
+        postProp.WallOwnerUserId = Userid;
+        postProp.PostedByUserId = Userid;
+        postProp.PostType = Global.PROFILE_CHANGE;
+        postProp.EmbedPost = null;
+        PostOnWall.post(postProp);
+
     }
 
     protected void WallPost(string post)
