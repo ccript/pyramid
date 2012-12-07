@@ -20,14 +20,9 @@ using MongoDB.Driver.Builders;
 using MongoDB.Driver.GridFS;
 using MongoDB.Driver.Wrappers;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 public  class BaseClass
 {
-
-
-
     public static MongoServer server = MongoServer.Create();
     public static MongoDatabase db = server.GetDatabase("SocialDB");
     public BaseClass()

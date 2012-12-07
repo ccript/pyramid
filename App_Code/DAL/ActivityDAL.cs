@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for ActivityDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,20 +18,12 @@ namespace DataLayer
         
         public ActivityDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertActivity(ActivityBO objClass)
         {
-          
-
-
-                 MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Activities");
+               MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Activities");
 
                  var query = Query.And(
                          Query.EQ("Type", objClass.Type),
@@ -61,14 +49,9 @@ namespace DataLayer
 
                  else
                      return null;
-        
-
-           
-    
+     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+     
         public static void updateActivity(ActivityBO objClass)
         {
 
@@ -86,18 +69,15 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+     
+        
         public static void deleteActivity(string Id)
           {
               MongoCollection<Activity> objCollection = db.GetCollection<Activity>("c_Activities");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+        
         public static List<Activity> getAllActivityList()
         {
             List<Activity> lst = new List<Activity>();
@@ -111,9 +91,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static ActivityBO getActivityByActivityId(string Id)
         {
             MongoCollection<Activity> objCollection = db.GetCollection<Activity>("c_Activities");
@@ -132,9 +110,7 @@ namespace DataLayer
             return objClass;
            
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+        
         public static ArrayList getActivitiesByUserId(string Id)
         {
             ArrayList Activities = new ArrayList();
@@ -149,9 +125,7 @@ namespace DataLayer
             return Activities;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Activity> getActivityTop5(string Type, string UserId)
         {
             List<Activity> lst = new List<Activity>();

@@ -9,10 +9,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for BasicInfoDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -21,20 +17,12 @@ namespace DataLayer
 
         public BasicInfoDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void insertBasicInfo(BasicInfoBO objClass)
         {
-
-
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_BasicInfo");
-
 
             BsonDocument doc = new BsonDocument {
                       { "UserId" , ObjectId.Parse(objClass.UserId)},
@@ -52,9 +40,7 @@ namespace DataLayer
             var rt = objCollection.Insert(doc);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateBasicInfo(BasicInfoBO objClass)
         {
 
@@ -78,9 +64,6 @@ namespace DataLayer
 
 
 
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void updateBasicInfoPage(BasicInfoBO objClass)
         {
             MongoCollection<BsonDocument> objDocCollection = db.GetCollection<BsonDocument>("c_BasicInfo");
@@ -125,9 +108,7 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateFamilyPage(BasicInfoBO objClass)
         {
             MongoCollection<BsonDocument> objDocCollection = db.GetCollection<BsonDocument>("c_BasicInfo");
@@ -167,9 +148,7 @@ namespace DataLayer
             }
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateContactInfoPage(BasicInfoBO objClass)
         {
             MongoCollection<BsonDocument> objDocCollection = db.GetCollection<BsonDocument>("c_BasicInfo");
@@ -214,18 +193,14 @@ namespace DataLayer
             }
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+        
         public static void deleteBasicInfo(string Id)
         {
             MongoCollection<BasicInfo> objCollection = db.GetCollection<BasicInfo>("c_BasicInfo");
             var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                 SortBy.Ascending("_id"));
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<BasicInfo> getAllBasicInfoList()
         {
             List<BasicInfo> lst = new List<BasicInfo>();
@@ -240,9 +215,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static BasicInfoBO getBasicInfoByUserId(string UserId)
         {
 

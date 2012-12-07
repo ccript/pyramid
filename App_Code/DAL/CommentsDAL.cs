@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for CommentsDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,14 +18,9 @@ namespace DataLayer
         
         public CommentsDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertComments(CommentsBO objClass)
         {
 
@@ -51,9 +42,7 @@ namespace DataLayer
 
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateComments(CommentsBO objClass)
         {
 
@@ -74,18 +63,14 @@ namespace DataLayer
             }
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteComments(string Id)
           {
               MongoCollection<Comments> objCollection = db.GetCollection<Comments>("c_Comments");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Comments> getAllCommentsList()
         {
             List<Comments> lst = new List<Comments>();
@@ -101,9 +86,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
         public static List<Comments> getCommentsList(int Type, string AtId)
         {
             if (Type == 1)
@@ -124,9 +106,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
         public static List<string> getCommentsUserIdbyAtId(int Type, string AtId)
         {
             List<string> lst = new List<string>();
@@ -140,19 +119,12 @@ namespace DataLayer
 
                 lst.Add(item.UserId.ToString());
 
-
-
             }
-
-
-
 
             return lst.Distinct().ToList();
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static CommentsBO getCommentsByCommentsId(string Id)
         {
             MongoCollection<Comments> objCollection = db.GetCollection<Comments>("c_Comments");
@@ -173,7 +145,6 @@ namespace DataLayer
            
         }
 
-        // @@@@@@@@@@@@@@@@@@@@ by Nabeel
         public static long countComment(string AtId, int Type)
         {
             List<CommentsBO> lst = new List<CommentsBO>();
@@ -190,9 +161,7 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Comments> getCommentsTop(int Type, string AtId, int top)
         {
             List<Comments> lst = new List<Comments>();
@@ -217,9 +186,7 @@ namespace DataLayer
             return lst;
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Comments> getComments(int Type, string AtId)
         {
             List<Comments> lst = new List<Comments>();

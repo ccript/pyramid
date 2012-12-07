@@ -39,19 +39,11 @@ namespace DataLayer
         
         public TickerDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertTicker(TickerBO objClass)
         {
-          
-
-
                  MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Ticker");
 
                  
@@ -72,15 +64,9 @@ namespace DataLayer
 
                      return doc["_id"].ToString();
 
-              
-        
-
-           
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+    
         public static void updateTicker(TickerBO objClass)
         {
 
@@ -99,9 +85,7 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-           ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+    
 
         public static void updateLiteral(string TickerId, string postval, string embedval)
         {
@@ -116,18 +100,14 @@ namespace DataLayer
 
         }
      
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+    
         public static void deleteTicker(string Id)
           {
               MongoCollection<Ticker> objCollection = db.GetCollection<Ticker>("c_Ticker");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+    
         public static List<Ticker> getAllTickerList()
         {
             List<Ticker> lst = new List<Ticker>();
@@ -142,9 +122,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+    
         public static TickerBO getTickerByTickerId(string Id)
         {
             MongoCollection<Ticker> objCollection = db.GetCollection<Ticker>("c_Ticker");
@@ -169,10 +147,6 @@ namespace DataLayer
            
         }
      
-
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Ticker> getTickerByUserId(string UserId,int top)
         {
             List<Ticker> lst = new List<Ticker>();
@@ -200,11 +174,7 @@ namespace DataLayer
             return lst;
         }
     
-
     
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Ticker> getSeeFriendShipTicker(string FUserId,string UserId,int top)
         {
             List<Ticker> lst = new List<Ticker>();
@@ -224,18 +194,6 @@ namespace DataLayer
                 lst.Add(item);
 
             }
-
-
-            /*var query2 = Query.And(Query.EQ("PostedByUserId", ObjectId.Parse(FUserId)), Query.EQ("TickerOwnerUserId", ObjectId.Parse(UserId)));
-            var cursor2 = objCollection.Find(query2);
-            cursor.Limit = top;
-            var sortBy2 = SortBy.Descending("AddedDate");
-            cursor.SetSortOrder(sortBy2);
-            foreach (var item2 in cursor2)
-            {
-                lst.Add(item2);
-
-            }*/
 
             return lst;
         }

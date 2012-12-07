@@ -11,28 +11,18 @@ using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
-/// <summary>
-/// Summary description for ShareDAL
-/// </summary>
-/// 
+
 namespace DataLayer
 {
     public class ShareDAL : BaseClass
     {
         public ShareDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void insertShare(ShareBO objClass)
         {
-
-
 
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Share");
 
@@ -58,18 +48,10 @@ namespace DataLayer
             }
 
 
-
-
-
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
         public static bool youShare(ShareBO objClass)
         {
-
-
 
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Share");
 
@@ -83,9 +65,7 @@ namespace DataLayer
             else
                 return false;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateShare(ShareBO objClass)
         {
 
@@ -104,9 +84,7 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void unShare(ShareBO objClass)
         {
             MongoCollection<Share> objCollection = db.GetCollection<Share>("c_Share");
@@ -117,18 +95,14 @@ namespace DataLayer
             var result = objCollection.FindAndRemove(query,
                 SortBy.Ascending("_id"));
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteShare(string Id)
         {
             MongoCollection<Share> objCollection = db.GetCollection<Share>("c_Share");
             var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                 SortBy.Ascending("_id"));
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<Share> getAllShareList()
         {
             List<Share> lst = new List<Share>();
@@ -143,9 +117,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static ShareBO getShareByShareId(string Id)
         {
             MongoCollection<Share> objCollection = db.GetCollection<Share>("c_Share");
@@ -164,7 +136,7 @@ namespace DataLayer
             return objClass;
 
         }
-        // @@@@@@@@@@@@@@@@@@@@ by Nabeel
+
         public static long countPost(string AtId, int Type)
         {
             List<ShareBO> lst = new List<ShareBO>();
@@ -181,10 +153,7 @@ namespace DataLayer
 
         }
 
-        // @@@@@@@@@@@@@@@@@@@@ by Nabeel
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<Share> getShareTop(int Type, string AtId)
         {
             List<Share> lst = new List<Share>();
@@ -196,9 +165,7 @@ namespace DataLayer
                         Query.EQ("Type", Type),
                          Query.EQ("AtId", ObjectId.Parse(AtId)));
             var cursor = objCollection.Find(query);
-            //cursor.Limit = 3;
-            // var sortBy = SortBy.Descending("_id");
-            // cursor.SetSortOrder(sortBy);
+
             foreach (var item in cursor)
             {
                 lst.Add(item);
@@ -220,9 +187,7 @@ namespace DataLayer
                         Query.EQ("Type", Type),
                          Query.EQ("AtId", ObjectId.Parse(AtId)));
             var cursor = objCollection.Find(query);
-            //cursor.Limit = 3;
-            // var sortBy = SortBy.Descending("_id");
-            // cursor.SetSortOrder(sortBy);
+
             foreach (var item in cursor)
             {
                 lst.Add(item);

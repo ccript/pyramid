@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for MediaAlbumDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,19 +18,11 @@ namespace DataLayer
         
         public MediaAlbumDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertMediaAlbum(MediaAlbumBO objClass)
         {
-          
-
-
                  MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_MediaAlbum");
 
                 
@@ -56,13 +44,9 @@ namespace DataLayer
     
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static string insertDefaultAlbum(MediaAlbumBO objClass)
         {
-
-
 
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_MediaAlbum");
               var query = Query.And(
@@ -100,9 +84,7 @@ namespace DataLayer
 
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateMediaAlbum(MediaAlbumBO objClass)
         {
 
@@ -122,9 +104,7 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void EditAlbum(MediaAlbumBO objClass)
         {
 
@@ -158,9 +138,7 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void EditFollowAlbum(MediaAlbumBO objClass)
         {
 
@@ -178,18 +156,14 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteMediaAlbum(string Id)
           {
               MongoCollection<MediaAlbum> objCollection = db.GetCollection<MediaAlbum>("c_MediaAlbum");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));  
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<MediaAlbum> getAllMediaAlbumList()
         {
             List<MediaAlbum> lst = new List<MediaAlbum>();
@@ -204,9 +178,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static MediaAlbumBO getMediaAlbumByMediaAlbumId(string Id)
         {
             MongoCollection<MediaAlbum> objCollection = db.GetCollection<MediaAlbum>("c_MediaAlbum");
@@ -226,9 +198,7 @@ namespace DataLayer
             return objClass;
            
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<MediaAlbum> getMediaAlbumTop6( string UserId,int Type)
         {
             List<MediaAlbum> lst = new List<MediaAlbum>();
@@ -248,9 +218,7 @@ namespace DataLayer
 
             return lst;
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static List<MediaAlbum> getAllMediaAlbum(string UserId, int Type)
         {
             List<MediaAlbum> lst = new List<MediaAlbum>();

@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for EmployerDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,15 +18,9 @@ namespace DataLayer
         
         public EmployerDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
 
 
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT
-        //////////////////////////////////////////////////////////////
         public void insert(TemplateBO objClass)
         {
 
@@ -61,10 +51,6 @@ namespace DataLayer
 
         }
 
-
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
         public void update(TemplateBO objClass)
         {
 
@@ -90,10 +76,6 @@ namespace DataLayer
             var result = objCollection.FindAndModify(query, sortBy, update, true);
         }
 
-
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
         public void delete(string Id)
         {
             MongoCollection<Employer> objCollection = db.GetCollection<Employer>("c_Employer");
@@ -101,10 +83,6 @@ namespace DataLayer
                 SortBy.Ascending("_id"));
         }
 
-
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
         public List<Employer> SelectList()
         {
             List<Employer> lst = new List<Employer>();
@@ -120,9 +98,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public EmployerBO SelectEmployerByUserId(string Id)
         {
 
@@ -151,9 +126,6 @@ namespace DataLayer
 
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public List<Employer> SelectEmployerTop5(string Id)
         {
             List<Employer> lst = new List<Employer>();
@@ -173,14 +145,8 @@ namespace DataLayer
         }
 
 
-        /************************          888888                     *************************/
-
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
         public static void insertEmployer(EmployerBO objClass)
         {
-
 
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_Employer");
 
@@ -207,9 +173,8 @@ namespace DataLayer
     
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
+        
         public static void updateEmployer(EmployerBO objClass)
         {
            
@@ -236,18 +201,13 @@ namespace DataLayer
         }
 
 
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
         public static void deleteEmployer(string Id)
-          {
+        {
               MongoCollection<Employer> objCollection = db.GetCollection<Employer>("c_Employer");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));
-          }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+         }
+
         public static List<Employer> getAllEmployerList()
         {
             List<Employer> lst = new List<Employer>();
@@ -262,9 +222,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static EmployerBO getEmployerByUserId(string Id)
         {
        
@@ -293,9 +251,7 @@ namespace DataLayer
             return objClass;
            
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER List of Emps
-        //////////////////////////////////////////////////////////////
+
         public static ArrayList getEmployersByUserId(string Id)
         {
             ArrayList Employers = new ArrayList();
@@ -314,9 +270,6 @@ namespace DataLayer
         }
 
        
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<Employer> getEmployerTop5( string Id)
         {
             List<Employer> lst = new List<Employer>();

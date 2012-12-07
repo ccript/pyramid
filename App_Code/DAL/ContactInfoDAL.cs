@@ -4,16 +4,10 @@ using System.Linq;
 using System.Web;
 using ObjectLayer;
 using System.Data;
-
-
 using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for ContactInfoDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,14 +16,9 @@ namespace DataLayer
         
         public ContactInfoDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static void insertContactInfo(ContactInfoBO objClass)
         {
             MongoCollection<BsonDocument> objCollection = db.GetCollection<BsonDocument>("c_ContactInfo");
@@ -54,9 +43,7 @@ namespace DataLayer
 
             }
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateContactInfo(ContactInfoBO objClass)
         {
             MongoCollection<ContactInfo> objCollection = db.GetCollection<ContactInfo>("c_ContactInfo");
@@ -73,18 +60,14 @@ namespace DataLayer
 
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       DELETE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void deleteContactInfo(string Id)
           {
               MongoCollection<ContactInfo> objCollection = db.GetCollection<ContactInfo>("c_ContactInfo");
               var result = objCollection.FindAndRemove(Query.EQ("_id", ObjectId.Parse(Id)),
                   SortBy.Ascending("_id"));   
           }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT All DATA 
-        //////////////////////////////////////////////////////////////
+
         public static List<ContactInfo> getAllContactInfoList()
         {
             List<ContactInfo> lst = new List<ContactInfo>();
@@ -99,9 +82,7 @@ namespace DataLayer
             return lst;
 
         }
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
+
         public static ContactInfoBO getContactInfoByContactInfoId(string UserId)
         {
             MongoCollection<ContactInfo> objCollection = db.GetCollection<ContactInfo>("c_ContactInfo");
@@ -118,9 +99,6 @@ namespace DataLayer
            
         }
 
-        ///////////////////////////////////////////////////////////////
-        //                       SELECT BY PARAMETER
-        //////////////////////////////////////////////////////////////
         public static List<ContactInfo> getContactInfo(string Type, string UserId)
         {
             List<ContactInfo> lst = new List<ContactInfo>();

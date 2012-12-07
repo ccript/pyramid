@@ -10,10 +10,6 @@ using MongoDB.Bson;
 using MongoDB.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-/// <summary>
-/// Summary description for UniversityDAL
-/// </summary>
-/// 
 
 namespace DataLayer
 {
@@ -22,14 +18,9 @@ namespace DataLayer
         
         public UniversityDAL()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
  
-        ///////////////////////////////////////////////////////////////
-        //                       INSERT FUNCTION
-       //////////////////////////////////////////////////////////////
+
         public static string insertUniversity(UniversityBO objClass)
         {
            
@@ -53,9 +44,7 @@ namespace DataLayer
             return doc["_id"].ToString();
     
         }
-        ///////////////////////////////////////////////////////////////
-        //                       UPDATE FUNCTION
-        //////////////////////////////////////////////////////////////
+
         public static void updateUniversity(UniversityBO objClass)
         {
             MongoCollection<University> objCollection = db.GetCollection<University>("c_University");
