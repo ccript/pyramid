@@ -326,8 +326,14 @@ public partial class Wall : System.Web.UI.Page
         {            
             Video.Upload(FileUpload1);
             Thumbnail.Build(FileUpload1);
-            videofileuploaded = true;            
-            LiteralUploadVideo.Text = Video.uploadedVideoLiteral(FileUpload1);            
+            videofileuploaded = true;
+            string uploadedvideoliteral = "";
+
+            uploadedvideoliteral += "<br/><br/><img name='image' id='image' src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Thumb/" + Video.getFileNameWithoutExtension(FileUpload1) + ".jpg" + "'/>";
+            uploadedvideoliteral += "<embed src='" + Global.PATH_COMPRESSED_USER_VIDEO + "Players/flvplayer.swf' width='320' height='215' bgcolor='#FFFFFF' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' flashvars='file=" + Global.PATH_COMPRESSED_USER_VIDEO + "SWF/" + Video.getFileNameWithoutExtension(FileUpload1) + "&autostart=false&frontcolor=0xCCCCCC&backcolor=0x000000&lightcolor=0x996600&showdownload=false&showeq=false&repeat=false&volume=100&useaudio=false&usecaptions=false&usefullscreen=true&usekeys=true'></embed>";
+
+
+            LiteralUploadVideo.Text = uploadedvideoliteral; 
         }
     }
 
